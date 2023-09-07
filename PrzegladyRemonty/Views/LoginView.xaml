@@ -1,0 +1,233 @@
+﻿<Window
+    x:Class="PrzegladyRemonty.LoginView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PrzegladyRemonty"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="LoginView"
+    Width="800"
+    Height="550"
+    AllowsTransparency="True"
+    Background="Transparent"
+    MouseDown="Window_MouseDown"
+    ResizeMode="NoResize"
+    Style="{StaticResource WindowStyle}"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Themes/Colors.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border BorderThickness="3" CornerRadius="10">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Offset="0" Color="{StaticResource RedDark60}" />
+                <GradientStop Offset="0.50" Color="{StaticResource Red}" />
+                <GradientStop Offset="1" Color="{StaticResource RedLight20}" />
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                <GradientStop Offset="0" Color="{StaticResource GreyDark}" />
+                <GradientStop Offset="0.75" Color="{StaticResource Grey}" />
+                <GradientStop Offset="1" Color="{StaticResource GreyLight}" />
+            </LinearGradientBrush>
+        </Border.Background>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="5" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Column="0"
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Foreground="{StaticResource RedDark60Brush}"
+                    Text="Logowanie" />
+
+                <Button
+                    x:Name="btnMinimize"
+                    Grid.Column="1"
+                    BorderThickness="0"
+                    Click="btnMinimize_Click"
+                    Content="-"
+                    Cursor="Hand"
+                    FontSize="14"
+                    Foreground="White">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{StaticResource BlueDarkBrush}" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource BlueLightBrush}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                Width="18"
+                                Height="18"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="9">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button
+                    x:Name="btnClose"
+                    Grid.Column="2"
+                    BorderThickness="0"
+                    Click="btnClose_Click"
+                    Content="x"
+                    Cursor="Hand"
+                    FontSize="12"
+                    Foreground="White">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{StaticResource RedBrush}" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource RedLight40Brush}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                Width="18"
+                                Height="18"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="9">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+
+            <StackPanel
+                Grid.Row="2"
+                Width="300"
+                Margin="0,35,0,0"
+                Orientation="Vertical">
+
+                <Image Width="100" Height="100" />
+
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="25"
+                    FontWeight="Medium"
+                    Foreground="White"
+                    Text="PRZEGLĄDY REMONTY" />
+
+                <TextBlock
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Center"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="LightGray"
+                    Text="Aplikacja do potwierdzania i kontroli wykonywania przeglądów"
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+
+                <TextBlock
+                    Margin="25,35,0,5"
+                    FontSize="12"
+                    FontWeight="Medium"
+                    Foreground="White"
+                    Text="Login" />
+
+                <Grid Width="250">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Margin="0,5,0,0"
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="18"
+                        FontWeight="Medium"
+                        Foreground="{StaticResource RedDark40Brush}"
+                        Text="&#xE77B;" />
+
+                    <TextBox
+                        x:Name="txtUser"
+                        Grid.Column="1"
+                        Height="28"
+                        Margin="0,5,0,0"
+                        VerticalContentAlignment="Center"
+                        Background="Transparent"
+                        BorderBrush="{StaticResource RedDark60Brush}"
+                        BorderThickness="0,0,0,1"
+                        CaretBrush="LightGray"
+                        FontSize="14"
+                        FontWeight="Medium"
+                        Foreground="White" />
+                </Grid>
+
+                <Button
+                    x:Name="btnLogin"
+                    Grid.Column="2"
+                    Margin="0,50,0,0"
+                    BorderThickness="8"
+                    Click="btnLogin_Click"
+                    Content="ZALOGUJ SIĘ"
+                    Cursor="Hand"
+                    FontSize="12"
+                    Foreground="White">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="{StaticResource RedDark60Brush}" />
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource RedDark40Brush}" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                Width="150"
+                                Height="40"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="20">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
