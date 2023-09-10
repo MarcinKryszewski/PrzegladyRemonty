@@ -1,43 +1,31 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Color x:Key="Black">#000000</Color>
-    <Color x:Key="White">#ffffff</Color>
+    <Color x:Key="Grey300Color">#131313</Color>
+    <Color x:Key="Grey400Color">#191919</Color>
+    <Color x:Key="Grey500Color">#272822</Color>
+    <Color x:Key="Grey600Color">#333333</Color>
+    <Color x:Key="Grey700Color">#545454</Color>
 
+    <Color x:Key="MainDarkColor">#890019</Color>
+    <Color x:Key="MainColor">#c50024</Color>
+    <Color x:Key="MainLightColor">#D64C65</Color>
 
-    <Color x:Key="RedLight60">#e899a7</Color>
-    <Color x:Key="RedLight40">#dc667c</Color>
-    <Color x:Key="RedLight20">#d13350</Color>
-    <Color x:Key="Red">#c50024</Color>
-    <Color x:Key="RedDark20">#9e001d</Color>
-    <Color x:Key="RedDark40">#760016</Color>
-    <Color x:Key="RedDark60">#4f000e</Color>
+    <Color x:Key="WhiteDarkColor">#cfcfcf</Color>
+    <Color x:Key="WhiteLightColor">#d3d3d3</Color>
 
-    <Color x:Key="GreyDark">#4d4d4d</Color>
-    <Color x:Key="Grey">#777c83</Color>
-    <Color x:Key="GreyLight">#a6aeb1</Color>
+    <SolidColorBrush x:Key="Grey300Brush">#131313</SolidColorBrush>
+    <SolidColorBrush x:Key="Grey400Brush">#191919</SolidColorBrush>
+    <SolidColorBrush x:Key="Grey500Brush">#272822</SolidColorBrush>
+    <SolidColorBrush x:Key="Grey600Brush">#333333</SolidColorBrush>
+    <SolidColorBrush x:Key="Grey700Brush">#545454</SolidColorBrush>
 
-    <Color x:Key="Brown">#8e2915</Color>
-    <Color x:Key="Orange">#ec6708</Color>
-    <Color x:Key="LightBrown">#5e514d</Color>
+    <SolidColorBrush x:Key="MainDarkBrush">#890019</SolidColorBrush>
+    <SolidColorBrush x:Key="MainBrush">#c50024</SolidColorBrush>
+    <SolidColorBrush x:Key="MainLightBrush">#D64C65</SolidColorBrush>
 
-    <Color x:Key="Purple">#7b146a</Color>
-    <Color x:Key="BlueDark">#004488</Color>
-    <Color x:Key="BlueLight">#0080c9</Color>
+    <SolidColorBrush x:Key="WhiteDarkBrush">#cfcfcf</SolidColorBrush>
+    <SolidColorBrush x:Key="WhiteLightBrush">#d3d3d3</SolidColorBrush>
 
-    <Color x:Key="GreenDark">#007b38</Color>
-    <Color x:Key="GreenLight">#c9d400</Color>
-
-    <SolidColorBrush x:Key="RedLight60Brush">#e899a7</SolidColorBrush>
-    <SolidColorBrush x:Key="RedLight40Brush">#dc667c</SolidColorBrush>
-    <SolidColorBrush x:Key="RedLight20Brush">#d13350</SolidColorBrush>
-    <SolidColorBrush x:Key="RedBrush">#c50024</SolidColorBrush>
-    <SolidColorBrush x:Key="RedDark20Brush">#9e001d</SolidColorBrush>
-    <SolidColorBrush x:Key="RedDark40Brush">#760016</SolidColorBrush>
-    <SolidColorBrush x:Key="RedDark60Brush">#4f000e</SolidColorBrush>
-
-    <SolidColorBrush x:Key="BlueDarkBrush">#004488</SolidColorBrush>
-    <SolidColorBrush x:Key="PurpleBrush">#7b146a</SolidColorBrush>
-    <SolidColorBrush x:Key="BlueLightBrush">#0080c9</SolidColorBrush>
 
 
 </ResourceDictionary>

@@ -27,19 +27,11 @@
 
     <Border BorderThickness="3" CornerRadius="10">
         <Border.BorderBrush>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Offset="0" Color="{StaticResource RedDark60}" />
-                <GradientStop Offset="0.50" Color="{StaticResource Red}" />
-                <GradientStop Offset="1" Color="{StaticResource RedLight20}" />
-            </LinearGradientBrush>
+            <SolidColorBrush Color="{StaticResource MainDarkColor}" />
         </Border.BorderBrush>
 
         <Border.Background>
-            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                <GradientStop Offset="0" Color="{StaticResource GreyDark}" />
-                <GradientStop Offset="0.75" Color="{StaticResource Grey}" />
-                <GradientStop Offset="1" Color="{StaticResource GreyLight}" />
-            </LinearGradientBrush>
+            <SolidColorBrush Color="{StaticResource Grey500Color}" />
         </Border.Background>
 
         <Grid>
@@ -62,7 +54,7 @@
                     VerticalAlignment="Center"
                     FontSize="12"
                     FontWeight="Bold"
-                    Foreground="{StaticResource RedDark60Brush}"
+                    Foreground="{StaticResource MainBrush}"
                     Text="Logowanie" />
 
                 <Button
@@ -76,10 +68,10 @@
                     Foreground="White">
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="Background" Value="{StaticResource BlueDarkBrush}" />
+                            <Setter Property="Background" Value="{StaticResource MainBrush}" />
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource BlueLightBrush}" />
+                                    <Setter Property="Background" Value="{StaticResource MainLightBrush}" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -109,10 +101,10 @@
                     Foreground="White">
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="Background" Value="{StaticResource RedBrush}" />
+                            <Setter Property="Background" Value="{StaticResource MainBrush}" />
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource RedLight40Brush}" />
+                                    <Setter Property="Background" Value="{StaticResource MainLightBrush}" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
@@ -138,7 +130,11 @@
                 Margin="0,35,0,0"
                 Orientation="Vertical">
 
-                <Image Width="100" Height="100" />
+                <Image
+                    Width="100"
+                    Height="100"
+                    Source="/Resources/logo.png" />
+
 
                 <TextBlock
                     HorizontalAlignment="Center"
@@ -176,7 +172,7 @@
                         FontFamily="Segoe MDL2 Assets"
                         FontSize="18"
                         FontWeight="Medium"
-                        Foreground="{StaticResource RedDark40Brush}"
+                        Foreground="{StaticResource MainBrush}"
                         Text="&#xE77B;" />
 
                     <TextBox
@@ -185,13 +181,30 @@
                         Height="28"
                         Margin="0,5,0,0"
                         VerticalContentAlignment="Center"
-                        Background="Transparent"
-                        BorderBrush="{StaticResource RedDark60Brush}"
-                        BorderThickness="0,0,0,1"
                         CaretBrush="LightGray"
                         FontSize="14"
                         FontWeight="Medium"
-                        Foreground="White" />
+                        Foreground="White">
+                        <TextBox.Template>
+                            <ControlTemplate TargetType="TextBox">
+                                <Border
+                                    x:Name="border"
+                                    Background="Transparent"
+                                    BorderBrush="{StaticResource MainBrush}"
+                                    BorderThickness="0,0,0,1">
+                                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource MainLightBrush}" />
+                                    </Trigger>
+                                    <Trigger Property="IsFocused" Value="true">
+                                        <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource MainBrush}" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </TextBox.Template>
+                    </TextBox>
                 </Grid>
 
                 <Button
@@ -206,10 +219,10 @@
                     Foreground="White">
                     <Button.Style>
                         <Style TargetType="Button">
-                            <Setter Property="Background" Value="{StaticResource RedDark60Brush}" />
+                            <Setter Property="Background" Value="{StaticResource MainBrush}" />
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="{StaticResource RedDark40Brush}" />
+                                    <Setter Property="Background" Value="{StaticResource MainLightBrush}" />
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
