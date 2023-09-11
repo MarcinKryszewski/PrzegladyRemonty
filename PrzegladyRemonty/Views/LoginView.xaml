@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:PrzegladyRemonty"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodels="clr-namespace:PrzegladyRemonty.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:LoginViewModel}"
     Title="LoginView"
     Width="800"
     Height="550"
@@ -184,7 +184,8 @@
                         CaretBrush="LightGray"
                         FontSize="14"
                         FontWeight="Medium"
-                        Foreground="White">
+                        Foreground="White"
+                        Text="{Binding Username}">
                         <TextBox.Template>
                             <ControlTemplate TargetType="TextBox">
                                 <Border
@@ -216,7 +217,8 @@
                     Content="ZALOGUJ SIĘ"
                     Cursor="Hand"
                     FontSize="12"
-                    Foreground="White">
+                    Foreground="White"
+                    Command="{Binding LoginCommand}">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="{StaticResource MainBrush}" />
