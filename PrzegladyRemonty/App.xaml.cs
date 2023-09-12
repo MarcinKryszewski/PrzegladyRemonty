@@ -1,4 +1,5 @@
-﻿using PrzegladyRemonty.Views;
+﻿using PrzegladyRemonty.ViewModels;
+using PrzegladyRemonty.Views;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,19 +15,29 @@ namespace PrzegladyRemonty
     /// </summary>
     public partial class App : Application
     {
-        protected void ApplicationStart(object sender, StartupEventArgs e)
+
+        protected override void OnStartup(StartupEventArgs e)
         {
-            var loginView = new LoginView();
-            loginView.Show();
-            loginView.IsVisibleChanged += (s, ev) =>
+            LoginView loginView = new()
             {
-                if (loginView.IsVisible == false && loginView.IsLoaded)
-                {
-                    var mainView = new MainWindow();
-                    mainView.Show();
-                    loginView.Close();
-                }
+                DataContext = new LoginViewModel()
             };
+            loginView.Show();
+            base.OnStartup(e);
         }
+        //protected void ApplicationStart(object sender, StartupEventArgs e)
+        //{
+        //    var loginView = new LoginView();
+        //    loginView.Show();
+        //    loginView.IsVisibleChanged += (s, ev) =>
+        //    {
+        //        if (loginView.IsVisible == false && loginView.IsLoaded)
+        //        {
+        //            var mainView = new MainWindow();
+        //            mainView.Show();
+        //            loginView.Close();
+        //        }
+        //    };
+        //}
     }
 }
