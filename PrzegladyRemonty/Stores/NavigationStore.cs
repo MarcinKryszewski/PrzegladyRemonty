@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PrzegladyRemonty.Stores
 {
-    class NavigationStore
+    public class NavigationStore
     {
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel
@@ -15,8 +15,17 @@ namespace PrzegladyRemonty.Stores
             get => _currentViewModel;
             set
             {
+                _currentViewModel?.Dispose();
                 _currentViewModel = value;
+                OnCurrentViewModelChanged();
             }
+        }
+
+        public event Action CurrentViewModelChanged;
+
+        private void OnCurrentViewModelChanged()
+        {
+            CurrentViewModelChanged?.Invoke();
         }
     }
 }

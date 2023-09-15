@@ -1,4 +1,5 @@
-﻿using PrzegladyRemonty.Views;
+﻿using PrzegladyRemonty.ViewModels;
+using PrzegladyRemonty.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,17 @@ namespace PrzegladyRemonty.Commands
 {
     class LoginCommand : CommandBase
     {
+        private readonly LoginViewModel _loginViewModel;
+        public LoginCommand(LoginViewModel LoginViewModel)
+        {
+            _loginViewModel = LoginViewModel;
+        }
         public override void Execute(object parameter)
         {
-            if (true)
+            if (_loginViewModel.Username.Length > 0)
             {
-                Window loginWindow = Application.Current.MainWindow;
-                Application.Current.MainWindow = new MainWindow();
-                Application.Current.MainWindow.Show();
-                loginWindow.Close();
+                _loginViewModel.IsAuthenticated = true;
             }
-            
         }
     }
 }

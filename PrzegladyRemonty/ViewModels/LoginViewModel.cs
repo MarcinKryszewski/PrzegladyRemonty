@@ -11,6 +11,7 @@ namespace PrzegladyRemonty.ViewModels
     class LoginViewModel : ViewModelBase
     {
         private string _username;
+        private bool _isAuthenticated;
         public string Username
         {
             get
@@ -24,11 +25,25 @@ namespace PrzegladyRemonty.ViewModels
             }
         }
 
+        public bool IsAuthenticated
+        {
+            get
+            {
+                return _isAuthenticated;
+            }
+            set
+            {
+                _isAuthenticated = value;
+                OnPropertyChanged(nameof(IsAuthenticated));
+            }
+        }
+
         public ICommand LoginCommand { get; }
+        
 
         public LoginViewModel()
         {
-            LoginCommand = new LoginCommand();
+            LoginCommand = new LoginCommand(this);
         }
     }
 }

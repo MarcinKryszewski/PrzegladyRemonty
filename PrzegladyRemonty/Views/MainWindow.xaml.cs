@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PrzegladyRemonty.Stores;
+using PrzegladyRemonty.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +21,13 @@ namespace PrzegladyRemonty.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        //private readonly NavigationStore _navigationStore;
+        //public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+        public MainWindow() //NavigationStore navigationStore)
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            //_navigationStore = navigationStore;
         }
     }
 }

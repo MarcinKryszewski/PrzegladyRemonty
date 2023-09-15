@@ -1,4 +1,5 @@
-﻿using PrzegladyRemonty.ViewModels;
+﻿using PrzegladyRemonty.Stores;
+using PrzegladyRemonty.ViewModels;
 using PrzegladyRemonty.Views;
 using System;
 using System.Collections.Generic;
@@ -10,34 +11,34 @@ using System.Windows;
 
 namespace PrzegladyRemonty
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        private readonly NavigationStore _navigationStore;
+
+        public App()
+        {
+            _navigationStore = new NavigationStore();
+        }
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            LoginViewModel loginViewModel = new();
             LoginView loginView = new()
             {
-                DataContext = new LoginViewModel()
+                DataContext = loginViewModel
             };
             loginView.Show();
+
+            if (loginViewModel.IsAuthenticated)
+            {
+                MainWindow = new MainWindow()
+                {
+                    DataContext = new MainViewModel(_navigationStore)
+                };
+                MainWindow.Show();
+            }
+
             base.OnStartup(e);
         }
-        //protected void ApplicationStart(object sender, StartupEventArgs e)
-        //{
-        //    var loginView = new LoginView();
-        //    loginView.Show();
-        //    loginView.IsVisibleChanged += (s, ev) =>
-        //    {
-        //        if (loginView.IsVisible == false && loginView.IsLoaded)
-        //        {
-        //            var mainView = new MainWindow();
-        //            mainView.Show();
-        //            loginView.Close();
-        //        }
-        //    };
-        //}
     }
 }
