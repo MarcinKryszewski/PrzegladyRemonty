@@ -1,12 +1,7 @@
 ﻿using PrzegladyRemonty.Stores;
 using PrzegladyRemonty.ViewModels;
 using PrzegladyRemonty.Views;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
 
 namespace PrzegladyRemonty
@@ -14,31 +9,47 @@ namespace PrzegladyRemonty
     public partial class App : Application
     {
         private readonly NavigationStore _navigationStore;
+        private readonly LoginViewModel _loginViewModel;
+        private readonly MainViewModel _mainViewModel;
 
         public App()
         {
             _navigationStore = new NavigationStore();
+            _loginViewModel = new();
+            _mainViewModel = new();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        private void ApplicationStart(object sender, StartupEventArgs e)
         {
-            LoginViewModel loginViewModel = new();
             LoginView loginView = new()
             {
-                DataContext = loginViewModel
+                DataContext = _loginViewModel
             };
-            loginView.Show();
 
-            if (loginViewModel.IsAuthenticated)
+            MainWindow mainWindow = new()
             {
-                MainWindow = new MainWindow()
-                {
-                    DataContext = new MainViewModel(_navigationStore)
-                };
-                MainWindow.Show();
-            }
+                DataContext = _mainViewModel
+            };
 
-            base.OnStartup(e);
+            loginView.Show();
+            _loginViewModel.PropertyChanged += OnUserAuthenticated;
+        }
+
+        private void OnUserAuthenticated(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(_loginViewModel.IsAuthenticated))
+            {
+                if (_loginViewModel.IsAuthenticated)
+                {
+                    Window loginWindow = MainWindow;
+                    MainWindow = new MainWindow()
+                    {
+                        DataContext = _mainViewModel
+                    };
+                    MainWindow.Show();
+                    loginWindow.Close();
+                }
+            }
         }
     }
 }

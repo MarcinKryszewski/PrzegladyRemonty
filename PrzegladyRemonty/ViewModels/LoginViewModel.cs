@@ -1,23 +1,14 @@
 ﻿using PrzegladyRemonty.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace PrzegladyRemonty.ViewModels
 {
-    class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelBase
     {
         private string _username;
-        private bool _isAuthenticated;
         public string Username
         {
-            get
-            {
-                return _username;
-            }
+            get => _username;
             set
             {
                 _username = value;
@@ -25,12 +16,10 @@ namespace PrzegladyRemonty.ViewModels
             }
         }
 
+        private bool _isAuthenticated;
         public bool IsAuthenticated
         {
-            get
-            {
-                return _isAuthenticated;
-            }
+            get => _isAuthenticated;
             set
             {
                 _isAuthenticated = value;
@@ -38,8 +27,18 @@ namespace PrzegladyRemonty.ViewModels
             }
         }
 
+        private string _userType;      
+        public string UserType
+        {
+            get => _userType;
+            set
+            {
+                _userType = value;
+                OnPropertyChanged(nameof(UserType));
+            }
+        }
+
         public ICommand LoginCommand { get; }
-        
 
         public LoginViewModel()
         {
