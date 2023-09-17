@@ -26,6 +26,4 @@
     <SolidColorBrush x:Key="WhiteDarkBrush">#cfcfcf</SolidColorBrush>
     <SolidColorBrush x:Key="WhiteLightBrush">#d3d3d3</SolidColorBrush>
 
-
-
 </ResourceDictionary>

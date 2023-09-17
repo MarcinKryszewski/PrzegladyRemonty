@@ -27,7 +27,7 @@ namespace PrzegladyRemonty.ViewModels
             }
         }
 
-        private string _userType;      
+        private string _userType;
         public string UserType
         {
             get => _userType;
