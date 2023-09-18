@@ -1,0 +1,42 @@
+﻿<UserControl
+    x:Class="PrzegladyRemonty.Views.SidePanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PrzegladyRemonty.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="975"
+    d:DesignWidth="250"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Themes/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Themes/Controls/Buttons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border
+        Background="{StaticResource Grey500Brush}"
+        BorderBrush="{StaticResource Grey300Brush}"
+        BorderThickness="0,1,0,0">
+        <StackPanel>
+            <Button
+                Height="40"
+                Content="Dashboard"
+                Style="{StaticResource NavButtonActive}" />
+            <Button
+                Height="40"
+                Content="Przeglądy"
+                Style="{StaticResource NavButton}" />
+            <Button
+                Height="40"
+                Content="Zlecenia"
+                Style="{StaticResource NavButton}" />
+            <Button
+                Height="40"
+                Content="Transportery"
+                Style="{StaticResource NavButton}" />
+        </StackPanel>
+    </Border>
+</UserControl>

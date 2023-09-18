@@ -13,7 +13,6 @@
     Background="Transparent"
     MouseDown="Window_MouseDown"
     ResizeMode="NoResize"
-    Style="{StaticResource WindowStyle}"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
@@ -21,7 +20,8 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Themes/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Themes/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Themes/Controls/Buttons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
