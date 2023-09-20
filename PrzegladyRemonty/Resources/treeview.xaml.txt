@@ -1,0 +1,115 @@
+<Grid>
+        <TreeView ItemsSource="{Binding Lines}"
+                  Background="{StaticResource ColorBackgroundQuaternary}"
+                  BorderThickness="0 1 0 1"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate ItemsSource="{Binding Items}"
+                                          DataType="{x:Type models:Line}">
+                    <Button HorizontalContentAlignment="Stretch"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Width="{Binding  RelativeSource={RelativeSource Mode=FindAncestor , AncestorType=TreeView, AncestorLevel=1},Path=ActualWidth}">
+                        <TextBlock Text="{Binding Path=Name}"
+                           Foreground="{StaticResource FontColorMain}"/>
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Dodaj rodzaj transportera" />
+                                <Separator />
+                                <MenuItem Header="Edytuj" />
+                                <Separator />
+                                <MenuItem Header="Usuń" />
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+                </HierarchicalDataTemplate>
+
+                <HierarchicalDataTemplate ItemsSource="{Binding Items}"
+                                          DataType="{x:Type models:TransporterType}">
+                    <Button HorizontalContentAlignment="Stretch"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Width="{Binding  RelativeSource={RelativeSource Mode=FindAncestor , AncestorType=TreeView, AncestorLevel=1},Path=ActualWidth}">
+                        <TextBlock Text="{Binding Path=Name}"
+                               Foreground="{StaticResource FontColorMain}"/>
+                        <Button.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Dodaj Obszar" />
+                                <Separator />
+                                <MenuItem Header="Edytuj" />
+                                <Separator />
+                                <MenuItem Header="Usuń" />
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+                </HierarchicalDataTemplate>
+
+                <HierarchicalDataTemplate ItemsSource="{Binding Items}"
+                                          DataType="{x:Type models:Area}">
+                    <ContentControl>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding Path=DataContext.AddAreaTransporterToList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                                       CommandParameter="{Binding Id}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Button HorizontalContentAlignment="Stretch"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Width="{Binding  RelativeSource={RelativeSource Mode=FindAncestor , AncestorType=TreeView, AncestorLevel=1},Path=ActualWidth}">
+                            <TextBlock Text="{Binding Path=Name}"
+                                       Foreground="{StaticResource FontColorMain}"/>
+                            <Button.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Dodaj transporter" />
+                                    <Separator />
+                                    <MenuItem Header="Edytuj" />
+                                    <Separator />
+                                    <MenuItem Header="Usuń" />
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
+                    </ContentControl>
+                </HierarchicalDataTemplate>
+
+                <HierarchicalDataTemplate ItemsSource="{Binding Items}"
+                                          DataType="{x:Type models:Transporter}">
+                    <ContentControl>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding Path=DataContext.AddTransporterToList, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                                       CommandParameter="{Binding Id}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Button HorizontalContentAlignment="Stretch"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                ToolTip="{Binding Path=DaysSinceLastMaintanance}"
+                                Width="{Binding  RelativeSource={RelativeSource Mode=FindAncestor , AncestorType=TreeView, AncestorLevel=1},Path=ActualWidth}">
+                            <TextBlock Text="{Binding Name}">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding MaintananceOverdue}" Value="True">                                                
+                                                <Setter Property="Foreground" Value="Red"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MaintananceOverdue}" Value="False">
+                                                <Setter Property="Foreground" Value="{StaticResource FontColorMain}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <Button.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Edytuj" />
+                                    <Separator />
+                                    <MenuItem Header="Usuń" />
+                                </ContextMenu>
+                            </Button.ContextMenu>
+                        </Button>
+                    </ContentControl>
+                </HierarchicalDataTemplate>
+            </TreeView.Resources>
+        </TreeView>
+    </Grid>

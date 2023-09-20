@@ -59,13 +59,12 @@
             </Border>
 
             <Border Grid.Row="1" Grid.Column="0">
-                <controls:SidePanel />
+                <controls:SidePanel DataContext="{Binding SidePanelViewModel}" />
             </Border>
 
-            <Border
-                Grid.Row="0"
-                Grid.Column="1"
-                Background="{StaticResource MainDarkBrush}" />
+            <Border Grid.Row="0" Grid.Column="1">
+                <controls:TopPanel DataContext="{Binding TopPanelViewModel}" />
+            </Border>
 
             <Border
                 Grid.Row="1"

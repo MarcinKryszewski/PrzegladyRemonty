@@ -5,14 +5,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:PrzegladyRemonty.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uielements="clr-namespace:PrzegladyRemonty.ViewModels.UIElements"
+    x:Name="userControl"
+    d:DataContext="{d:DesignInstance Type=uielements:SidePanelViewModel}"
     d:DesignHeight="975"
     d:DesignWidth="250"
     mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Themes/Colors.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Themes/Controls/Buttons.xaml" />
+                <ResourceDictionary Source="../../Themes/Colors.xaml" />
+                <ResourceDictionary Source="../../Themes/Controls/Buttons.xaml" />
+                <ResourceDictionary Source="../../Themes/Controls/Expanders.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -33,10 +37,39 @@
                 Height="40"
                 Content="Zlecenia"
                 Style="{StaticResource NavButton}" />
-            <Button
-                Height="40"
-                Content="Transportery"
-                Style="{StaticResource NavButton}" />
+
+            <Expander IsExpanded="False" Style="{StaticResource ExpanderStyle1}">
+                <Expander.Header>
+                    <Grid>
+                        <Border Height="40">
+                            <Label
+                                Width="250"
+                                HorizontalContentAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                Content="Maszyny"
+                                FontSize="14"
+                                FontWeight="Bold"
+                                Foreground="{StaticResource WhiteLightBrush}" />
+                        </Border>
+                    </Grid>
+                </Expander.Header>
+                <Expander.Content>
+                    <StackPanel Background="{StaticResource Grey600Brush}">
+                        <Button
+                            Height="40"
+                            Content="Linia"
+                            Style="{StaticResource NavButton}" />
+                        <Button
+                            Height="40"
+                            Content="Obszar"
+                            Style="{StaticResource NavButtonActive}" />
+                        <Button
+                            Height="40"
+                            Content="Transporter"
+                            Style="{StaticResource NavButton}" />
+                    </StackPanel>
+                </Expander.Content>
+            </Expander>
         </StackPanel>
     </Border>
 </UserControl>

@@ -18,6 +18,7 @@ namespace PrzegladyRemonty
 
         private void ApplicationStart(object sender, StartupEventArgs e)
         {
+
             LoginView loginView = new()
             {
                 DataContext = _loginViewModel

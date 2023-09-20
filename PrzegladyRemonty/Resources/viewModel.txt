@@ -1,0 +1,20 @@
+public class TransporterListViewModel : ViewModelBase
+    {
+
+        private readonly ProductionHall _productionHall;
+        private TransporterWindowViewModel _transporterWindowView;
+        public IEnumerable<Line> Lines => _productionHall.Lines;
+        //public ICommand TransporterChooseCommand { get; }
+        public ICommand AddTransporterToList { get; }
+        public ICommand AddAreaTransporterToList { get; }
+
+        public TransporterListViewModel(ProductionHall productionHall, TransporterWindowViewModel transporterWindowView)
+        {            
+            _productionHall = productionHall;
+            _transporterWindowView = transporterWindowView;
+            AddTransporterToList = new ChooseTransporterCommand(_productionHall.TransportersId, transporterWindowView);
+            AddAreaTransporterToList = new ChooseTransporterCommand(_productionHall.AreasId, transporterWindowView);
+            //TransporterChooseCommand = new TransporterChooseCommand();
+            //TestClickCommand = new ChooseTransporterCommand(_productionHall.TransportersId); //, _transporterListPickedViewModel
+        }        
+    }

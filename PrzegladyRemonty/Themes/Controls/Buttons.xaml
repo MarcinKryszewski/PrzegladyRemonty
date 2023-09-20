@@ -1,9 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Themes/Colors.xaml" />
+        <ResourceDictionary Source="../Colors.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="MainButton"
+    <Style
+        x:Key="MainButton"
         BasedOn="{StaticResource {x:Type Button}}"
         TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="White" />
@@ -45,7 +46,8 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SideButton"
+    <Style
+        x:Key="SideButton"
         BasedOn="{StaticResource {x:Type Button}}"
         TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="{StaticResource MainBrush}" />
@@ -89,7 +91,8 @@
         </Setter>
     </Style>
 
-    <Style x:Key="NavButton"
+    <Style
+        x:Key="NavButton"
         BasedOn="{StaticResource {x:Type Button}}"
         TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="{StaticResource WhiteLightBrush}" />
@@ -132,7 +135,8 @@
         </Setter>
     </Style>
 
-    <Style x:Key="NavButtonActive"
+    <Style
+        x:Key="NavButtonActive"
         BasedOn="{StaticResource {x:Type Button}}"
         TargetType="{x:Type Button}">
         <Setter Property="Foreground" Value="{StaticResource WhiteLightBrush}" />
@@ -162,7 +166,7 @@
                         <Trigger Property="IsDefaulted" Value="true" />
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter TargetName="border" Property="Background" Value="{StaticResource MainBrush}" />
-                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Grey400Brush}" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Grey300Brush}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
                             <Setter TargetName="border" Property="Background" Value="{StaticResource MainDarkBrush}" />
