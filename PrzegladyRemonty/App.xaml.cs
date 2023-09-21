@@ -1,5 +1,6 @@
-﻿using PrzegladyRemonty.ViewModels;
-using PrzegladyRemonty.Views;
+﻿using PrzegladyRemonty.Layout.Main;
+using PrzegladyRemonty.Stores;
+using PrzegladyRemonty.Views.Features.Login;
 using System.ComponentModel;
 using System.Windows;
 
@@ -8,12 +9,12 @@ namespace PrzegladyRemonty
     public partial class App : Application
     {
         private readonly LoginViewModel _loginViewModel;
-        private readonly MainViewModel _mainViewModel;
+        private readonly NavigationStore _navigationStore;
 
         public App()
         {
+            _navigationStore = new NavigationStore();
             _loginViewModel = new();
-            _mainViewModel = new();
         }
 
         private void ApplicationStart(object sender, StartupEventArgs e)
@@ -37,7 +38,7 @@ namespace PrzegladyRemonty
                     Window loginWindow = MainWindow;
                     MainWindow = new MainWindow()
                     {
-                        DataContext = _mainViewModel
+                        DataContext = new MainViewModel(_navigationStore)
                     };
                     MainWindow.Show();
                     loginWindow.Close();

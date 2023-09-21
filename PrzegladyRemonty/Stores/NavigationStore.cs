@@ -1,5 +1,5 @@
-﻿using PrzegladyRemonty.ViewModels;
-using System;
+﻿using System;
+using PrzegladyRemonty.Bases;
 
 namespace PrzegladyRemonty.Stores
 {
