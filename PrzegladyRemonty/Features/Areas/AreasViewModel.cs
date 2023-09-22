@@ -2,7 +2,7 @@
 
 namespace PrzegladyRemonty.Features.Areas
 {
-    class AreasViewModel : ViewModelBase
+    public class AreasViewModel : ViewModelBase
     {
         public AreasViewModel()
         {

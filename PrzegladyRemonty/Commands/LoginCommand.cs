@@ -3,7 +3,7 @@ using PrzegladyRemonty.Shared.Commands;
 
 namespace PrzegladyRemonty.Commands
 {
-    class LoginCommand : CommandBase
+    public class LoginCommand : CommandBase
     {
         private readonly LoginViewModel _loginViewModel;
 

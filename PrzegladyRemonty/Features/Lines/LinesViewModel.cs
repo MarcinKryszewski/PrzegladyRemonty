@@ -2,7 +2,7 @@
 
 namespace PrzegladyRemonty.Features.Lines
 {
-    class LinesViewModel : ViewModelBase
+    public class LinesViewModel : ViewModelBase
     {
     }
 }

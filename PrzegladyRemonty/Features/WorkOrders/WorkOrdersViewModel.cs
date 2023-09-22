@@ -2,7 +2,7 @@
 
 namespace PrzegladyRemonty.Features.WorkOrders
 {
-    class WorkOrdersViewModel : ViewModelBase
+    public class WorkOrdersViewModel : ViewModelBase
     {
     }
 }

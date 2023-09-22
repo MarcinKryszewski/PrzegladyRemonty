@@ -2,7 +2,7 @@
 
 namespace PrzegladyRemonty.Features.Dashboard
 {
-    class DashboardViewModel : ViewModelBase
+    public class DashboardViewModel : ViewModelBase
     {
     }
 }

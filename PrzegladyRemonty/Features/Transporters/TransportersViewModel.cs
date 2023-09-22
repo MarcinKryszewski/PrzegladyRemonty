@@ -2,7 +2,7 @@
 
 namespace PrzegladyRemonty.Features.Transporters
 {
-    class TransprotersViewModel : ViewModelBase
+    public class TransportersViewModel : ViewModelBase
     {
     }
 }

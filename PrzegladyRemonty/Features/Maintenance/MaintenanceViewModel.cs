@@ -2,7 +2,7 @@
 
 namespace PrzegladyRemonty.Features.Maintenance
 {
-    class MaintenanceViewModel : ViewModelBase
+    public class MaintenanceViewModel : ViewModelBase
     {
     }
 }
