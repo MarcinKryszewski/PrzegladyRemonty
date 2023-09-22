@@ -1,8 +1,8 @@
-﻿using PrzegladyRemonty.Bases;
-using PrzegladyRemonty.Commands;
+﻿using PrzegladyRemonty.Commands;
+using PrzegladyRemonty.Shared.ViewModels;
 using System.Windows.Input;
 
-namespace PrzegladyRemonty.Views.Features.Login
+namespace PrzegladyRemonty.Features.Login
 {
     public class LoginViewModel : ViewModelBase
     {

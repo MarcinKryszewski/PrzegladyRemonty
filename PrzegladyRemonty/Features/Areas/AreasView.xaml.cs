@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace PrzegladyRemonty.Views.Features.Areas
+namespace PrzegladyRemonty.Features.Areas
 {
     public partial class AreasView : UserControl
     {

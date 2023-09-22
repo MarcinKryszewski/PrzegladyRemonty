@@ -1,6 +1,6 @@
-﻿using PrzegladyRemonty.Bases;
+﻿using PrzegladyRemonty.Shared.ViewModels;
 
-namespace PrzegladyRemonty.Views.Features.Dashboard
+namespace PrzegladyRemonty.Features.Dashboard
 {
     class DashboardViewModel : ViewModelBase
     {

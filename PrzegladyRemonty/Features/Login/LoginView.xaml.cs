@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 
-namespace PrzegladyRemonty.Views.Features.Login
+namespace PrzegladyRemonty.Features.Login
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace PrzegladyRemonty.Bases
+namespace PrzegladyRemonty.Shared.ViewModels
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

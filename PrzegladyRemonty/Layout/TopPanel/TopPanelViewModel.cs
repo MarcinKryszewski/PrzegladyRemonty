@@ -1,8 +1,8 @@
-﻿using PrzegladyRemonty.Bases;
+﻿using PrzegladyRemonty.Shared.ViewModels;
 
 namespace PrzegladyRemonty.Layout.TopPanel
 {
-    class TopPanelViewModel : ViewModelBase
+    public class TopPanelViewModel : ViewModelBase
     {
     }
 }

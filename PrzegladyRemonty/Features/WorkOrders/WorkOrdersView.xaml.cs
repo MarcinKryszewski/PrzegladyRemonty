@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace PrzegladyRemonty.Views.Features.WorkOrders
+namespace PrzegladyRemonty.Features.WorkOrders
 {
     public partial class WorkOrdersView : UserControl
     {

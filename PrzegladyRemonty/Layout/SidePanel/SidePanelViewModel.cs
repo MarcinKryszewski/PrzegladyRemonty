@@ -1,8 +1,12 @@
-﻿using PrzegladyRemonty.Bases;
+﻿using PrzegladyRemonty.Shared.ViewModels;
 
 namespace PrzegladyRemonty.Layout.SidePanel
 {
-    class SidePanelViewModel : ViewModelBase
+    public class SidePanelViewModel : ViewModelBase
     {
+        public SidePanelViewModel()
+        {
+            
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using PrzegladyRemonty.Layout.Main;
-using PrzegladyRemonty.Stores;
-using PrzegladyRemonty.Views.Features.Login;
+using PrzegladyRemonty.Shared.Stores;
+using PrzegladyRemonty.Features.Dashboard;
+using PrzegladyRemonty.Features.Login;
 using System.ComponentModel;
 using System.Windows;
 
@@ -36,6 +37,7 @@ namespace PrzegladyRemonty
                 if (_loginViewModel.IsAuthenticated)
                 {
                     Window loginWindow = MainWindow;
+                    _navigationStore.CurrentViewModel = new DashboardViewModel();
                     MainWindow = new MainWindow()
                     {
                         DataContext = new MainViewModel(_navigationStore)

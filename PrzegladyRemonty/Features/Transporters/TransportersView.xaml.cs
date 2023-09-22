@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace PrzegladyRemonty.Views.Features.Transporters
+namespace PrzegladyRemonty.Features.Transporters
 {
     public partial class TransportersView : UserControl
     {

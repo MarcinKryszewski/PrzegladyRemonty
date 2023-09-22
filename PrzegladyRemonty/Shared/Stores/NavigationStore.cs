@@ -1,9 +1,9 @@
-﻿using System;
-using PrzegladyRemonty.Bases;
+﻿using PrzegladyRemonty.Shared.ViewModels;
+using System;
 
-namespace PrzegladyRemonty.Stores
+namespace PrzegladyRemonty.Shared.Stores
 {
-    public class NavigationStore
+    public class NavigationStore : INavigationStore
     {
         private ViewModelBase _currentViewModel;
         public ViewModelBase CurrentViewModel

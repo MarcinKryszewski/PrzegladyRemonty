@@ -1,6 +1,6 @@
-﻿using PrzegladyRemonty.Bases;
+﻿using PrzegladyRemonty.Shared.ViewModels;
 
-namespace PrzegladyRemonty.Views.Features.WorkOrders
+namespace PrzegladyRemonty.Features.WorkOrders
 {
     class WorkOrdersViewModel : ViewModelBase
     {

@@ -1,6 +1,6 @@
-﻿using PrzegladyRemonty.Bases;
+﻿using PrzegladyRemonty.Shared.ViewModels;
 
-namespace PrzegladyRemonty.Views.Features.Areas
+namespace PrzegladyRemonty.Features.Areas
 {
     class AreasViewModel : ViewModelBase
     {

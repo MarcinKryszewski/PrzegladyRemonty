@@ -1,6 +1,6 @@
-﻿using PrzegladyRemonty.Bases;
+﻿using PrzegladyRemonty.Shared.ViewModels;
 
-namespace PrzegladyRemonty.Views.Features.Lines
+namespace PrzegladyRemonty.Features.Lines
 {
     class LinesViewModel : ViewModelBase
     {

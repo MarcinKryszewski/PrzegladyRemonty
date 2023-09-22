@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace PrzegladyRemonty.Bases
+namespace PrzegladyRemonty.Shared.Commands
 {
     public abstract class CommandBase : ICommand
     {

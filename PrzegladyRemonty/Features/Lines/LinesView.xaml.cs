@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace PrzegladyRemonty.Views.Features.Lines
+namespace PrzegladyRemonty.Features.Lines
 {
     public partial class LinesView : UserControl
     {

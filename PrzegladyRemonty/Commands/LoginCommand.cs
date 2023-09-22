@@ -1,5 +1,5 @@
-﻿using PrzegladyRemonty.Bases;
-using PrzegladyRemonty.Views.Features.Login;
+﻿using PrzegladyRemonty.Features.Login;
+using PrzegladyRemonty.Shared.Commands;
 
 namespace PrzegladyRemonty.Commands
 {

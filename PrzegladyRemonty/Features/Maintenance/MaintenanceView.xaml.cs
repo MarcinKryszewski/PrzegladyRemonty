@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace PrzegladyRemonty.Views.Features.Maintenance
+namespace PrzegladyRemonty.Features.Maintenance
 {
     public partial class MaintenanceView : UserControl
     {

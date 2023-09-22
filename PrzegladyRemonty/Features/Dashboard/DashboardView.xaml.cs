@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace PrzegladyRemonty.Views.Features.Dashboard
+namespace PrzegladyRemonty.Features.Dashboard
 {
     public partial class DashboardView : UserControl
     {

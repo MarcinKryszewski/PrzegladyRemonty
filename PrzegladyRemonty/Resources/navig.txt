@@ -1,0 +1,14 @@
+public HomeViewModel(NavigationStore navigationStore)
+{
+    _navigationStore = navigationStore;
+    _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+    _sideMenuButtons = new ObservableCollection<SideMenuButton>
+    {
+        new SideMenuButton{ Id = 1, DisplayName="\xE71D", CardTitle="Lista Transporterów"},
+        new SideMenuButton{ Id = 2, DisplayName="\xE736", CardTitle="Historia przeglądów" }
+    };
+    _selectedMenu = 1;
+    CardTitle = _sideMenuButtons.Where(x => x.Id == _selectedMenu).FirstOrDefault()?.CardTitle;
+    SideMenuNavigationCommandTransporterWindow = new NavigateCommand(navigationStore, CreateTransporterWindowViewModel);
+    SideMenuNavigationCommandMaintenanceHistory = new NavigateCommand(navigationStore, CreateMaintenanceHistoryViewModel);
+}

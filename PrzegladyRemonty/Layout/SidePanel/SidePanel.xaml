@@ -3,11 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:PrzegladyRemonty.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uielements="clr-namespace:PrzegladyRemonty.ViewModels.UIElements"
+    xmlns:sidepanel="clr-namespace:PrzegladyRemonty.Layout.SidePanel"
     x:Name="userControl"
-    d:DataContext="{d:DesignInstance Type=uielements:SidePanelViewModel}"
+    d:DataContext="{d:DesignInstance Type=sidepanel:SidePanelViewModel}"
     d:DesignHeight="975"
     d:DesignWidth="250"
     mc:Ignorable="d">

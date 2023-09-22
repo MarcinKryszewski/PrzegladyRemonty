@@ -1,6 +1,6 @@
-﻿using PrzegladyRemonty.Bases;
+﻿using PrzegladyRemonty.Shared.ViewModels;
 
-namespace PrzegladyRemonty.Views.Features.Transporters
+namespace PrzegladyRemonty.Features.Transporters
 {
     class TransprotersViewModel : ViewModelBase
     {
