@@ -7,6 +7,7 @@
     xmlns:dashboard="clr-namespace:PrzegladyRemonty.Features.Dashboard"
     xmlns:layout="clr-namespace:PrzegladyRemonty.Layout.Content"
     xmlns:main="clr-namespace:PrzegladyRemonty.Layout.Main"
+    xmlns:maintenance="clr-namespace:PrzegladyRemonty.Features.Maintenance"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="MainWindow"
     Width="1920"
@@ -26,6 +27,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type dashboard:DashboardViewModel}">
                 <dashboard:DashboardView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type maintenance:MaintenanceViewModel}">
+                <maintenance:MaintenanceView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type areas:AreasViewModel}">
                 <areas:AreasView />

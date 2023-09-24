@@ -12,23 +12,23 @@ namespace PrzegladyRemonty.Services
     {
         private readonly NavigationStore _navigationStore;
         private readonly Func<TViewModel> _createViewModel;
-        private readonly SidePanelViewModel _sidePanelViewModel;
+        private readonly Func<SidePanelViewModel> _createSidePanelViewModel;
         private readonly TopPanelViewModel _topPanelViewModel;
 
         public LayoutNavigationService(NavigationStore navigationStore,
             Func<TViewModel> createViewModel,
-            SidePanelViewModel sidePanelViewModel,
+            Func<SidePanelViewModel> createSidePanelViewModel,
             TopPanelViewModel topPanelViewModel)
         {
             _navigationStore = navigationStore;
             _createViewModel = createViewModel;
-            _sidePanelViewModel = sidePanelViewModel;
+            _createSidePanelViewModel = createSidePanelViewModel;
             _topPanelViewModel = topPanelViewModel;
         }
 
         public void Navigate()
         {
-            _navigationStore.CurrentViewModel = new ContentViewModel(_sidePanelViewModel, _topPanelViewModel, _createViewModel());
+            _navigationStore.CurrentViewModel = new ContentViewModel(_createSidePanelViewModel(), _topPanelViewModel, _createViewModel());
         }
     }
 }

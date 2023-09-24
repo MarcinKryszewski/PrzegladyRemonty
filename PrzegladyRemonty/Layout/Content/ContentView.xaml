@@ -11,6 +11,7 @@
     xmlns:toppanel="clr-namespace:PrzegladyRemonty.Layout.TopPanel"
     xmlns:transporters="clr-namespace:PrzegladyRemonty.Features.Transporters"
     xmlns:workorders="clr-namespace:PrzegladyRemonty.Features.WorkOrders"
+    d:DataContext="{d:DesignInstance Type=local:ContentViewModel}"
     d:Height="1080"
     d:Width="1920"
     mc:Ignorable="d">

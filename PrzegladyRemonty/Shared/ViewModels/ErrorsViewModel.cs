@@ -23,10 +23,10 @@ namespace PrzegladyRemonty.Shared.ViewModels
         {
             if (!_propertyErrors.ContainsKey(propertyName))
             {
-                _propertyErrors.Add(propertyName, new List<string>());
+                _propertyErrors(propertyName, new List<string>());
             }
 
-            _propertyErrors[propertyName].Add(errorMessage);
+            _propertyErrors[propertyName](errorMessage);
             OnErrorsChanged(propertyName);
         }
 

@@ -26,14 +26,17 @@
         <StackPanel>
             <Button
                 Height="40"
+                Command="{Binding NavigateDashboardCommand}"
                 Content="Dashboard"
                 Style="{StaticResource NavButtonActive}" />
             <Button
                 Height="40"
+                Command="{Binding NavigateMaintenanceCommand}"
                 Content="Przeglądy"
                 Style="{StaticResource NavButton}" />
             <Button
                 Height="40"
+                Command="{Binding NavigateWorkOrdersCommand}"
                 Content="Zlecenia"
                 Style="{StaticResource NavButton}" />
 
@@ -69,6 +72,8 @@
                     </StackPanel>
                 </Expander.Content>
             </Expander>
+            <TextBlock />
         </StackPanel>
+
     </Border>
 </UserControl>

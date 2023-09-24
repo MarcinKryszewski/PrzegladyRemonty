@@ -20,22 +20,25 @@ namespace PrzegladyRemonty
     {
         private readonly LoginViewModel _loginViewModel;
         private readonly NavigationStore _navigationStore;
-        private readonly SidePanelViewModel _sidePanelViewModel;
         private readonly TopPanelViewModel _topPanelViewModel;
 
         public App()
         {
             _navigationStore = new NavigationStore();
             _loginViewModel = new();
-            _sidePanelViewModel = new SidePanelViewModel(
-                CreateAreasNavigationService(),
-                CreateDashboardNavigationService(),
-                CreateLinesNavigationService(),
-                CreateMaintenanceNavigationService(),
-                CreateTransportersNavigationService(),
-                CreateWorkOrdersNavigationService()
-            );
             _topPanelViewModel = new TopPanelViewModel();
+        }
+
+        private SidePanelViewModel CreateSidePanelViewModel()
+        {
+            return new SidePanelViewModel(
+                            CreateAreasNavigationService(),
+                            CreateDashboardNavigationService(),
+                            CreateLinesNavigationService(),
+                            CreateMaintenanceNavigationService(),
+                            CreateTransportersNavigationService(),
+                            CreateWorkOrdersNavigationService()
+                        );
         }
 
         private void ApplicationStart(object sender, StartupEventArgs e)
@@ -75,7 +78,7 @@ namespace PrzegladyRemonty
             (
                 _navigationStore,
                 () => new AreasViewModel(),
-                _sidePanelViewModel,
+                CreateSidePanelViewModel,
                 _topPanelViewModel
             );
         }
@@ -85,7 +88,7 @@ namespace PrzegladyRemonty
             (
                 _navigationStore,
                 () => new DashboardViewModel(),
-                _sidePanelViewModel,
+                CreateSidePanelViewModel,
                 _topPanelViewModel
             );
         }
@@ -95,7 +98,7 @@ namespace PrzegladyRemonty
             (
                 _navigationStore,
                 () => new LinesViewModel(),
-                _sidePanelViewModel,
+                CreateSidePanelViewModel,
                 _topPanelViewModel
             );
         }
@@ -105,7 +108,7 @@ namespace PrzegladyRemonty
             (
                 _navigationStore,
                 () => new MaintenanceViewModel(),
-                _sidePanelViewModel,
+                CreateSidePanelViewModel,
                 _topPanelViewModel
             );
         }
@@ -115,7 +118,7 @@ namespace PrzegladyRemonty
             (
                 _navigationStore,
                 () => new TransportersViewModel(),
-                _sidePanelViewModel,
+                CreateSidePanelViewModel,
                 _topPanelViewModel
             );
         }
@@ -125,7 +128,7 @@ namespace PrzegladyRemonty
             (
                 _navigationStore,
                 () => new WorkOrdersViewModel(),
-                _sidePanelViewModel,
+                CreateSidePanelViewModel,
                 _topPanelViewModel
             );
         }
