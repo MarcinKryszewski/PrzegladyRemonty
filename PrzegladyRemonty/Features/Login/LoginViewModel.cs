@@ -39,7 +39,10 @@ namespace PrzegladyRemonty.Features.Login
             }
         }
 
-        public ICommand LoginCommand { get; }
+        public ICommand LoginCommand
+        {
+            get;
+        }
 
         public LoginViewModel()
         {

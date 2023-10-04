@@ -3,11 +3,11 @@
 namespace PrzegladyRemonty.Features.Transporters
 {
     /// <summary>
-    /// Interaction logic for TransportersDetailsView.xaml
+    /// Interaction logic for TransportersMainView.xaml
     /// </summary>
-    public partial class TransportersDetailsView : UserControl
+    public partial class TransportersMainView : UserControl
     {
-        public TransportersDetailsView()
+        public TransportersMainView()
         {
             InitializeComponent();
         }

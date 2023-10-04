@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using PrzegladyRemonty.Features.Areas;
+﻿using PrzegladyRemonty.Features.Areas;
 using PrzegladyRemonty.Features.Dashboard;
 using PrzegladyRemonty.Features.Lines;
 using PrzegladyRemonty.Features.Maintenance;
@@ -8,6 +7,7 @@ using PrzegladyRemonty.Features.WorkOrders;
 using PrzegladyRemonty.Shared.Commands;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.ViewModels;
+using System.Windows.Input;
 
 namespace PrzegladyRemonty.Layout.SidePanel
 {

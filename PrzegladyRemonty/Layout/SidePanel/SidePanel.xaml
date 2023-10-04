@@ -59,14 +59,17 @@
                     <StackPanel Background="{StaticResource Grey600Brush}">
                         <Button
                             Height="40"
+                            Command="{Binding NavigateLinesCommand}"
                             Content="Linia"
                             Style="{StaticResource NavButton}" />
                         <Button
                             Height="40"
+                            Command="{Binding NavigateAreasCommand}"
                             Content="Obszar"
                             Style="{StaticResource NavButtonActive}" />
                         <Button
                             Height="40"
+                            Command="{Binding NavigateTransportersCommand}"
                             Content="Transporter"
                             Style="{StaticResource NavButton}" />
                     </StackPanel>

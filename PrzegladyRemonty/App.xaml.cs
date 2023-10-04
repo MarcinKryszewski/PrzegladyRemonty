@@ -1,18 +1,18 @@
-﻿using PrzegladyRemonty.Layout.Main;
-using PrzegladyRemonty.Shared.Stores;
+﻿using PrzegladyRemonty.Features.Areas;
 using PrzegladyRemonty.Features.Dashboard;
-using PrzegladyRemonty.Features.Login;
-using System.ComponentModel;
-using System.Windows;
-using PrzegladyRemonty.Layout.SidePanel;
-using PrzegladyRemonty.Shared.Services;
-using PrzegladyRemonty.Features.Areas;
-using PrzegladyRemonty.Services;
-using PrzegladyRemonty.Layout.TopPanel;
 using PrzegladyRemonty.Features.Lines;
+using PrzegladyRemonty.Features.Login;
 using PrzegladyRemonty.Features.Maintenance;
 using PrzegladyRemonty.Features.Transporters;
 using PrzegladyRemonty.Features.WorkOrders;
+using PrzegladyRemonty.Layout.Main;
+using PrzegladyRemonty.Layout.SidePanel;
+using PrzegladyRemonty.Layout.TopPanel;
+using PrzegladyRemonty.Services;
+using PrzegladyRemonty.Shared.Services;
+using PrzegladyRemonty.Shared.Stores;
+using System.ComponentModel;
+using System.Windows;
 
 namespace PrzegladyRemonty
 {
@@ -27,18 +27,6 @@ namespace PrzegladyRemonty
             _navigationStore = new NavigationStore();
             _loginViewModel = new();
             _topPanelViewModel = new TopPanelViewModel();
-        }
-
-        private SidePanelViewModel CreateSidePanelViewModel()
-        {
-            return new SidePanelViewModel(
-                            CreateAreasNavigationService(),
-                            CreateDashboardNavigationService(),
-                            CreateLinesNavigationService(),
-                            CreateMaintenanceNavigationService(),
-                            CreateTransportersNavigationService(),
-                            CreateWorkOrdersNavigationService()
-                        );
         }
 
         private void ApplicationStart(object sender, StartupEventArgs e)
@@ -61,11 +49,12 @@ namespace PrzegladyRemonty
                 {
                     Window loginWindow = MainWindow;
                     INavigationService<DashboardViewModel> dashboardNavigationService = CreateDashboardNavigationService();
-                    dashboardNavigationService.Navigate();
                     MainWindow = new MainWindow()
                     {
                         DataContext = new MainViewModel(_navigationStore)
                     };
+                    dashboardNavigationService.Navigate();
+
                     MainWindow.Show();
                     loginWindow.Close();
                 }
@@ -82,6 +71,20 @@ namespace PrzegladyRemonty
                 _topPanelViewModel
             );
         }
+
+        private SidePanelViewModel CreateSidePanelViewModel()
+        {
+            return new SidePanelViewModel
+            (
+                CreateAreasNavigationService(),
+                CreateDashboardNavigationService(),
+                CreateLinesNavigationService(),
+                CreateMaintenanceNavigationService(),
+                CreateTransportersNavigationService(),
+                CreateWorkOrdersNavigationService()
+            );
+        }
+
         private INavigationService<DashboardViewModel> CreateDashboardNavigationService()
         {
             return new LayoutNavigationService<DashboardViewModel>

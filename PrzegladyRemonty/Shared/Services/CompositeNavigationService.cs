@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace PrzegladyRemonty.Shared.Services
+﻿namespace PrzegladyRemonty.Shared.Services
 {
     //public class CompositeNavigationService : INavigationService
     //{

@@ -6,9 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dashboard="clr-namespace:PrzegladyRemonty.Features.Dashboard"
     xmlns:layout="clr-namespace:PrzegladyRemonty.Layout.Content"
+    xmlns:lines="clr-namespace:PrzegladyRemonty.Features.Lines"
     xmlns:main="clr-namespace:PrzegladyRemonty.Layout.Main"
     xmlns:maintenance="clr-namespace:PrzegladyRemonty.Features.Maintenance"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:transporters="clr-namespace:PrzegladyRemonty.Features.Transporters"
+    xmlns:workorders="clr-namespace:PrzegladyRemonty.Features.WorkOrders"
     Title="MainWindow"
     Width="1920"
     Height="1080"
@@ -25,14 +28,23 @@
             <DataTemplate DataType="{x:Type layout:ContentViewModel}">
                 <layout:ContentView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type areas:AreasViewModel}">
+                <areas:AreasView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type dashboard:DashboardViewModel}">
                 <dashboard:DashboardView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type lines:LinesViewModel}">
+                <lines:LinesView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type maintenance:MaintenanceViewModel}">
                 <maintenance:MaintenanceView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type areas:AreasViewModel}">
-                <areas:AreasView />
+            <DataTemplate DataType="{x:Type transporters:TransportersViewModel}">
+                <transporters:TransportersView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type workorders:WorkOrdersViewModel}">
+                <workorders:WorkOrdersView />
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

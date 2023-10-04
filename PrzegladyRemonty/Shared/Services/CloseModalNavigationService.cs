@@ -1,9 +1,4 @@
-﻿using PrzegladyRemonty.Shared.Stores;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PrzegladyRemonty.Shared.Services
+﻿namespace PrzegladyRemonty.Shared.Services
 {
     //public class CloseModalNavigationService : INavigationService
     //{

@@ -4,6 +4,9 @@ namespace PrzegladyRemonty.Shared.Stores
 {
     public interface INavigationStore
     {
-        ViewModelBase CurrentViewModel { set; }
+        ViewModelBase CurrentViewModel
+        {
+            set;
+        }
     }
 }

@@ -1,7 +1,5 @@
-﻿using PrzegladyRemonty.Shared.ViewModels;
-using PrzegladyRemonty.Layout.SidePanel;
-using PrzegladyRemonty.Layout.TopPanel;
-using PrzegladyRemonty.Shared.Stores;
+﻿using PrzegladyRemonty.Shared.Stores;
+using PrzegladyRemonty.Shared.ViewModels;
 
 namespace PrzegladyRemonty.Layout.Main
 {
@@ -13,8 +11,6 @@ namespace PrzegladyRemonty.Layout.Main
         public MainViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
-            //SidePanelViewModel = new SidePanelViewModel();
-            //TopPanelViewModel = new TopPanelViewModel();
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
         }

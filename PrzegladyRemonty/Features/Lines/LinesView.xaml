@@ -14,5 +14,19 @@
             FontSize="40"
             Foreground="Wheat"
             Text="Lines" />
+        <StackPanel>
+            <Button
+                Width="200"
+                Height="50"
+                Content="ADD" />
+            <Button
+                Width="200"
+                Height="50"
+                Content="EDIT" />
+            <Button
+                Width="200"
+                Height="50"
+                Content="DETAILS" />
+        </StackPanel>
     </Grid>
 </UserControl>

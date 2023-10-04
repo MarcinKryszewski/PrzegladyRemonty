@@ -8,5 +8,16 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid />
+    <Grid>
+        <StackPanel>
+            <TextBlock
+                FontSize="40"
+                Foreground="Wheat"
+                Text="Edit" />
+
+            <Button Content="Details" />
+            <Button Content="Add" />
+            <Button Content="Main" />
+        </StackPanel>
+    </Grid>
 </UserControl>

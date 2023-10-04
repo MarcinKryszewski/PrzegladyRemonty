@@ -9,7 +9,9 @@ namespace PrzegladyRemonty.Layout.Content
         public SidePanelViewModel SidePanelViewModel { get; }
         public TopPanelViewModel TopPanelViewModel { get; }
         public ViewModelBase Content { get; }
-        public ContentViewModel(SidePanelViewModel sidePanelViewModel, TopPanelViewModel topPanelViewModel, ViewModelBase content)
+        public ContentViewModel(SidePanelViewModel sidePanelViewModel,
+                                TopPanelViewModel topPanelViewModel,
+                                ViewModelBase content)
         {
             SidePanelViewModel = sidePanelViewModel;
             TopPanelViewModel = topPanelViewModel;
