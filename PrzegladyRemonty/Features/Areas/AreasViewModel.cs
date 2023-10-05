@@ -23,34 +23,48 @@ namespace PrzegladyRemonty.Features.Areas
         }
         private INavigationService<AreasMainViewModel> CreateAreasMainNavigationService()
         {
-            return new AreasNavigationService<AreasMainViewModel>
+            return new DefaultNavigationService<AreasMainViewModel>
             (
                 _navigationStore,
-                () => new AreasMainViewModel(CreateAreasEditNavigationService())
+                () => new AreasMainViewModel(
+                    CreateAreasEditNavigationService(),
+                    CreateAreasAddNavigationService(),
+                    CreateAreasDetailsNavigationService())
             );
         }
         private INavigationService<AreasAddViewModel> CreateAreasAddNavigationService()
         {
-            return new AreasNavigationService<AreasAddViewModel>
+            return new DefaultNavigationService<AreasAddViewModel>
             (
                 _navigationStore,
-                () => new AreasAddViewModel()
+                () => new AreasAddViewModel(
+                    CreateAreasMainNavigationService(),
+                    CreateAreasEditNavigationService(),
+                    CreateAreasDetailsNavigationService()
+                )
             );
         }
         private INavigationService<AreasDetailsViewModel> CreateAreasDetailsNavigationService()
         {
-            return new AreasNavigationService<AreasDetailsViewModel>
+            return new DefaultNavigationService<AreasDetailsViewModel>
             (
                 _navigationStore,
-                () => new AreasDetailsViewModel()
+                () => new AreasDetailsViewModel(
+                    CreateAreasMainNavigationService(),
+                    CreateAreasEditNavigationService(),
+                    CreateAreasAddNavigationService()
+                )
             );
         }
         private INavigationService<AreasEditViewModel> CreateAreasEditNavigationService()
         {
-            return new AreasNavigationService<AreasEditViewModel>
+            return new DefaultNavigationService<AreasEditViewModel>
             (
                 _navigationStore,
-                () => new AreasEditViewModel()
+                () => new AreasEditViewModel(
+                    CreateAreasMainNavigationService(),
+                    CreateAreasAddNavigationService(),
+                    CreateAreasDetailsNavigationService())
             );
         }
     }

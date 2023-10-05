@@ -11,9 +11,15 @@ namespace PrzegladyRemonty.Features.Areas
         public ICommand NavigateAddCommand { get; }
         public ICommand NavigateDetailsCommand { get; }
 
-        public AreasMainViewModel(INavigationService<AreasEditViewModel> areasEditViewModel)
+        public AreasMainViewModel(
+            INavigationService<AreasEditViewModel> areasEditViewModel,
+            INavigationService<AreasAddViewModel> areasAddViewModel,
+            INavigationService<AreasDetailsViewModel> areasDetailsViewModel
+            )
         {
             NavigateEditCommand = new NavigateCommand<AreasEditViewModel>(areasEditViewModel);
+            NavigateAddCommand = new NavigateCommand<AreasAddViewModel>(areasAddViewModel);
+            NavigateDetailsCommand = new NavigateCommand<AreasDetailsViewModel>(areasDetailsViewModel);
         }
     }
 }
