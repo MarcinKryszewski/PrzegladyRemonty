@@ -1,4 +1,5 @@
-﻿using PrzegladyRemonty.Features.Areas;
+﻿using PrzegladyRemonty.Features.ActionsCategories;
+using PrzegladyRemonty.Features.Areas;
 using PrzegladyRemonty.Features.Dashboard;
 using PrzegladyRemonty.Features.Lines;
 using PrzegladyRemonty.Features.Maintenance;
@@ -19,6 +20,7 @@ namespace PrzegladyRemonty.Layout.SidePanel
         public ICommand NavigateMaintenanceCommand { get; }
         public ICommand NavigateTransportersCommand { get; }
         public ICommand NavigateWorkOrdersCommand { get; }
+        public ICommand NavigateActionsCategoriesCommand { get; }
 
         public SidePanelViewModel(
             INavigationService<AreasViewModel> areasNavigationService,
@@ -26,7 +28,8 @@ namespace PrzegladyRemonty.Layout.SidePanel
             INavigationService<LinesViewModel> linesNavigationService,
             INavigationService<MaintenanceViewModel> maintenanceNavigationService,
             INavigationService<TransportersViewModel> transportersNavigationService,
-            INavigationService<WorkOrdersViewModel> workOrdersVNavigationService)
+            INavigationService<WorkOrdersViewModel> workOrdersVNavigationService,
+            INavigationService<ActionsCategoriesViewModel> actionsCategoriesVNavigationService)
         {
             NavigateAreasCommand = new NavigateCommand<AreasViewModel>(areasNavigationService);
             NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(dashboardNavigationService);
@@ -34,6 +37,7 @@ namespace PrzegladyRemonty.Layout.SidePanel
             NavigateMaintenanceCommand = new NavigateCommand<MaintenanceViewModel>(maintenanceNavigationService);
             NavigateTransportersCommand = new NavigateCommand<TransportersViewModel>(transportersNavigationService);
             NavigateWorkOrdersCommand = new NavigateCommand<WorkOrdersViewModel>(workOrdersVNavigationService);
+            NavigateActionsCategoriesCommand = new NavigateCommand<ActionsCategoriesViewModel>(actionsCategoriesVNavigationService);
         }
 
     }
