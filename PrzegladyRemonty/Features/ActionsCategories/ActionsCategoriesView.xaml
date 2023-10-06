@@ -9,19 +9,31 @@
     d:DesignWidth="1670"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock FontSize="40"
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+            FontSize="40"
             Foreground="Wheat"
             Text="ActionsCategories" />
-        <StackPanel>
-            <Button Width="200"
-                Height="50"
-                Content="ADD" />
-            <Button Width="200"
-                Height="50"
-                Content="EDIT" />
-            <Button Width="200"
-                Height="50"
-                Content="DETAILS" />
-        </StackPanel>
+        <ContentControl Grid.Row="1"
+            Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type actionsCategories:ActionsCategoriesAddViewModel}">
+                    <actionsCategories:ActionsCategoriesAddView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type actionsCategories:ActionsCategoriesDetailsViewModel}">
+                    <actionsCategories:ActionsCategoriesDetailsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type actionsCategories:ActionsCategoriesEditViewModel}">
+                    <actionsCategories:ActionsCategoriesEditView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type actionsCategories:ActionsCategoriesMainViewModel}">
+                    <actionsCategories:ActionsCategoriesMainView />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
     </Grid>
 </UserControl>

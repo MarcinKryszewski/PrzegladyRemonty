@@ -12,7 +12,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../../../Themes/Colors.xaml" />
                 <ResourceDictionary Source="../../../Themes/Controls/Buttons.xaml" />
-                <ResourceDictionary Source="../../../Themes/Controls/Expanders.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -29,7 +28,10 @@
                 Command="{Binding NavigateEditCommand}"
                 Content="Edit"
                 Style="{StaticResource NavButton}" />
-            <Button Content="Add" />
+            <Button Height="40"
+                Command="{Binding NavigateAddCommand}"
+                Content="Add"
+                Style="{StaticResource NavButton}" />
         </StackPanel>
     </Grid>
 </UserControl>

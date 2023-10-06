@@ -1,5 +1,4 @@
-﻿<UserControl
-    x:Class="PrzegladyRemonty.Features.Lines.LinesView"
+﻿<UserControl x:Class="PrzegladyRemonty.Features.Lines.LinesView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,23 +9,31 @@
     d:DesignWidth="1670"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
             FontSize="40"
             Foreground="Wheat"
             Text="Lines" />
-        <StackPanel>
-            <Button
-                Width="200"
-                Height="50"
-                Content="ADD" />
-            <Button
-                Width="200"
-                Height="50"
-                Content="EDIT" />
-            <Button
-                Width="200"
-                Height="50"
-                Content="DETAILS" />
-        </StackPanel>
+        <ContentControl Grid.Row="1"
+            Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type lines:LinesAddViewModel}">
+                    <lines:LinesAddView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type lines:LinesDetailsViewModel}">
+                    <lines:LinesDetailsView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type lines:LinesEditViewModel}">
+                    <lines:LinesEditView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type lines:LinesMainViewModel}">
+                    <lines:LinesMainView />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
     </Grid>
 </UserControl>
