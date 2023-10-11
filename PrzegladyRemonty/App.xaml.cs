@@ -1,4 +1,5 @@
-﻿using PrzegladyRemonty.Features.ActionsCategories;
+﻿using Microsoft.EntityFrameworkCore;
+using PrzegladyRemonty.Features.ActionsCategories;
 using PrzegladyRemonty.Features.Areas;
 using PrzegladyRemonty.Features.Dashboard;
 using PrzegladyRemonty.Features.Lines;
