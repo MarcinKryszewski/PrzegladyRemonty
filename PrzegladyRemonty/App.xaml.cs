@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PrzegladyRemonty.Database.EntityFramework;
 using PrzegladyRemonty.Features.ActionsCategories;
 using PrzegladyRemonty.Features.Areas;
 using PrzegladyRemonty.Features.Dashboard;
@@ -20,6 +21,7 @@ namespace PrzegladyRemonty
 {
     public partial class App : Application
     {
+        private const string CONNECTION_STRING = "Data Source=PrzegladyRemonty.db";
         private readonly LoginViewModel _loginViewModel;
         private readonly NavigationStore _navigationStore;
         private readonly TopPanelViewModel _topPanelViewModel;
@@ -49,6 +51,10 @@ namespace PrzegladyRemonty
             {
                 if (_loginViewModel.IsAuthenticated)
                 {
+                    DbContextOptions options = new DbContextOptionsBuilder().UseSqlite(CONNECTION_STRING).Options;
+                    PrzegladyRemontyDbContext dbContext = new PrzegladyRemontyDbContext(options);
+                    dbContext.Database.Migrate();
+
                     Window loginWindow = MainWindow;
                     INavigationService<DashboardViewModel> dashboardNavigationService = CreateDashboardNavigationService();
                     MainWindow = new MainWindow()
