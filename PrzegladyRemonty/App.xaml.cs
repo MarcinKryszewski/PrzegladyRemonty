@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PrzegladyRemonty.Database.EntityFramework;
+﻿using Microsoft.Extensions.Configuration;
+using PrzegladyRemonty.Database;
+using PrzegladyRemonty.Database.Initializers;
 using PrzegladyRemonty.Features.ActionsCategories;
 using PrzegladyRemonty.Features.Areas;
 using PrzegladyRemonty.Features.Dashboard;
@@ -15,19 +16,26 @@ using PrzegladyRemonty.Services;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.Stores;
 using System.ComponentModel;
+using System.Data;
+using System.IO;
 using System.Windows;
+
 
 namespace PrzegladyRemonty
 {
     public partial class App : Application
     {
-        private const string CONNECTION_STRING = "Data Source=PrzegladyRemonty.db";
+        private readonly IConfiguration _configuration;
         private readonly LoginViewModel _loginViewModel;
         private readonly NavigationStore _navigationStore;
         private readonly TopPanelViewModel _topPanelViewModel;
 
         public App()
         {
+            _configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
             _navigationStore = new NavigationStore();
             _loginViewModel = new();
             _topPanelViewModel = new TopPanelViewModel();
@@ -35,7 +43,6 @@ namespace PrzegladyRemonty
 
         private void ApplicationStart(object sender, StartupEventArgs e)
         {
-
             LoginView loginView = new()
             {
                 DataContext = _loginViewModel
@@ -51,9 +58,12 @@ namespace PrzegladyRemonty
             {
                 if (_loginViewModel.IsAuthenticated)
                 {
-                    DbContextOptions options = new DbContextOptionsBuilder().UseSqlite(CONNECTION_STRING).Options;
-                    PrzegladyRemontyDbContext dbContext = new PrzegladyRemontyDbContext(options);
-                    dbContext.Database.Migrate();
+                    using DatabaseConnectionFactory connectionFactory = new(_configuration);
+                    using IDbConnection connection = connectionFactory.Connect();
+
+                    DatabaseInitializerFactory initializer = new(_configuration, connection);
+                    IDatabaseInitializer databaseInitializer = initializer.CreateInitializer();
+                    databaseInitializer.Initialize();
 
                     Window loginWindow = MainWindow;
                     INavigationService<DashboardViewModel> dashboardNavigationService = CreateDashboardNavigationService();
@@ -69,17 +79,6 @@ namespace PrzegladyRemonty
             }
         }
 
-        private INavigationService<AreasViewModel> CreateAreasNavigationService()
-        {
-            return new LayoutNavigationService<AreasViewModel>
-            (
-                _navigationStore,
-                () => new AreasViewModel(),
-                CreateSidePanelViewModel,
-                _topPanelViewModel
-            );
-        }
-
         private SidePanelViewModel CreateSidePanelViewModel()
         {
             return new SidePanelViewModel
@@ -93,7 +92,16 @@ namespace PrzegladyRemonty
                 CreateActionsCategoriesNavigationService()
             );
         }
-
+        private INavigationService<AreasViewModel> CreateAreasNavigationService()
+        {
+            return new LayoutNavigationService<AreasViewModel>
+            (
+                _navigationStore,
+                () => new AreasViewModel(),
+                CreateSidePanelViewModel,
+                _topPanelViewModel
+            );
+        }
         private INavigationService<DashboardViewModel> CreateDashboardNavigationService()
         {
             return new LayoutNavigationService<DashboardViewModel>

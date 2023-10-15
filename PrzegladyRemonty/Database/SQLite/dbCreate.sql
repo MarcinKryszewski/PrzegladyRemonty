@@ -24,15 +24,15 @@ CREATE TABLE IF NOT EXISTS "transporters" (
 );
 CREATE TABLE IF NOT EXISTS "actionsCategories" (
 	"id"	INTEGER,
-	"name"	TEXT,
-	"frequency"	INTEGER,
-	"frequencyUnit"	TEXT,
+	"name"	TEXT,	
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 CREATE TABLE IF NOT EXISTS "transporters_actions" (
 	"id"	INTEGER,
 	"transporter"	INTEGER,
 	"action"	INTEGER,
+	"frequency"	INTEGER,
+	"frequencyUnit"	TEXT,
 	PRIMARY KEY("id" AUTOINCREMENT),
 	FOREIGN KEY("action") REFERENCES "actionsCategories"("id"),
 	FOREIGN KEY("transporter") REFERENCES "transporters"("id")
