@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using PrzegladyRemonty.Database.MS_Access;
 using System.Data;
 using System.IO;
 
@@ -26,9 +27,16 @@ namespace PrzegladyRemonty.Database.Initializers
         public void Initialize()
         {
             if (File.Exists("PrzegladyRemonty.accdb")) return;
+            CreateNewDatabase();
+        }
 
+        private void CreateNewDatabase()
+        {
             File.Copy("Database\\MS Access\\PrzegladyRemonty.accdb", "PrzegladyRemonty.accdb", true);
-            _connection.Execute(CREATE_RESERVATIONS_TABLE_SQL);
+            foreach (string command in new MsAccessInitCommands().InitCommands)
+            {
+                _connection.Execute(command);
+            }
         }
     }
 }
