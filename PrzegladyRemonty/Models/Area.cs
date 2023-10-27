@@ -1,24 +1,24 @@
-﻿namespace PrzegladyRemonty.Models
+namespace PrzegladyRemonty.Models
 {
-    public class Line
+    public class Area
     {
         public int Id { get; }
         public string Name { get; }
         public bool Active { get; }
+        public int Line { get; }
 
-        public Line(
-            int id,
-            string name,
-            bool active)
+        public Area(int id, string name, bool active, int line)
         {
             Id = id;
             Name = name;
             Active = active;
+            Line = line;
         }
 
-        public Line(string name)
+        public Area(string name, int line)
         {
             Name = name;
+            Line = line;
         }
     }
 }

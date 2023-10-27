@@ -48,7 +48,7 @@ namespace PrzegladyRemonty.Database.MS_Access
             CREATE TABLE permission (
                 Id AUTOINCREMENT PRIMARY KEY, 
                 Name VARCHAR, 
-                Active BIT
+                PermissionValue INT
             );";
         private const string _personSQLCommand = @"
             CREATE TABLE person (
