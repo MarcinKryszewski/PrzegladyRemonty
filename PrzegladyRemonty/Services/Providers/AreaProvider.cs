@@ -30,8 +30,6 @@ namespace PrzegladyRemonty.Services.Providers
                 SELECT *
                 FROM area
                 ";
-
-
         private const string _getOneSQL = @"
                 SELECT *
                 FROM area
