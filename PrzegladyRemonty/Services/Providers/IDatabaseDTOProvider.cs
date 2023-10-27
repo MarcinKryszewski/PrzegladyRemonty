@@ -10,5 +10,6 @@ namespace PrzegladyRemonty.Services.Providers
         void Create(T item);
         void Update(T item);
         void Delete(int id);
+
     }
 }

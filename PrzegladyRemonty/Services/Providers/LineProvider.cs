@@ -93,15 +93,15 @@ namespace PrzegladyRemonty.Services.Providers
                 return ToLine(lineDTO);
             }
         }
-        public async void Update(Line item)
+        public async void Update(Line line)
         {
             using (IDbConnection database = _dbContextFactory.Connect())
             {
                 object parameters = new
                 {
-                    Id = item.Id,
-                    Name = item.Name,
-                    Active = item.Active
+                    Id = line.Id,
+                    Name = line.Name,
+                    Active = line.Active
 
                 };
                 await database.ExecuteAsync(_updateSQL, parameters);
