@@ -1,12 +1,13 @@
 ﻿using PrzegladyRemonty.Database.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace PrzegladyRemonty.Database.Providers
+namespace PrzegladyRemonty.Services.Providers
 {
-    public class UserProvider : IDatabaseDTOProvider<UserDTO>
+    public class AreaProvider : IDatabaseDTOProvider<AreaDTO>
     {
-        public void Create(UserDTO item)
+        public void Create(AreaDTO item)
         {
             throw new NotImplementedException();
         }
@@ -16,17 +17,17 @@ namespace PrzegladyRemonty.Database.Providers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UserDTO> GetAll()
+        public Task<IEnumerable<AreaDTO>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public UserDTO GetById(int id)
+        public AreaDTO GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(UserDTO item)
+        public void Update(AreaDTO item)
         {
             throw new NotImplementedException();
         }

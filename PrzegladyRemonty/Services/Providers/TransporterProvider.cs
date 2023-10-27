@@ -1,8 +1,9 @@
 ﻿using PrzegladyRemonty.Database.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace PrzegladyRemonty.Database.Providers
+namespace PrzegladyRemonty.Services.Providers
 {
     public class TransporterProvider : IDatabaseDTOProvider<TransporterDTO>
     {
@@ -16,7 +17,7 @@ namespace PrzegladyRemonty.Database.Providers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<TransporterDTO> GetAll()
+        public Task<IEnumerable<TransporterDTO>> GetAll()
         {
             throw new NotImplementedException();
         }

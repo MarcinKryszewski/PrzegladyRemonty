@@ -1,12 +1,13 @@
 ﻿using PrzegladyRemonty.Database.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace PrzegladyRemonty.Database.Providers
+namespace PrzegladyRemonty.Services.Providers
 {
-    public class LineProvider : IDatabaseDTOProvider<LineDTO>
+    public class PermissionProvider : IDatabaseDTOProvider<PermissionDTO>
     {
-        public void Create(LineDTO item)
+        public void Create(PermissionDTO item)
         {
             throw new NotImplementedException();
         }
@@ -16,17 +17,17 @@ namespace PrzegladyRemonty.Database.Providers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<LineDTO> GetAll()
+        public Task<IEnumerable<PermissionDTO>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public LineDTO GetById(int id)
+        public PermissionDTO GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(LineDTO item)
+        public void Update(PermissionDTO item)
         {
             throw new NotImplementedException();
         }

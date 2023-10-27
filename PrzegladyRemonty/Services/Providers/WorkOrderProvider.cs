@@ -1,8 +1,9 @@
 ﻿using PrzegladyRemonty.Database.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace PrzegladyRemonty.Database.Providers
+namespace PrzegladyRemonty.Services.Providers
 {
     public class WorkOrderProvider : IDatabaseDTOProvider<WorkOrderDTO>
     {
@@ -16,7 +17,7 @@ namespace PrzegladyRemonty.Database.Providers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<WorkOrderDTO> GetAll()
+        public Task<IEnumerable<WorkOrderDTO>> GetAll()
         {
             throw new NotImplementedException();
         }

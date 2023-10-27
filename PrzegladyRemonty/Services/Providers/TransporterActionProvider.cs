@@ -1,12 +1,13 @@
 ﻿using PrzegladyRemonty.Database.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace PrzegladyRemonty.Database.Providers
+namespace PrzegladyRemonty.Services.Providers
 {
-    public class MaintenanceProvider : IDatabaseDTOProvider<MaintenanceDTO>
+    public class TransporterActionProvider : IDatabaseDTOProvider<TransporterActionDTO>
     {
-        public void Create(MaintenanceDTO item)
+        public void Create(TransporterActionDTO item)
         {
             throw new NotImplementedException();
         }
@@ -16,17 +17,17 @@ namespace PrzegladyRemonty.Database.Providers
             throw new NotImplementedException();
         }
 
-        public IEnumerable<MaintenanceDTO> GetAll()
+        public Task<IEnumerable<TransporterActionDTO>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public MaintenanceDTO GetById(int id)
+        public TransporterActionDTO GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(MaintenanceDTO item)
+        public void Update(TransporterActionDTO item)
         {
             throw new NotImplementedException();
         }
