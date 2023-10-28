@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PrzegladyRemonty.Services.Providers
 {
-    public class WorkOrderProvider : IDatabaseDTOProvider<WorkOrderDTO>
+    public class WorkOrderMaintenanceProvider : IDatabaseDTOProvider<WorkOrderDTO>
     {
         public void Create(WorkOrderDTO item)
         {
