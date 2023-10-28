@@ -77,8 +77,8 @@ namespace PrzegladyRemonty.Services.Providers
         {
             using (IDbConnection database = _dbContextFactory.Connect())
             {
-                IEnumerable<ActionCategoryDTO> actionCategoriesDTO = await database.QueryAsync<ActionCategoryDTO>(_getAllSQL);
-                return actionCategoriesDTO.Select(ToActionCategory);
+                IEnumerable<ActionCategoryDTO> actionCategoryDTOs = await database.QueryAsync<ActionCategoryDTO>(_getAllSQL);
+                return actionCategoryDTOs.Select(ToActionCategory);
             }
         }
         public ActionCategory GetById(int id)

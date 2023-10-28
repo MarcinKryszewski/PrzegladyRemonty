@@ -7,16 +7,6 @@ namespace PrzegladyRemonty.Database.Initializers
 {
     public class AccessDatabaseInitializer : IDatabaseInitializer
     {
-        private const string CREATE_RESERVATIONS_TABLE_SQL = @"
-            CREATE TABLE Reservations (
-                Id TEXT PRIMARY KEY, 
-                FloorNumber INTEGER,
-                RoomNumber INTEGER,
-                Username TEXT,
-                StartTime TEXT,
-                EndTime TEXT
-            )";
-
         private readonly IDbConnection _connection;
 
         public AccessDatabaseInitializer(IDbConnection connection)

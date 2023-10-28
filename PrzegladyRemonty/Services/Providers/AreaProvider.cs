@@ -79,8 +79,8 @@ namespace PrzegladyRemonty.Services.Providers
         {
             using (IDbConnection database = _dbContextFactory.Connect())
             {
-                IEnumerable<AreaDTO> areasDTO = await database.QueryAsync<AreaDTO>(_getAllSQL);
-                return areasDTO.Select(ToModel);
+                IEnumerable<AreaDTO> areaDTOs = await database.QueryAsync<AreaDTO>(_getAllSQL);
+                return areaDTOs.Select(ToArea);
             }
         }
         public Area GetById(int id)
@@ -92,7 +92,7 @@ namespace PrzegladyRemonty.Services.Providers
                     Id = id
                 };
                 AreaDTO areaDTO = database.QuerySingleOrDefault<AreaDTO>(_getOneSQL, parameters);
-                return ToModel(areaDTO);
+                return ToArea(areaDTO);
             }
         }
         public async void Update(Area area)
@@ -112,7 +112,7 @@ namespace PrzegladyRemonty.Services.Providers
         }
         #endregion
 
-        private static Area ToModel(AreaDTO areaDTO)
+        private static Area ToArea(AreaDTO areaDTO)
         {
             return new Area(areaDTO.Id, areaDTO.Name, areaDTO.Active, areaDTO.Line);
         }

@@ -6,10 +6,7 @@
         public string Name { get; }
         public bool Active { get; }
 
-        public Line(
-            int id,
-            string name,
-            bool active)
+        public Line(int id, string name, bool active)
         {
             Id = id;
             Name = name;

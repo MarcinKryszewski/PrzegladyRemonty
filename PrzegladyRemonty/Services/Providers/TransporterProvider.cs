@@ -79,8 +79,8 @@ namespace PrzegladyRemonty.Services.Providers
         {
             using (IDbConnection database = _dbContextFactory.Connect())
             {
-                IEnumerable<TransporterDTO> transportersDTO = await database.QueryAsync<TransporterDTO>(_getAllSQL);
-                return transportersDTO.Select(ToTransporter);
+                IEnumerable<TransporterDTO> transporterDTOs = await database.QueryAsync<TransporterDTO>(_getAllSQL);
+                return transporterDTOs.Select(ToTransporter);
             }
         }
         public Transporter GetById(int id)

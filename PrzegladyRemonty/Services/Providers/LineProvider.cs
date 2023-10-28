@@ -77,8 +77,8 @@ namespace PrzegladyRemonty.Services.Providers
         {
             using (IDbConnection database = _dbContextFactory.Connect())
             {
-                IEnumerable<LineDTO> linesDTOs = await database.QueryAsync<LineDTO>(_getAllSQL);
-                return linesDTOs.Select(ToLine);
+                IEnumerable<LineDTO> lineDTOs = await database.QueryAsync<LineDTO>(_getAllSQL);
+                return lineDTOs.Select(ToLine);
             }
         }
         public Line GetById(int id)
