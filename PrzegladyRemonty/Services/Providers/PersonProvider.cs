@@ -1,35 +1,128 @@
-﻿using PrzegladyRemonty.Database.DTOs;
-using System;
+﻿#region Usings
+using Dapper;
+using PrzegladyRemonty.Database;
+using PrzegladyRemonty.Database.DTOs;
+using PrzegladyRemonty.Models;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
+#endregion
 
 namespace PrzegladyRemonty.Services.Providers
 {
-    public class UserProvider : IDatabaseDTOProvider<UserDTO>
+    public class PersonProvider : IDatabaseDTOProvider<Person>
     {
-        public void Create(UserDTO item)
+        private readonly DatabaseConnectionFactory _dbContextFactory;
+
+        #region SQLCommands
+        private const string _createSQL = @"
+                INSERT INTO
+                person (Login, Name, Surname, Active)
+                VALUES (@Login, @Name, @Surname, True)
+                ";
+        private const string _deleteSQL = @"
+                DELETE
+                FROM person
+                WHERE Id = @Id
+                ";
+        private const string _getAllSQL = @"
+                SELECT *
+                FROM person
+                ";
+        private const string _getOneSQL = @"
+                SELECT *
+                FROM person
+                WHERE Id = @Id
+                ";
+        private const string _updateSQL = @"
+                UPDATE  person
+                SET (
+                    Login = @Login, 
+                    Name = @Name,
+                    Surname = @Surname, 
+                    Active = @Active
+                )
+                WHERE Id = @Id
+                ";
+        #endregion
+
+        public PersonProvider(DatabaseConnectionFactory dbContextFactory)
         {
-            throw new NotImplementedException();
+            _dbContextFactory = dbContextFactory;
         }
 
-        public void Delete(int id)
+        #region CRUD
+        public async void Create(Person person)
         {
-            throw new NotImplementedException();
+            using (IDbConnection database = _dbContextFactory.Connect())
+            {
+                object parameters = new
+                {
+                    Login = person.Login,
+                    Name = person.Name,
+                    Surname = person.Surname
+                };
+                await database.ExecuteAsync(_createSQL, parameters);
+            }
         }
-
-        public Task<IEnumerable<UserDTO>> GetAll()
+        public async void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection database = _dbContextFactory.Connect())
+            {
+                object parameters = new
+                {
+                    Id = id
+                };
+                await database.ExecuteAsync(_deleteSQL, parameters);
+            }
         }
-
-        public UserDTO GetById(int id)
+        public async Task<IEnumerable<Person>> GetAll()
         {
-            throw new NotImplementedException();
+            using (IDbConnection database = _dbContextFactory.Connect())
+            {
+                IEnumerable<PersonDTO> personDTOs = await database.QueryAsync<PersonDTO>(_getAllSQL);
+                return personDTOs.Select(ToPerson);
+            }
         }
-
-        public void Update(UserDTO item)
+        public Person GetById(int id)
         {
-            throw new NotImplementedException();
+            using (IDbConnection database = _dbContextFactory.Connect())
+            {
+                object parameters = new
+                {
+                    Id = id
+                };
+                PersonDTO personDTO = database.QuerySingleOrDefault<PersonDTO>(_getOneSQL, parameters);
+                return ToPerson(personDTO);
+            }
+        }
+        public async void Update(Person person)
+        {
+            using (IDbConnection database = _dbContextFactory.Connect())
+            {
+                object parameters = new
+                {
+                    Id = person.Id,
+                    Login = person.Login,
+                    Name = person.Name,
+                    Surname = person.Surname,
+                    Active = person.Active
+                };
+                await database.ExecuteAsync(_updateSQL, parameters);
+            }
+        }
+        #endregion
+
+        private static Person ToPerson(PersonDTO personDTO)
+        {
+            return new Person(
+                personDTO.Id,
+                personDTO.Login,
+                personDTO.Name,
+                personDTO.Surname,
+                personDTO.Active
+                );
         }
     }
 }
