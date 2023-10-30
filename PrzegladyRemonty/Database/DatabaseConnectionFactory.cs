@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Data;
+using System.Data.Common;
 using System.Data.OleDb;
 
 namespace PrzegladyRemonty.Database
@@ -9,14 +9,14 @@ namespace PrzegladyRemonty.Database
     public class DatabaseConnectionFactory : IDisposable
     {
         private readonly IConfiguration _configuration;
-        private IDbConnection _connection;
+        private DbConnection _connection;
 
         public DatabaseConnectionFactory(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-        public IDbConnection Connect()
+        public DbConnection Connect()
         {
             string databaseType = _configuration["DatabaseType"];
             string connectionString;
@@ -44,6 +44,7 @@ namespace PrzegladyRemonty.Database
             if (_connection != null)
             {
                 _connection.Dispose();
+                GC.SuppressFinalize(this);
             }
         }
     }

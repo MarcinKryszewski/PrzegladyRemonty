@@ -69,15 +69,5 @@ namespace PrzegladyRemonty.Properties {
                 return ((byte[])(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] PrzegladyRemonty {
-            get {
-                object obj = ResourceManager.GetObject("PrzegladyRemonty", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

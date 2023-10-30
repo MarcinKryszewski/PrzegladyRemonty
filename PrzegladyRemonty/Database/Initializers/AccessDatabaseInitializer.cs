@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using ADOX;
+using Dapper;
 using PrzegladyRemonty.Database.MS_Access;
 using System.Data;
 using System.IO;
@@ -17,12 +18,18 @@ namespace PrzegladyRemonty.Database.Initializers
         public void Initialize()
         {
             if (File.Exists("PrzegladyRemonty.accdb")) return;
-            CreateNewDatabase();
+            CreateEmptyAccdbFile("PrzegladyRemonty.accdb");
+            CreateDatabase();
+        }
+        static void CreateEmptyAccdbFile(string filePath)
+        {
+            Catalog catalog = new();
+            catalog.Create($"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={filePath};Jet OLEDB:Engine Type=5");
+            catalog = null;
         }
 
-        private void CreateNewDatabase()
+        private void CreateDatabase()
         {
-            File.Copy("Database\\MS Access\\PrzegladyRemonty.accdb", "PrzegladyRemonty.accdb", true);
             foreach (string command in new MsAccessInitCommands().InitCommands)
             {
                 _connection.Execute(command);

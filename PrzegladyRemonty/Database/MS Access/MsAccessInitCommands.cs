@@ -111,6 +111,5 @@ namespace PrzegladyRemonty.Database.MS_Access
                 _workOrderMaintenanceSQLCommand
             };
         }
-
     }
 }

@@ -43,6 +43,13 @@ namespace PrzegladyRemonty
 
         private void ApplicationStart(object sender, StartupEventArgs e)
         {
+            using DatabaseConnectionFactory connectionFactory = new(_configuration);
+            using IDbConnection connection = connectionFactory.Connect();
+
+            DatabaseInitializerFactory initializer = new(_configuration, connection);
+            IDatabaseInitializer databaseInitializer = initializer.CreateInitializer();
+            databaseInitializer.Initialize();
+
             LoginView loginView = new()
             {
                 DataContext = _loginViewModel
@@ -58,13 +65,6 @@ namespace PrzegladyRemonty
             {
                 if (_loginViewModel.IsAuthenticated)
                 {
-                    using DatabaseConnectionFactory connectionFactory = new(_configuration);
-                    using IDbConnection connection = connectionFactory.Connect();
-
-                    DatabaseInitializerFactory initializer = new(_configuration, connection);
-                    IDatabaseInitializer databaseInitializer = initializer.CreateInitializer();
-                    databaseInitializer.Initialize();
-
                     Window loginWindow = MainWindow;
                     INavigationService<DashboardViewModel> dashboardNavigationService = CreateDashboardNavigationService();
                     MainWindow = new MainWindow()

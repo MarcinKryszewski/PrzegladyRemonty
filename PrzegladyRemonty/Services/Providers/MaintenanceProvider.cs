@@ -30,11 +30,13 @@ namespace PrzegladyRemonty.Services.Providers
                 SELECT *
                 FROM maintenance
                 ";
+
         private const string _getOneSQL = @"
                 SELECT *
                 FROM maintenance
                 WHERE Id = @Id
                 ";
+
         private const string _updateSQL = @"
                 UPDATE  maintenance
                 SET (
