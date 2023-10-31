@@ -1,4 +1,6 @@
-﻿namespace PrzegladyRemonty.Models
+﻿using PrzegladyRemonty.Services.Providers;
+
+namespace PrzegladyRemonty.Models
 {
     public class Line
     {
@@ -16,6 +18,15 @@
         public Line(string name)
         {
             Name = name;
+        }
+
+        public void Add(LineProvider lineProvider)
+        {
+            lineProvider.Create(this);
+        }
+        public void Edit(LineProvider lineProvider)
+        {
+            lineProvider.Update(this);
         }
     }
 }

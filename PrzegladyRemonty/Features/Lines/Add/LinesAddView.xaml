@@ -32,6 +32,15 @@
                 Command="{Binding NavigateMainCommand}"
                 Content="Main"
                 Style="{StaticResource NavButton}" />
+            <TextBlock FontSize="20"
+                Foreground="Blue"
+                Text="Nazwa" />
+            <TextBox x:Name="LineName" FontSize="14" Text="{Binding LineName}" />
+
+            <Button Height="40"
+                Command="{Binding AddCommand}"
+                Content="Dodaj"
+                Style="{StaticResource NavButton}" />
         </StackPanel>
     </Grid>
 </UserControl>

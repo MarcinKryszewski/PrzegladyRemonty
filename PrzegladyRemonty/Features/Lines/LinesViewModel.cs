@@ -1,4 +1,5 @@
-﻿using PrzegladyRemonty.Services;
+﻿using Microsoft.Extensions.Hosting;
+using PrzegladyRemonty.Services;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.Stores;
 using PrzegladyRemonty.Shared.ViewModels;
@@ -8,14 +9,15 @@ namespace PrzegladyRemonty.Features.Lines
     public class LinesViewModel : ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
+        private readonly IHost _databaseHost;
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
-        public LinesViewModel()
+        public LinesViewModel(IHost databaseHost)
         {
             _navigationStore = new NavigationStore();
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
             INavigationService<LinesMainViewModel> LinesMainNavigationService = CreateLinesMainNavigationService();
             LinesMainNavigationService.Navigate();
-
+            _databaseHost = databaseHost;
         }
         private void OnCurrentViewModelChanged()
         {
@@ -40,7 +42,8 @@ namespace PrzegladyRemonty.Features.Lines
                 () => new LinesAddViewModel(
                     CreateLinesMainNavigationService(),
                     CreateLinesEditNavigationService(),
-                    CreateLinesDetailsNavigationService()
+                    CreateLinesDetailsNavigationService(),
+                    _databaseHost
                 )
             );
         }

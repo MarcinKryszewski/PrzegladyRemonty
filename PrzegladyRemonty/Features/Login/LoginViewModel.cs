@@ -1,6 +1,4 @@
-﻿using PrzegladyRemonty.Commands;
-using PrzegladyRemonty.Models;
-using PrzegladyRemonty.Services.Providers;
+﻿using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.ViewModels;
 using System.Windows.Input;
 
@@ -31,7 +29,6 @@ namespace PrzegladyRemonty.Features.Login
         }
 
         private string _userType;
-
         public string UserType
         {
             get => _userType;
