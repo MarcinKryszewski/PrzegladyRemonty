@@ -51,17 +51,17 @@ namespace PrzegladyRemonty
             {
                 services.AddSingleton(_database);
 
-                services.AddSingleton<IDatabaseDTOProvider<ActionCategory>, ActionCategoryProvider>();
-                services.AddSingleton<IDatabaseDTOProvider<Area>, AreaProvider>();
-                services.AddSingleton<IDatabaseDTOProvider<Line>, LineProvider>();
-                services.AddSingleton<IDatabaseDTOProvider<Maintenance>, MaintenanceProvider>();
-                services.AddSingleton<IDatabaseDTOProvider<Permission>, PermissionProvider>();
-                services.AddSingleton<IDatabaseDTOProvider<PersonPermission>, PersonPermissionProvider>();
-                services.AddSingleton<IDatabaseDTOProvider<Person>, PersonProvider>();
-                services.AddSingleton<IDatabaseDTOProvider<TransporterAction>, TransporterActionProvider>();
-                services.AddSingleton<IDatabaseDTOProvider<Transporter>, TransporterProvider>();
-                services.AddSingleton<IDatabaseDTOProvider<WorkOrderMaintenance>, WorkOrderMaintenanceProvider>();
-                services.AddSingleton<IDatabaseDTOProvider<WorkOrder>, WorkOrderProvider>();
+                services.AddSingleton<ActionCategoryProvider>();
+                services.AddSingleton<AreaProvider>();
+                services.AddSingleton<LineProvider>();
+                services.AddSingleton<MaintenanceProvider>();
+                services.AddSingleton<PermissionProvider>();
+                services.AddSingleton<PersonPermissionProvider>();
+                services.AddSingleton<PersonProvider>();
+                services.AddSingleton<TransporterActionProvider>();
+                services.AddSingleton<TransporterProvider>();
+                services.AddSingleton<WorkOrderMaintenanceProvider>();
+                services.AddSingleton<WorkOrderProvider>();
             }).Build();
 
             _layoutHost = Host.CreateDefaultBuilder().ConfigureServices(services =>
@@ -71,10 +71,10 @@ namespace PrzegladyRemonty
             }).Build();
 
             _databaseHost.Start();
-            _navigationStore = new NavigationStore();
-            _loginViewModel = new LoginViewModel(new PersonProvider(_database));
-            //_loginViewModel = new LoginViewModel(_databaseHost.Services.GetRequiredService<PersonProvider>());
-            _topPanelViewModel = new TopPanelViewModel();
+            _layoutHost.Start();
+            _navigationStore = _layoutHost.Services.GetRequiredService<NavigationStore>();
+            _loginViewModel = new LoginViewModel(_databaseHost.Services.GetRequiredService<PersonProvider>());
+            _topPanelViewModel = _layoutHost.Services.GetRequiredService<TopPanelViewModel>();
         }
 
         private void ApplicationStart(object sender, StartupEventArgs e)

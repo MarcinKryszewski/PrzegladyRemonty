@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace PrzegladyRemonty.Services.Providers
 {
-    public class PersonProvider : IDatabaseDTOProvider<Person>
+    public class PersonProvider : IDatabaseDTOProvider<Person> //where Person : Person
     {
         private readonly DatabaseConnectionFactory _dbContextFactory;
 
@@ -137,13 +137,14 @@ namespace PrzegladyRemonty.Services.Providers
 
         private static Person ToPerson(PersonDTO personDTO)
         {
-            return new Person(
+            Person person = new(
                 personDTO.Id,
                 personDTO.Login,
                 personDTO.Name,
                 personDTO.Surname,
                 personDTO.Active
-                );
+            );
+            return (Person)person;
         }
     }
 }
