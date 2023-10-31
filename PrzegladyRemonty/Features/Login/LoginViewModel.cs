@@ -1,4 +1,5 @@
 ﻿using PrzegladyRemonty.Commands;
+using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.ViewModels;
 using System.Windows.Input;
 
@@ -39,14 +40,11 @@ namespace PrzegladyRemonty.Features.Login
             }
         }
 
-        public ICommand LoginCommand
-        {
-            get;
-        }
+        public ICommand LoginCommand { get; }
 
-        public LoginViewModel()
+        public LoginViewModel(PersonProvider personProvider)
         {
-            LoginCommand = new LoginCommand(this);
+            LoginCommand = new LoginCommand(this, personProvider);
         }
     }
 }

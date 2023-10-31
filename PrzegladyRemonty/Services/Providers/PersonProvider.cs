@@ -17,34 +17,39 @@ namespace PrzegladyRemonty.Services.Providers
 
         #region SQLCommands
         private const string _createSQL = @"
-                INSERT INTO
-                person (Login, Name, Surname, Active)
-                VALUES (@Login, @Name, @Surname, True)
-                ";
+            INSERT INTO
+            person (Login, Name, Surname, Active)
+            VALUES (@Login, @Name, @Surname, True)
+            ";
         private const string _deleteSQL = @"
-                DELETE
-                FROM person
-                WHERE Id = @Id
-                ";
+            DELETE
+            FROM person
+            WHERE Id = @Id
+            ";
         private const string _getAllSQL = @"
-                SELECT *
-                FROM person
-                ";
+            SELECT *
+            FROM person
+            ";
         private const string _getOneSQL = @"
-                SELECT *
-                FROM person
-                WHERE Id = @Id
-                ";
+            SELECT *
+            FROM person
+            WHERE Id = @Id
+            ";
         private const string _updateSQL = @"
-                UPDATE  person
-                SET (
-                    Login = @Login, 
-                    Name = @Name,
-                    Surname = @Surname, 
-                    Active = @Active
-                )
-                WHERE Id = @Id
-                ";
+            UPDATE  person
+            SET (
+                Login = @Login, 
+                Name = @Name,
+                Surname = @Surname, 
+                Active = @Active
+            )
+            WHERE Id = @Id
+            ";
+        private const string _countByName = @"
+            SELECT COUNT(*)
+            FROM person
+            WHERE Name = @Name
+            ";
         #endregion
 
         public PersonProvider(DatabaseConnectionFactory dbContextFactory)
@@ -113,6 +118,22 @@ namespace PrzegladyRemonty.Services.Providers
             }
         }
         #endregion
+
+        public bool Exists(string name)
+        {
+            int count = 0;
+            using (IDbConnection database = _dbContextFactory.Connect())
+            {
+                object parameters = new
+                {
+                    Name = name
+                };
+                count = database.ExecuteScalar<int>(_countByName, parameters);
+            }
+            if (count == 1) return true;
+            if (count > 1) return true; //TODO: this is an error, requires handler
+            return false;
+        }
 
         private static Person ToPerson(PersonDTO personDTO)
         {

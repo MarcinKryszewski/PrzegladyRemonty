@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using PrzegladyRemonty.Database;
 using PrzegladyRemonty.Database.Initializers;
 using PrzegladyRemonty.Features.ActionsCategories;
@@ -12,7 +14,9 @@ using PrzegladyRemonty.Features.WorkOrders;
 using PrzegladyRemonty.Layout.Main;
 using PrzegladyRemonty.Layout.SidePanel;
 using PrzegladyRemonty.Layout.TopPanel;
+using PrzegladyRemonty.Models;
 using PrzegladyRemonty.Services;
+using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.Stores;
 using System.ComponentModel;
@@ -25,10 +29,14 @@ namespace PrzegladyRemonty
 {
     public partial class App : Application
     {
+
         private readonly IConfiguration _configuration;
+        private readonly IHost _databaseHost;
+        private readonly IHost _layoutHost;
         private readonly LoginViewModel _loginViewModel;
         private readonly NavigationStore _navigationStore;
         private readonly TopPanelViewModel _topPanelViewModel;
+        private readonly DatabaseConnectionFactory _database;
 
         public App()
         {
@@ -36,14 +44,45 @@ namespace PrzegladyRemonty
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
+
+            _database = new(_configuration);
+
+            _databaseHost = Host.CreateDefaultBuilder().ConfigureServices((hostContext, services) =>
+            {
+                services.AddSingleton(_database);
+
+                services.AddSingleton<IDatabaseDTOProvider<ActionCategory>, ActionCategoryProvider>();
+                services.AddSingleton<IDatabaseDTOProvider<Area>, AreaProvider>();
+                services.AddSingleton<IDatabaseDTOProvider<Line>, LineProvider>();
+                services.AddSingleton<IDatabaseDTOProvider<Maintenance>, MaintenanceProvider>();
+                services.AddSingleton<IDatabaseDTOProvider<Permission>, PermissionProvider>();
+                services.AddSingleton<IDatabaseDTOProvider<PersonPermission>, PersonPermissionProvider>();
+                services.AddSingleton<IDatabaseDTOProvider<Person>, PersonProvider>();
+                services.AddSingleton<IDatabaseDTOProvider<TransporterAction>, TransporterActionProvider>();
+                services.AddSingleton<IDatabaseDTOProvider<Transporter>, TransporterProvider>();
+                services.AddSingleton<IDatabaseDTOProvider<WorkOrderMaintenance>, WorkOrderMaintenanceProvider>();
+                services.AddSingleton<IDatabaseDTOProvider<WorkOrder>, WorkOrderProvider>();
+            }).Build();
+
+            _layoutHost = Host.CreateDefaultBuilder().ConfigureServices(services =>
+            {
+                services.AddSingleton<NavigationStore>();
+                services.AddSingleton<TopPanelViewModel>();
+            }).Build();
+
+            _databaseHost.Start();
             _navigationStore = new NavigationStore();
-            _loginViewModel = new();
+            _loginViewModel = new LoginViewModel(new PersonProvider(_database));
+            //_loginViewModel = new LoginViewModel(_databaseHost.Services.GetRequiredService<PersonProvider>());
             _topPanelViewModel = new TopPanelViewModel();
         }
 
         private void ApplicationStart(object sender, StartupEventArgs e)
         {
-            using DatabaseConnectionFactory connectionFactory = new(_configuration);
+            _databaseHost.Start();
+            _layoutHost.Start();
+
+            using DatabaseConnectionFactory connectionFactory = _databaseHost.Services.GetRequiredService<DatabaseConnectionFactory>();
             using IDbConnection connection = connectionFactory.Connect();
 
             DatabaseInitializerFactory initializer = new(_configuration, connection);
