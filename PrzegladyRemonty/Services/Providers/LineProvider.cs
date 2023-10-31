@@ -37,10 +37,9 @@ namespace PrzegladyRemonty.Services.Providers
                 ";
         private const string _updateSQL = @"
                 UPDATE  line
-                SET (
+                SET 
                     Name = @Name,
-                    Active = @Active
-                )
+                    Active = @Active                
                 WHERE Id = @Id
                 ";
         #endregion

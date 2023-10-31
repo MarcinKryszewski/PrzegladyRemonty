@@ -28,5 +28,9 @@ namespace PrzegladyRemonty.Models
         {
             lineProvider.Update(this);
         }
+        public void Delete(LineProvider lineProvider)
+        {
+            lineProvider.Delete(Id);
+        }
     }
 }

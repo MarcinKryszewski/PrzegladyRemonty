@@ -1,12 +1,14 @@
-﻿<UserControl x:Class="PrzegladyRemonty.Features.Lines.LinesEditView"
+﻿<UserControl
+    x:Class="PrzegladyRemonty.Features.Lines.LinesEditView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:PrzegladyRemonty.Features.Lines"
-    mc:Ignorable="d"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignInstance Type=local:LinesEditViewModel}"
     d:DesignHeight="450"
-    d:DesignWidth="800">
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,20 +19,21 @@
     </UserControl.Resources>
     <Grid>
         <StackPanel>
-            <TextBlock FontSize="40"
+            <TextBlock
+                FontSize="40"
                 Foreground="Wheat"
                 Text="Edit" />
-            <Button Content="Details"
+            <TextBox Text="{Binding LineName}" />
+            <CheckBox Content="Status" IsChecked="{Binding LineActive}" />
+            <Button
                 Height="40"
-                Command="{Binding NavigateDetailsCommand}"
+                Command="{Binding EditCommand}"
+                Content="EDYTUJ"
                 Style="{StaticResource NavButton}" />
-            <Button Height="40"
+            <Button
+                Height="40"
                 Command="{Binding NavigateMainCommand}"
                 Content="Main"
-                Style="{StaticResource NavButton}" />
-            <Button Height="40"
-                Command="{Binding NavigateAddCommand}"
-                Content="Add"
                 Style="{StaticResource NavButton}" />
         </StackPanel>
     </Grid>

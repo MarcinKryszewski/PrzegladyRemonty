@@ -47,6 +47,6 @@ namespace PrzegladyRemonty.Shared.Commands
             IsExecuting = false;
         }
 
-        protected abstract Task ExecuteAsync(object parameter);
+        public abstract Task ExecuteAsync(object parameter);
     }
 }

@@ -10,19 +10,28 @@ namespace PrzegladyRemonty.Features.Lines
     {
         private readonly NavigationStore _navigationStore;
         private readonly IHost _databaseHost;
+        private readonly SelectedLine _line;
+
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+
         public LinesViewModel(IHost databaseHost)
         {
             _navigationStore = new NavigationStore();
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            _databaseHost = databaseHost;
+            _line = new SelectedLine();
+
             INavigationService<LinesMainViewModel> LinesMainNavigationService = CreateLinesMainNavigationService();
             LinesMainNavigationService.Navigate();
-            _databaseHost = databaseHost;
+
+
         }
+
         private void OnCurrentViewModelChanged()
         {
             OnPropertyChanged(nameof(CurrentViewModel));
         }
+
         private INavigationService<LinesMainViewModel> CreateLinesMainNavigationService()
         {
             return new DefaultNavigationService<LinesMainViewModel>
@@ -31,9 +40,12 @@ namespace PrzegladyRemonty.Features.Lines
                 () => new LinesMainViewModel(
                     CreateLinesEditNavigationService(),
                     CreateLinesAddNavigationService(),
-                    CreateLinesDetailsNavigationService())
+                    CreateLinesDetailsNavigationService(),
+                    _line,
+                    _databaseHost)
             );
         }
+
         private INavigationService<LinesAddViewModel> CreateLinesAddNavigationService()
         {
             return new DefaultNavigationService<LinesAddViewModel>
@@ -41,24 +53,22 @@ namespace PrzegladyRemonty.Features.Lines
                 _navigationStore,
                 () => new LinesAddViewModel(
                     CreateLinesMainNavigationService(),
-                    CreateLinesEditNavigationService(),
-                    CreateLinesDetailsNavigationService(),
                     _databaseHost
                 )
             );
         }
+
         private INavigationService<LinesDetailsViewModel> CreateLinesDetailsNavigationService()
         {
             return new DefaultNavigationService<LinesDetailsViewModel>
             (
                 _navigationStore,
                 () => new LinesDetailsViewModel(
-                    CreateLinesMainNavigationService(),
-                    CreateLinesEditNavigationService(),
-                    CreateLinesAddNavigationService()
+                    CreateLinesMainNavigationService()
                 )
             );
         }
+
         private INavigationService<LinesEditViewModel> CreateLinesEditNavigationService()
         {
             return new DefaultNavigationService<LinesEditViewModel>
@@ -66,9 +76,11 @@ namespace PrzegladyRemonty.Features.Lines
                 _navigationStore,
                 () => new LinesEditViewModel(
                     CreateLinesMainNavigationService(),
-                    CreateLinesAddNavigationService(),
-                    CreateLinesDetailsNavigationService())
+                    _line,
+                    _databaseHost)
             );
         }
+
+
     }
 }

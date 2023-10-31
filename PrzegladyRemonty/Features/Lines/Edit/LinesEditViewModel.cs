@@ -1,21 +1,27 @@
-﻿using System.Windows.Input;
-using PrzegladyRemonty.Models;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Commands;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.ViewModels;
+using System.Windows.Input;
 
 namespace PrzegladyRemonty.Features.Lines
 {
     public class LinesEditViewModel : ViewModelBase
     {
-        private readonly Line _line;
         private string _lineName;
         private bool _lineActive;
+        private int _lineId;
 
-        public ICommand NavigateMainCommand { get; }
-        public ICommand NavigateAddCommand { get; }
-        public ICommand NavigateDetailsCommand { get; }
-
+        public int LineId
+        {
+            get => _lineId;
+            set
+            {
+                _lineId = value;
+            }
+        }
         public string LineName
         {
             get => _lineName;
@@ -35,24 +41,22 @@ namespace PrzegladyRemonty.Features.Lines
             }
         }
 
+        public ICommand NavigateMainCommand { get; }
         public ICommand EditCommand { get; }
 
         public LinesEditViewModel(
             INavigationService<LinesMainViewModel> linesMainViewModel,
-            INavigationService<LinesAddViewModel> linesAddViewModel,
-            INavigationService<LinesDetailsViewModel> linesDetailsViewModel,
-            Line line
+            SelectedLine selectedLine,
+            IHost databaseHost
             )
         {
             NavigateMainCommand = new NavigateCommand<LinesMainViewModel>(linesMainViewModel);
-            NavigateAddCommand = new NavigateCommand<LinesAddViewModel>(linesAddViewModel);
-            NavigateDetailsCommand = new NavigateCommand<LinesDetailsViewModel>(linesDetailsViewModel);
 
-            _line = line;
-            _lineName = _line.Name;
-            _lineActive = _line.Active;
+            _lineId = selectedLine.Line.Id;
+            _lineName = selectedLine.Line.Name;
+            _lineActive = selectedLine.Line.Active;
 
-            EditCommand = new LinesEditCommand
+            EditCommand = new LinesEditCommand(this, databaseHost.Services.GetRequiredService<LineProvider>());
         }
     }
 }

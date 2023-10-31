@@ -7,6 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Features\Lines\Edit\LinesEditCommand.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Remove="appsettings.json" />
 		<None Remove="Resources\logo.png" />
 		<None Remove="Resources\PrzegladyRemonty.accdb" />
@@ -34,6 +38,10 @@
 
 	<ItemGroup>
 		<Folder Include="Stores\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Features\Lines\Commands\LinesEditCommand.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

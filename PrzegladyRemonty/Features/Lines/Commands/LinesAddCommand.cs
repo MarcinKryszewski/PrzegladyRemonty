@@ -1,4 +1,3 @@
-using System;
 using PrzegladyRemonty.Models;
 using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Commands;
@@ -21,6 +20,7 @@ namespace PrzegladyRemonty.Features.Lines
 
             Line line = new(lineName);
             line.Add(_lineProvider);
+            _linesAddViewModel.NavigateMainCommand.Execute(null);
         }
     }
 }

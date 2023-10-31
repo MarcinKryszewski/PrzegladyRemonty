@@ -1,16 +1,18 @@
-﻿using System.Windows.Input;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Commands;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.ViewModels;
+using System.Windows.Input;
 
 namespace PrzegladyRemonty.Features.Lines
 {
     public class LinesAddViewModel : ViewModelBase
     {
         private string _lineName;
+        private IHost _databaseHost;
+
         public string LineName
         {
             get => _lineName;
@@ -22,25 +24,20 @@ namespace PrzegladyRemonty.Features.Lines
         }
 
         public ICommand NavigateMainCommand { get; }
-        public ICommand NavigateEditCommand { get; }
-        public ICommand NavigateDetailsCommand { get; }
         public ICommand AddCommand { get; }
 
         public LinesAddViewModel(
             INavigationService<LinesMainViewModel> linesMainViewModel,
-            INavigationService<LinesEditViewModel> linesEditViewModel,
-            INavigationService<LinesDetailsViewModel> linesDetailsViewModel,
             IHost databaseHost
             )
         {
             NavigateMainCommand = new NavigateCommand<LinesMainViewModel>(linesMainViewModel);
-            NavigateEditCommand = new NavigateCommand<LinesEditViewModel>(linesEditViewModel);
-            NavigateDetailsCommand = new NavigateCommand<LinesDetailsViewModel>(linesDetailsViewModel);
 
+            _databaseHost = databaseHost;
             AddCommand = new LinesAddCommand(
                 this,
-                databaseHost.Services.GetRequiredService<LineProvider>()
-                );
+                _databaseHost.Services.GetRequiredService<LineProvider>()
+            );
         }
     }
 }
