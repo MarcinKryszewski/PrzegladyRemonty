@@ -136,7 +136,7 @@ namespace PrzegladyRemonty
             return new LayoutNavigationService<AreasViewModel>
             (
                 _navigationStore,
-                () => new AreasViewModel(),
+                () => new AreasViewModel(_databaseHost),
                 CreateSidePanelViewModel,
                 _topPanelViewModel
             );
