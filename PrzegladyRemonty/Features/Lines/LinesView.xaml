@@ -17,7 +17,6 @@
 
         <TextBlock
             Grid.Row="0"
-            Height="50px"
             VerticalAlignment="Top"
             FontSize="40"
             Foreground="Wheat"

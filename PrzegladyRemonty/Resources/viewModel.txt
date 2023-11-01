@@ -3,7 +3,7 @@ public class TransporterListViewModel : ViewModelBase
 
         private readonly ProductionHall _productionHall;
         private TransporterWindowViewModel _transporterWindowView;
-        public IEnumerable<Line> Lines => _productionHall.Lines;
+        public IEnumerable<Area> Areas => _productionHall.Areas;
         //public ICommand TransporterChooseCommand { get; }
         public ICommand AddTransporterToList { get; }
         public ICommand AddAreaTransporterToList { get; }

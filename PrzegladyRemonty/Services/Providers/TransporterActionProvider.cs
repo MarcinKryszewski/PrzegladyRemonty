@@ -37,12 +37,11 @@ namespace PrzegladyRemonty.Services.Providers
                 ";
         private const string _updateSQL = @"
                 UPDATE  transporterAction
-                SET (
+                SET 
                     Transporter = @Transporter,
                     MaintenanceAction = @MaintenanceAction,
                     Frequency = @Frequency,
                     FrequencyUnit = @FrequencyUnit
-                )
                 WHERE Id = @Id
                 ";
         #endregion
@@ -67,7 +66,7 @@ namespace PrzegladyRemonty.Services.Providers
                 await database.ExecuteAsync(_createSQL, parameters);
             }
         }
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             using (IDbConnection database = _dbContextFactory.Connect())
             {

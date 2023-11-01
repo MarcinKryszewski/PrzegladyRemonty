@@ -23,8 +23,6 @@ namespace PrzegladyRemonty.Features.Lines
 
             INavigationService<LinesMainViewModel> LinesMainNavigationService = CreateLinesMainNavigationService();
             LinesMainNavigationService.Navigate();
-
-
         }
 
         private void OnCurrentViewModelChanged()

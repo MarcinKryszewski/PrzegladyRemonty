@@ -23,12 +23,15 @@
                 FontSize="40"
                 Foreground="Wheat"
                 Text="Edit" />
-            <TextBox Text="{Binding LineName}" />
-            <CheckBox Content="Status" IsChecked="{Binding LineActive}" />
+            <TextBox Foreground="Wheat" Text="{Binding LineName}" />
+            <CheckBox
+                Content="Status"
+                Foreground="Wheat"
+                IsChecked="{Binding LineActive}" />
             <Button
                 Height="40"
                 Command="{Binding EditCommand}"
-                Content="EDYTUJ"
+                Content="ZMIEŃ"
                 Style="{StaticResource NavButton}" />
             <Button
                 Height="40"

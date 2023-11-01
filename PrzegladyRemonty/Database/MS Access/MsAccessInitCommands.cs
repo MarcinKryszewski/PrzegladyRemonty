@@ -89,10 +89,27 @@ namespace PrzegladyRemonty.Database.MS_Access
                 Id AUTOINCREMENT PRIMARY KEY, 
                 WorkOrder INT, 
                 Maintenance INT, 
-                FOREIGN KEY (WorkOrder) 
-                REFERENCES workOrder (Id), 
+                FOREIGN KEY (WorkOrder) REFERENCES workOrder (Id), 
                 FOREIGN KEY (Maintenance) REFERENCES maintenance (Id)
             );";
+        private const string _partSQLCommand = @"
+            CREATE TABLE part (
+                Id AUTOINCREMENT PRIMARY KEY,
+                Name TEXT,
+                Producent INTEGER,
+                ProducentNumber TEXT,
+                PRIMARY KEY(Id AUTOINCREMENT)
+            )";
+        private const string _transporterPartSQLCommand = @"
+            CREATE TABLE transporterPart (
+                Id AUTOINCREMENT PRIMARY KEY,
+                Transporter INT,
+                Part INT,
+                Amount INT,
+                Unit VARCHAR,
+                FOREIGN KEY (Part) REFERENCES part (Id),
+                FOREIGN KEY (Transporter) REFERENCES transporter (Id)
+            )";
 
         public MsAccessInitCommands()
         {

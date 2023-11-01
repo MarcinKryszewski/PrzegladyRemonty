@@ -34,10 +34,12 @@ namespace PrzegladyRemonty.Features.Lines
                 _selectedLine = value;
                 _lineStore.Line = value;
                 OnPropertyChanged(nameof(SelectedLine));
+                OnPropertyChanged(nameof(IsLineSelected));
             }
         }
 
-        public SelectedLine LineStore => _lineStore;
+        public SelectedLine SelectedLineStore => _lineStore;
+        public bool IsLineSelected => _selectedLine != null;
 
         public LinesMainViewModel(
             INavigationService<LinesEditViewModel> linesEditViewModel,
@@ -55,14 +57,14 @@ namespace PrzegladyRemonty.Features.Lines
             _lines = new ObservableCollection<Line>();
             _lineStore = selectedLine;
             LinesLoadCommand = new LinesLoadCommand(this, _databaseHost.Services.GetRequiredService<LineProvider>());
-            LinesLoadCommand.Execute(null);
             LinesRemoveCommand = new LinesRemoveCommand(this, _databaseHost.Services.GetRequiredService<LineProvider>());
+
+            LinesLoadCommand.Execute(null);
         }
 
-        internal void UpdateLines(IEnumerable<Line> lines)
+        public void UpdateLines(IEnumerable<Line> lines)
         {
             _lines.Clear();
-
             foreach (Line line in lines)
             {
                 _lines.Add(line);

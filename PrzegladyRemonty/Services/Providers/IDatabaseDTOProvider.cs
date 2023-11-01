@@ -9,6 +9,6 @@ namespace PrzegladyRemonty.Services.Providers
         Task<IEnumerable<T>> GetAll();
         void Create(T item);
         void Update(T item);
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

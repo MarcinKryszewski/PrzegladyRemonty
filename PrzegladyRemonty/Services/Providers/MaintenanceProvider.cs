@@ -39,13 +39,12 @@ namespace PrzegladyRemonty.Services.Providers
 
         private const string _updateSQL = @"
                 UPDATE  maintenance
-                SET (
+                SET 
                     MaintenanceDate = @MaintenanceDate, 
                     Mechanic = @Mechanic, 
                     MaintenanceAction, = @MaintenanceAction 
                     Completed = @Completed, 
                     Description = @Description
-                )
                 WHERE Id = @Id
                 ";
         #endregion
@@ -71,7 +70,7 @@ namespace PrzegladyRemonty.Services.Providers
                 await database.ExecuteAsync(_createSQL, parameters);
             }
         }
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             using (IDbConnection database = _dbContextFactory.Connect())
             {

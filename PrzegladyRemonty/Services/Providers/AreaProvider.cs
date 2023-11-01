@@ -37,11 +37,10 @@ namespace PrzegladyRemonty.Services.Providers
                 ";
         private const string _updateSQL = @"
                 UPDATE  area
-                SET (
+                SET 
                     Name = @Name,
                     Active = @Active,
                     Line = @Line
-                )
                 WHERE Id = @Id
                 ";
         #endregion
@@ -59,12 +58,12 @@ namespace PrzegladyRemonty.Services.Providers
                 object parameters = new
                 {
                     Name = area.Name,
-                    Line = area.Line
+                    Line = area.LineId
                 };
                 await database.ExecuteAsync(_createSQL, parameters);
             }
         }
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             using (IDbConnection database = _dbContextFactory.Connect())
             {
@@ -104,7 +103,7 @@ namespace PrzegladyRemonty.Services.Providers
                     Id = area.Id,
                     Name = area.Name,
                     Active = area.Active,
-                    Line = area.Line
+                    Line = area.LineId
 
                 };
                 await database.ExecuteAsync(_updateSQL, parameters);

@@ -37,12 +37,11 @@ namespace PrzegladyRemonty.Services.Providers
             ";
         private const string _updateSQL = @"
             UPDATE  person
-            SET (
+            SET 
                 Login = @Login, 
                 Name = @Name,
                 Surname = @Surname, 
                 Active = @Active
-            )
             WHERE Id = @Id
             ";
         private const string _countByName = @"
@@ -71,7 +70,7 @@ namespace PrzegladyRemonty.Services.Providers
                 await database.ExecuteAsync(_createSQL, parameters);
             }
         }
-        public async void Delete(int id)
+        public async Task Delete(int id)
         {
             using (IDbConnection database = _dbContextFactory.Connect())
             {

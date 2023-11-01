@@ -1,11 +1,11 @@
 <Grid>
-        <TreeView ItemsSource="{Binding Lines}"
+        <TreeView ItemsSource="{Binding Areas}"
                   Background="{StaticResource ColorBackgroundQuaternary}"
                   BorderThickness="0 1 0 1"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <TreeView.Resources>
                 <HierarchicalDataTemplate ItemsSource="{Binding Items}"
-                                          DataType="{x:Type models:Line}">
+                                          DataType="{x:Type models:Area}">
                     <Button HorizontalContentAlignment="Stretch"
                             Background="Transparent"
                             BorderThickness="0"

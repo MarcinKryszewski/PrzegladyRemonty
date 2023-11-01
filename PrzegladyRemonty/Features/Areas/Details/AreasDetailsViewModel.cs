@@ -1,7 +1,7 @@
-﻿using System.Windows.Input;
-using PrzegladyRemonty.Shared.Commands;
+﻿using PrzegladyRemonty.Shared.Commands;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.ViewModels;
+using System.Windows.Input;
 
 namespace PrzegladyRemonty.Features.Areas
 {
@@ -12,14 +12,10 @@ namespace PrzegladyRemonty.Features.Areas
         public ICommand NavigateAddCommand { get; }
 
         public AreasDetailsViewModel(
-            INavigationService<AreasMainViewModel> areasMainViewModel,
-            INavigationService<AreasEditViewModel> areasEditViewModel,
-            INavigationService<AreasAddViewModel> areasAddViewModel
+            INavigationService<AreasMainViewModel> areasMainViewModel
             )
         {
             NavigateMainCommand = new NavigateCommand<AreasMainViewModel>(areasMainViewModel);
-            NavigateEditCommand = new NavigateCommand<AreasEditViewModel>(areasEditViewModel);
-            NavigateAddCommand = new NavigateCommand<AreasAddViewModel>(areasAddViewModel);
         }
     }
 }
