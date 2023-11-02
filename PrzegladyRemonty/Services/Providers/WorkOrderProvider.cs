@@ -52,60 +52,50 @@ namespace PrzegladyRemonty.Services.Providers
         #region CRUD
         public async void Create(WorkOrder workOrder)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Created = workOrder.Created,
-                    CreatedBy = workOrder.CreatedBy
-                };
-                await database.ExecuteAsync(_createSQL, parameters);
-            }
+                Created = workOrder.Created,
+                CreatedBy = workOrder.CreatedBy
+            };
+            await database.ExecuteAsync(_createSQL, parameters);
         }
         public async Task Delete(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                await database.ExecuteAsync(_deleteSQL, parameters);
-            }
+                Id = id
+            };
+            await database.ExecuteAsync(_deleteSQL, parameters);
         }
         public async Task<IEnumerable<WorkOrder>> GetAll()
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
-            {
-                IEnumerable<WorkOrderDTO> workOrderDTOs = await database.QueryAsync<WorkOrderDTO>(_getAllSQL);
-                return workOrderDTOs.Select(ToWorkOrder);
-            }
+            using IDbConnection database = _dbContextFactory.Connect();
+            IEnumerable<WorkOrderDTO> workOrderDTOs = await database.QueryAsync<WorkOrderDTO>(_getAllSQL);
+            return workOrderDTOs.Select(ToWorkOrder);
         }
         public WorkOrder GetById(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                WorkOrderDTO workOrderDTO = database.QuerySingleOrDefault<WorkOrderDTO>(_getOneSQL, parameters);
-                return ToWorkOrder(workOrderDTO);
-            }
+                Id = id
+            };
+            WorkOrderDTO workOrderDTO = database.QuerySingleOrDefault<WorkOrderDTO>(_getOneSQL, parameters);
+            return ToWorkOrder(workOrderDTO);
         }
         public async void Update(WorkOrder workOrder)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = workOrder.Id,
-                    Created = workOrder.Created,
-                    CreatedBy = workOrder.CreatedBy
+                Id = workOrder.Id,
+                Created = workOrder.Created,
+                CreatedBy = workOrder.CreatedBy
 
-                };
-                await database.ExecuteAsync(_updateSQL, parameters);
-            }
+            };
+            await database.ExecuteAsync(_updateSQL, parameters);
         }
         #endregion
 

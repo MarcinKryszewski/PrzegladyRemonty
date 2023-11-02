@@ -19,11 +19,13 @@ namespace PrzegladyRemonty.Models
             Id = id;
             Name = name;
             Active = active;
+            _areas = new ObservableCollection<Area>();
         }
 
         public Line(string name)
         {
             Name = name;
+            _areas = new ObservableCollection<Area>();
         }
 
         public void AddArea(Area area)

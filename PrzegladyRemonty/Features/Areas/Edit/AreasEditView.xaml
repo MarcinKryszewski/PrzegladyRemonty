@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:PrzegladyRemonty.Features.Areas"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:placeholdertextbox="clr-namespace:PrzegladyRemonty.Controls.PlaceholderTextBox"
     d:DataContext="{d:DesignInstance Type=local:AreasEditViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -14,51 +15,80 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../../../Themes/Colors.xaml" />
                 <ResourceDictionary Source="../../../Themes/Controls/Buttons.xaml" />
+                <ResourceDictionary Source="../../../Themes/Controls/PlaceholderTextBoxes.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <StackPanel>
-            <TextBlock
-                FontSize="40"
-                Foreground="Wheat"
-                Text="Edit" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
 
-            <TextBlock Foreground="Wheat" Text="Nazwa" />
-            <TextBox Text="{Binding Name}" />
-            <Border Height="10px" />
-            <TextBlock Foreground="Wheat" Text="Linia" />
-            <ComboBox
-                DisplayMemberPath="Name"
-                ItemsSource="{Binding Lines}"
-                SelectedItem="{Binding Line, Mode=TwoWay}" />
-            <Border Height="10px" />
+        <TextBlock
+            Grid.Row="0"
+            FontSize="40"
+            Foreground="Wheat"
+            Text="Edit" />
+
+        <Grid Grid.Row="1" Width="300px">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Foreground="Wheat"
+                    Text="Nazwa" />
+                <placeholdertextbox:PlaceholderTextBoxControl
+                    Grid.Row="1"
+                    Placeholder="Nazwa"
+                    Style="{StaticResource MainTextBox}"
+                    Text="{Binding Name}" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <TextBlock Foreground="Wheat" Text="Linia" />
+                <ComboBox
+                    DisplayMemberPath="Name"
+                    ItemsSource="{Binding Lines}"
+                    SelectedItem="{Binding Line, Mode=TwoWay}" />
+            </Grid>
             <CheckBox
+                Grid.Row="2"
                 Content="Aktywny"
                 Foreground="Wheat"
                 IsChecked="{Binding Active}" />
+        </Grid>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="0.05*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="4*" />
-                </Grid.ColumnDefinitions>
-                <Button
-                    Grid.Column="1"
-                    Height="40"
-                    Command="{Binding EditCommand}"
-                    Content="ZMIEŃ"
-                    Style="{StaticResource NavButton}" />
-                <Button
-                    Grid.Column="3"
-                    Height="40"
-                    Command="{Binding NavigateMainCommand}"
-                    Content="WRÓĆ"
-                    Style="{StaticResource NavButton}" />
-            </Grid>
-        </StackPanel>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="0.05*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.Column="1"
+                Height="40"
+                Command="{Binding EditCommand}"
+                Content="ZMIEŃ"
+                Style="{StaticResource MainButton}" />
+            <Button
+                Grid.Column="3"
+                Height="40"
+                Command="{Binding NavigateMainCommand}"
+                Content="WRÓĆ"
+                Style="{StaticResource SideButton}" />
+        </Grid>
     </Grid>
 </UserControl>

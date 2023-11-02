@@ -52,59 +52,49 @@ namespace PrzegladyRemonty.Services.Providers
         #region CRUD
         public async void Create(Line line)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Name = line.Name
-                };
-                await database.ExecuteAsync(_createSQL, parameters);
-            }
+                Name = line.Name
+            };
+            await database.ExecuteAsync(_createSQL, parameters);
         }
         public async Task Delete(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                await database.ExecuteAsync(_deleteSQL, parameters);
-            }
+                Id = id
+            };
+            await database.ExecuteAsync(_deleteSQL, parameters);
         }
         public async Task<IEnumerable<Line>> GetAll()
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
-            {
-                IEnumerable<LineDTO> lineDTOs = await database.QueryAsync<LineDTO>(_getAllSQL);
-                return lineDTOs.Select(ToLine);
-            }
+            using IDbConnection database = _dbContextFactory.Connect();
+            IEnumerable<LineDTO> lineDTOs = await database.QueryAsync<LineDTO>(_getAllSQL);
+            return lineDTOs.Select(ToLine);
         }
         public Line GetById(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                LineDTO lineDTO = database.QuerySingleOrDefault<LineDTO>(_getOneSQL, parameters);
-                return ToLine(lineDTO);
-            }
+                Id = id
+            };
+            LineDTO lineDTO = database.QuerySingleOrDefault<LineDTO>(_getOneSQL, parameters);
+            return ToLine(lineDTO);
         }
         public async void Update(Line line)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = line.Id,
-                    Name = line.Name,
-                    Active = line.Active
+                Id = line.Id,
+                Name = line.Name,
+                Active = line.Active
 
-                };
-                await database.ExecuteAsync(_updateSQL, parameters);
-            }
+            };
+            await database.ExecuteAsync(_updateSQL, parameters);
         }
         #endregion
 

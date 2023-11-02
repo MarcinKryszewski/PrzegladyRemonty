@@ -53,60 +53,50 @@ namespace PrzegladyRemonty.Services.Providers
         #region CRUD
         public async void Create(Transporter transporter)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Name = transporter.Name,
-                    Area = transporter.Area
-                };
-                await database.ExecuteAsync(_createSQL, parameters);
-            }
+                Name = transporter.Name,
+                Area = transporter.Area
+            };
+            await database.ExecuteAsync(_createSQL, parameters);
         }
         public async Task Delete(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                await database.ExecuteAsync(_deleteSQL, parameters);
-            }
+                Id = id
+            };
+            await database.ExecuteAsync(_deleteSQL, parameters);
         }
         public async Task<IEnumerable<Transporter>> GetAll()
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
-            {
-                IEnumerable<TransporterDTO> transporterDTOs = await database.QueryAsync<TransporterDTO>(_getAllSQL);
-                return transporterDTOs.Select(ToTransporter);
-            }
+            using IDbConnection database = _dbContextFactory.Connect();
+            IEnumerable<TransporterDTO> transporterDTOs = await database.QueryAsync<TransporterDTO>(_getAllSQL);
+            return transporterDTOs.Select(ToTransporter);
         }
         public Transporter GetById(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                TransporterDTO transporterDTO = database.QuerySingleOrDefault<TransporterDTO>(_getOneSQL, parameters);
-                return ToTransporter(transporterDTO);
-            }
+                Id = id
+            };
+            TransporterDTO transporterDTO = database.QuerySingleOrDefault<TransporterDTO>(_getOneSQL, parameters);
+            return ToTransporter(transporterDTO);
         }
         public async void Update(Transporter transporter)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = transporter.Id,
-                    Name = transporter.Name,
-                    Active = transporter.Active,
-                    Area = transporter.Area
-                };
-                await database.ExecuteAsync(_updateSQL, parameters);
-            }
+                Id = transporter.Id,
+                Name = transporter.Name,
+                Active = transporter.Active,
+                Area = transporter.Area
+            };
+            await database.ExecuteAsync(_updateSQL, parameters);
         }
         #endregion
 

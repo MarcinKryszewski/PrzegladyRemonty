@@ -6,8 +6,8 @@ namespace PrzegladyRemonty.Features.Areas
 {
     public class AreasAddCommand : CommandBase
     {
-        private AreasAddViewModel _viewModel;
-        private AreaProvider _provider;
+        private readonly AreasAddViewModel _viewModel;
+        private readonly AreaProvider _provider;
 
         public AreasAddCommand(AreasAddViewModel viewModel, AreaProvider provider)
         {

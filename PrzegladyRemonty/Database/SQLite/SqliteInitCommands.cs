@@ -101,7 +101,7 @@ namespace PrzegladyRemonty.Database.SQLite
                 PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _partSQLCommand = @"
-            CREATE TABLE part (
+            CREATE TABLE IF NOT EXISTS part (
                 Id INTEGER,
                 Name TEXT,
                 Producent INTEGER,
@@ -109,7 +109,7 @@ namespace PrzegladyRemonty.Database.SQLite
                 PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _transporterPartSQLCommand = @"
-            CREATE TABLE transporterPart (
+            CREATE TABLE IF NOT EXISTS transporterPart (
                 Id INTEGER,
                 Transporter INTEGER,
                 Part INTEGER,

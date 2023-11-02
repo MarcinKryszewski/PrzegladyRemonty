@@ -59,62 +59,52 @@ namespace PrzegladyRemonty.Services.Providers
         #region CRUD
         public async void Create(Person person)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Login = person.Login,
-                    Name = person.Name,
-                    Surname = person.Surname
-                };
-                await database.ExecuteAsync(_createSQL, parameters);
-            }
+                Login = person.Login,
+                Name = person.Name,
+                Surname = person.Surname
+            };
+            await database.ExecuteAsync(_createSQL, parameters);
         }
         public async Task Delete(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                await database.ExecuteAsync(_deleteSQL, parameters);
-            }
+                Id = id
+            };
+            await database.ExecuteAsync(_deleteSQL, parameters);
         }
         public async Task<IEnumerable<Person>> GetAll()
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
-            {
-                IEnumerable<PersonDTO> personDTOs = await database.QueryAsync<PersonDTO>(_getAllSQL);
-                return personDTOs.Select(ToPerson);
-            }
+            using IDbConnection database = _dbContextFactory.Connect();
+            IEnumerable<PersonDTO> personDTOs = await database.QueryAsync<PersonDTO>(_getAllSQL);
+            return personDTOs.Select(ToPerson);
         }
         public Person GetById(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                PersonDTO personDTO = database.QuerySingleOrDefault<PersonDTO>(_getOneSQL, parameters);
-                return ToPerson(personDTO);
-            }
+                Id = id
+            };
+            PersonDTO personDTO = database.QuerySingleOrDefault<PersonDTO>(_getOneSQL, parameters);
+            return ToPerson(personDTO);
         }
         public async void Update(Person person)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = person.Id,
-                    Login = person.Login,
-                    Name = person.Name,
-                    Surname = person.Surname,
-                    Active = person.Active
-                };
-                await database.ExecuteAsync(_updateSQL, parameters);
-            }
+                Id = person.Id,
+                Login = person.Login,
+                Name = person.Name,
+                Surname = person.Surname,
+                Active = person.Active
+            };
+            await database.ExecuteAsync(_updateSQL, parameters);
         }
         #endregion
 

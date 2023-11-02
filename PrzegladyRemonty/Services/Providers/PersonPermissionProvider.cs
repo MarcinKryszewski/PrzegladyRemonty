@@ -52,59 +52,49 @@ namespace PrzegladyRemonty.Services.Providers
         #region CRUD
         public async void Create(PersonPermission personPermission)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Person = personPermission.Person,
-                    Permission = personPermission.Permission
-                };
-                await database.ExecuteAsync(_createSQL, parameters);
-            }
+                Person = personPermission.Person,
+                Permission = personPermission.Permission
+            };
+            await database.ExecuteAsync(_createSQL, parameters);
         }
         public async Task Delete(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                await database.ExecuteAsync(_deleteSQL, parameters);
-            }
+                Id = id
+            };
+            await database.ExecuteAsync(_deleteSQL, parameters);
         }
         public async Task<IEnumerable<PersonPermission>> GetAll()
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
-            {
-                IEnumerable<PersonPermissionDTO> personPermissionDTOs = await database.QueryAsync<PersonPermissionDTO>(_getAllSQL);
-                return personPermissionDTOs.Select(ToPersonPermission);
-            }
+            using IDbConnection database = _dbContextFactory.Connect();
+            IEnumerable<PersonPermissionDTO> personPermissionDTOs = await database.QueryAsync<PersonPermissionDTO>(_getAllSQL);
+            return personPermissionDTOs.Select(ToPersonPermission);
         }
         public PersonPermission GetById(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                PersonPermissionDTO personPermissionDTO = database.QuerySingleOrDefault<PersonPermissionDTO>(_getOneSQL, parameters);
-                return ToPersonPermission(personPermissionDTO);
-            }
+                Id = id
+            };
+            PersonPermissionDTO personPermissionDTO = database.QuerySingleOrDefault<PersonPermissionDTO>(_getOneSQL, parameters);
+            return ToPersonPermission(personPermissionDTO);
         }
         public async void Update(PersonPermission personPermission)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = personPermission.Id,
-                    Person = personPermission.Person,
-                    Permission = personPermission.Permission
-                };
-                await database.ExecuteAsync(_updateSQL, parameters);
-            }
+                Id = personPermission.Id,
+                Person = personPermission.Person,
+                Permission = personPermission.Permission
+            };
+            await database.ExecuteAsync(_updateSQL, parameters);
         }
         #endregion
 

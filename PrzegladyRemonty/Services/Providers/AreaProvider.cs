@@ -53,61 +53,51 @@ namespace PrzegladyRemonty.Services.Providers
         #region CRUD
         public async void Create(Area area)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Name = area.Name,
-                    Line = area.LineId
-                };
-                await database.ExecuteAsync(_createSQL, parameters);
-            }
+                Name = area.Name,
+                Line = area.LineId
+            };
+            await database.ExecuteAsync(_createSQL, parameters);
         }
         public async Task Delete(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                await database.ExecuteAsync(_deleteSQL, parameters);
-            }
+                Id = id
+            };
+            await database.ExecuteAsync(_deleteSQL, parameters);
         }
         public async Task<IEnumerable<Area>> GetAll()
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
-            {
-                IEnumerable<AreaDTO> areaDTOs = await database.QueryAsync<AreaDTO>(_getAllSQL);
-                return areaDTOs.Select(ToArea);
-            }
+            using IDbConnection database = _dbContextFactory.Connect();
+            IEnumerable<AreaDTO> areaDTOs = await database.QueryAsync<AreaDTO>(_getAllSQL);
+            return areaDTOs.Select(ToArea);
         }
         public Area GetById(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                AreaDTO areaDTO = database.QuerySingleOrDefault<AreaDTO>(_getOneSQL, parameters);
-                return ToArea(areaDTO);
-            }
+                Id = id
+            };
+            AreaDTO areaDTO = database.QuerySingleOrDefault<AreaDTO>(_getOneSQL, parameters);
+            return ToArea(areaDTO);
         }
         public async void Update(Area area)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = area.Id,
-                    Name = area.Name,
-                    Active = area.Active,
-                    Line = area.LineId
+                Id = area.Id,
+                Name = area.Name,
+                Active = area.Active,
+                Line = area.LineId
 
-                };
-                await database.ExecuteAsync(_updateSQL, parameters);
-            }
+            };
+            await database.ExecuteAsync(_updateSQL, parameters);
         }
         #endregion
 

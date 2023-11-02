@@ -11,7 +11,7 @@ namespace PrzegladyRemonty.Features.Lines
     public class LinesAddViewModel : ViewModelBase
     {
         private string _lineName;
-        private IHost _databaseHost;
+        private readonly IHost _databaseHost;
 
         public string LineName
         {

@@ -52,60 +52,50 @@ namespace PrzegladyRemonty.Services.Providers
         #region CRUD
         public async void Create(WorkOrderMaintenance workOrderMaintenance)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    WorkOrder = workOrderMaintenance.WorkOrder,
-                    Maintenance = workOrderMaintenance.Maintenance
-                };
-                await database.ExecuteAsync(_createSQL, parameters);
-            }
+                WorkOrder = workOrderMaintenance.WorkOrder,
+                Maintenance = workOrderMaintenance.Maintenance
+            };
+            await database.ExecuteAsync(_createSQL, parameters);
         }
         public async Task Delete(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                await database.ExecuteAsync(_deleteSQL, parameters);
-            }
+                Id = id
+            };
+            await database.ExecuteAsync(_deleteSQL, parameters);
         }
         public async Task<IEnumerable<WorkOrderMaintenance>> GetAll()
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
-            {
-                IEnumerable<WorkOrderMaintenanceDTO> workOrderMaintenanceDTOs = await database.QueryAsync<WorkOrderMaintenanceDTO>(_getAllSQL);
-                return workOrderMaintenanceDTOs.Select(ToWorkOrderMaintenance);
-            }
+            using IDbConnection database = _dbContextFactory.Connect();
+            IEnumerable<WorkOrderMaintenanceDTO> workOrderMaintenanceDTOs = await database.QueryAsync<WorkOrderMaintenanceDTO>(_getAllSQL);
+            return workOrderMaintenanceDTOs.Select(ToWorkOrderMaintenance);
         }
         public WorkOrderMaintenance GetById(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                WorkOrderMaintenanceDTO workOrderMaintenanceDTO = database.QuerySingleOrDefault<WorkOrderMaintenanceDTO>(_getOneSQL, parameters);
-                return ToWorkOrderMaintenance(workOrderMaintenanceDTO);
-            }
+                Id = id
+            };
+            WorkOrderMaintenanceDTO workOrderMaintenanceDTO = database.QuerySingleOrDefault<WorkOrderMaintenanceDTO>(_getOneSQL, parameters);
+            return ToWorkOrderMaintenance(workOrderMaintenanceDTO);
         }
         public async void Update(WorkOrderMaintenance workOrderMaintenance)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = workOrderMaintenance.Id,
-                    WorkOrder = workOrderMaintenance.WorkOrder,
-                    Maintenance = workOrderMaintenance.Maintenance
+                Id = workOrderMaintenance.Id,
+                WorkOrder = workOrderMaintenance.WorkOrder,
+                Maintenance = workOrderMaintenance.Maintenance
 
-                };
-                await database.ExecuteAsync(_updateSQL, parameters);
-            }
+            };
+            await database.ExecuteAsync(_updateSQL, parameters);
         }
         #endregion
 

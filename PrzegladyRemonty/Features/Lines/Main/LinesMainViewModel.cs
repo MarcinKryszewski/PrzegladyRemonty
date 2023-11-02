@@ -17,7 +17,7 @@ namespace PrzegladyRemonty.Features.Lines
         private readonly ObservableCollection<Line> _lines;
         private readonly IHost _databaseHost;
         private Line _selectedLine;
-        private SelectedLine _lineStore;
+        private readonly SelectedLine _lineStore;
 
         public IEnumerable<Line> Lines => _lines;
         public ICommand NavigateEditCommand { get; }

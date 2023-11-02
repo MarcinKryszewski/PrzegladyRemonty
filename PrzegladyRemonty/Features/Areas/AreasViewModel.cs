@@ -18,9 +18,9 @@ namespace PrzegladyRemonty.Features.Areas
         private readonly IHost _databaseHost;
         private readonly SelectedArea _selectedArea;
         private readonly ObservableCollection<Line> _lines;
+        private readonly ICommand _loadLines;
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
-        private ICommand LoadLines;
 
         public AreasViewModel(IHost databaseHost)
         {
@@ -31,10 +31,10 @@ namespace PrzegladyRemonty.Features.Areas
             _selectedArea = new SelectedArea();
 
             INavigationService<AreasMainViewModel> areasMainNavigationService = CreateAreasMainNavigationService();
-            LoadLines = new LinesLoadCommand(this, _databaseHost.Services.GetRequiredService<LineProvider>());
+            _loadLines = new LinesLoadCommand(this, _databaseHost.Services.GetRequiredService<LineProvider>());
             _lines = new ObservableCollection<Line>();
 
-            LoadLines.Execute(null);
+            _loadLines.Execute(null);
             areasMainNavigationService.Navigate();
         }
         private void OnCurrentViewModelChanged()

@@ -52,58 +52,48 @@ namespace PrzegladyRemonty.Services.Providers
         #region CRUD
         public async void Create(ActionCategory actionCategory)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Name = actionCategory.Name
-                };
-                await database.ExecuteAsync(_createSQL, parameters);
-            }
+                Name = actionCategory.Name
+            };
+            await database.ExecuteAsync(_createSQL, parameters);
         }
         public async Task Delete(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                await database.ExecuteAsync(_deleteSQL, parameters);
-            }
+                Id = id
+            };
+            await database.ExecuteAsync(_deleteSQL, parameters);
         }
         public async Task<IEnumerable<ActionCategory>> GetAll()
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
-            {
-                IEnumerable<ActionCategoryDTO> actionCategoryDTOs = await database.QueryAsync<ActionCategoryDTO>(_getAllSQL);
-                return actionCategoryDTOs.Select(ToActionCategory);
-            }
+            using IDbConnection database = _dbContextFactory.Connect();
+            IEnumerable<ActionCategoryDTO> actionCategoryDTOs = await database.QueryAsync<ActionCategoryDTO>(_getAllSQL);
+            return actionCategoryDTOs.Select(ToActionCategory);
         }
         public ActionCategory GetById(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                ActionCategoryDTO actionCategoryDTO = database.QuerySingleOrDefault<ActionCategoryDTO>(_getOneSQL, parameters);
-                return ToActionCategory(actionCategoryDTO);
-            }
+                Id = id
+            };
+            ActionCategoryDTO actionCategoryDTO = database.QuerySingleOrDefault<ActionCategoryDTO>(_getOneSQL, parameters);
+            return ToActionCategory(actionCategoryDTO);
         }
         public async void Update(ActionCategory actionCategory)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = actionCategory.Id,
-                    Name = actionCategory.Name
+                Id = actionCategory.Id,
+                Name = actionCategory.Name
 
-                };
-                await database.ExecuteAsync(_updateSQL, parameters);
-            }
+            };
+            await database.ExecuteAsync(_updateSQL, parameters);
         }
         #endregion
 

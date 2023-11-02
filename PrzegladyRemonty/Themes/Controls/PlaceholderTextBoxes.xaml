@@ -1,0 +1,43 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:PrzegladyRemonty.Controls.PlaceholderTextBox.Converters"
+    xmlns:local="clr-namespace:PrzegladyRemonty.Controls.PlaceholderTextBox">
+
+    <Style
+        x:Key="MainTextBox"
+        BasedOn="{StaticResource {x:Type TextBox}}"
+        TargetType="{x:Type local:PlaceholderTextBoxControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:PlaceholderTextBoxControl}">
+                    <ControlTemplate.Resources>
+                        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+                        <converters:AddLeftPaddingConverter x:Key="AddLeftPaddingConverter" />
+                    </ControlTemplate.Resources>
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <TextBlock
+                                Padding="{TemplateBinding Padding,
+                                                          Converter={StaticResource AddLeftPaddingConverter},
+                                                          ConverterParameter=3}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Panel.ZIndex="1"
+                                Foreground="{TemplateBinding PlaceholderColor}"
+                                IsHitTestVisible="False"
+                                Opacity="0.5"
+                                Text="{TemplateBinding Placeholder}"
+                                Visibility="{TemplateBinding IsEmpty,
+                                                             Converter={StaticResource BooleanToVisibilityConverter}}" />
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

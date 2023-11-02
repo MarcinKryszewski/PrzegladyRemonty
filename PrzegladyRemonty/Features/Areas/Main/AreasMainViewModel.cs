@@ -18,7 +18,7 @@ namespace PrzegladyRemonty.Features.Areas
         private readonly IHost _databaseHost;
         private readonly IEnumerable<Line> _lines;
         private Area _selectedArea;
-        private SelectedArea _areaStore;
+        private readonly SelectedArea _areaStore;
 
         public IEnumerable<Area> Areas => _areas;
         public ICommand NavigateEditCommand { get; }

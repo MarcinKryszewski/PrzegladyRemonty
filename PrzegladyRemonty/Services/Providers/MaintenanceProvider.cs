@@ -57,66 +57,56 @@ namespace PrzegladyRemonty.Services.Providers
         #region CRUD
         public async void Create(Maintenance maintenance)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    MaintenanceDate = maintenance.MaintenanceDate,
-                    Mechanic = maintenance.Mechanic,
-                    MaintenanceAction = maintenance.MaintenanceAction,
-                    Completed = maintenance.Completed,
-                    Description = maintenance.Description
-                };
-                await database.ExecuteAsync(_createSQL, parameters);
-            }
+                MaintenanceDate = maintenance.MaintenanceDate,
+                Mechanic = maintenance.Mechanic,
+                MaintenanceAction = maintenance.MaintenanceAction,
+                Completed = maintenance.Completed,
+                Description = maintenance.Description
+            };
+            await database.ExecuteAsync(_createSQL, parameters);
         }
         public async Task Delete(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                await database.ExecuteAsync(_deleteSQL, parameters);
-            }
+                Id = id
+            };
+            await database.ExecuteAsync(_deleteSQL, parameters);
         }
         public async Task<IEnumerable<Maintenance>> GetAll()
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
-            {
-                IEnumerable<MaintenanceDTO> maintenanceDTOs = await database.QueryAsync<MaintenanceDTO>(_getAllSQL);
-                return maintenanceDTOs.Select(ToMaintenance);
-            }
+            using IDbConnection database = _dbContextFactory.Connect();
+            IEnumerable<MaintenanceDTO> maintenanceDTOs = await database.QueryAsync<MaintenanceDTO>(_getAllSQL);
+            return maintenanceDTOs.Select(ToMaintenance);
         }
         public Maintenance GetById(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                MaintenanceDTO maintenanceDTO = database.QuerySingleOrDefault<MaintenanceDTO>(_getOneSQL, parameters);
-                return ToMaintenance(maintenanceDTO);
-            }
+                Id = id
+            };
+            MaintenanceDTO maintenanceDTO = database.QuerySingleOrDefault<MaintenanceDTO>(_getOneSQL, parameters);
+            return ToMaintenance(maintenanceDTO);
         }
         public async void Update(Maintenance maintenance)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = maintenance.Id,
-                    MaintenanceDate = maintenance.MaintenanceDate,
-                    Mechanic = maintenance.Mechanic,
-                    MaintenanceAction = maintenance.MaintenanceAction,
-                    Completed = maintenance.Completed,
-                    Description = maintenance.Description
+                Id = maintenance.Id,
+                MaintenanceDate = maintenance.MaintenanceDate,
+                Mechanic = maintenance.Mechanic,
+                MaintenanceAction = maintenance.MaintenanceAction,
+                Completed = maintenance.Completed,
+                Description = maintenance.Description
 
-                };
-                await database.ExecuteAsync(_updateSQL, parameters);
-            }
+            };
+            await database.ExecuteAsync(_updateSQL, parameters);
         }
         #endregion
 

@@ -54,64 +54,54 @@ namespace PrzegladyRemonty.Services.Providers
         #region CRUD
         public async void Create(TransporterAction transporterAction)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Transporter = transporterAction.Transporter,
-                    MaintenanceAction = transporterAction.Action,
-                    Frequency = transporterAction.Frequency,
-                    FrequencyUnit = transporterAction.FrequencyUnit
-                };
-                await database.ExecuteAsync(_createSQL, parameters);
-            }
+                Transporter = transporterAction.Transporter,
+                MaintenanceAction = transporterAction.Action,
+                Frequency = transporterAction.Frequency,
+                FrequencyUnit = transporterAction.FrequencyUnit
+            };
+            await database.ExecuteAsync(_createSQL, parameters);
         }
         public async Task Delete(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                await database.ExecuteAsync(_deleteSQL, parameters);
-            }
+                Id = id
+            };
+            await database.ExecuteAsync(_deleteSQL, parameters);
         }
         public async Task<IEnumerable<TransporterAction>> GetAll()
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
-            {
-                IEnumerable<TransporterActionDTO> transporterActionDTOs = await database.QueryAsync<TransporterActionDTO>(_getAllSQL);
-                return transporterActionDTOs.Select(ToTransporterAction);
-            }
+            using IDbConnection database = _dbContextFactory.Connect();
+            IEnumerable<TransporterActionDTO> transporterActionDTOs = await database.QueryAsync<TransporterActionDTO>(_getAllSQL);
+            return transporterActionDTOs.Select(ToTransporterAction);
         }
         public TransporterAction GetById(int id)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = id
-                };
-                TransporterActionDTO transporterActionDTO = database.QuerySingleOrDefault<TransporterActionDTO>(_getOneSQL, parameters);
-                return ToTransporterAction(transporterActionDTO);
-            }
+                Id = id
+            };
+            TransporterActionDTO transporterActionDTO = database.QuerySingleOrDefault<TransporterActionDTO>(_getOneSQL, parameters);
+            return ToTransporterAction(transporterActionDTO);
         }
         public async void Update(TransporterAction transporterAction)
         {
-            using (IDbConnection database = _dbContextFactory.Connect())
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
             {
-                object parameters = new
-                {
-                    Id = transporterAction.Id,
-                    Transporter = transporterAction.Transporter,
-                    MaintenanceAction = transporterAction.Action,
-                    Frequency = transporterAction.Frequency,
-                    FrequencyUnit = transporterAction.FrequencyUnit
+                Id = transporterAction.Id,
+                Transporter = transporterAction.Transporter,
+                MaintenanceAction = transporterAction.Action,
+                Frequency = transporterAction.Frequency,
+                FrequencyUnit = transporterAction.FrequencyUnit
 
-                };
-                await database.ExecuteAsync(_updateSQL, parameters);
-            }
+            };
+            await database.ExecuteAsync(_updateSQL, parameters);
         }
         #endregion
 

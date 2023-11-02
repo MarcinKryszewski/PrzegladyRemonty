@@ -15,12 +15,12 @@ namespace PrzegladyRemonty.Features.Areas
     public class AreasEditViewModel : ViewModelBase
     {
         private readonly IEnumerable<Line> _lines;
-        private readonly ObservableCollection<Area> _areas;
+        //private readonly ObservableCollection<Area> _areas;
         private readonly int _id;
 
         private string _name;
         private bool _active;
-        private int _lineId;
+        private readonly int _lineId;
         private Line _line;
 
         public int Id => _id;

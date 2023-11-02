@@ -125,7 +125,9 @@ namespace PrzegladyRemonty.Database.MS_Access
                 _personPermissionSQLCommand,
                 _maintenanceSQLCommand,
                 _workOrderSQLCommand,
-                _workOrderMaintenanceSQLCommand
+                _workOrderMaintenanceSQLCommand,
+                _partSQLCommand,
+                _transporterPartSQLCommand
             };
         }
     }
