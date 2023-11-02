@@ -3,11 +3,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:PrzegladyRemonty.Controls.PlaceholderTextBox.Converters"
     xmlns:local="clr-namespace:PrzegladyRemonty.Controls.PlaceholderTextBox">
-
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="../Colors.xaml" />
+    </ResourceDictionary.MergedDictionaries>
     <Style
-        x:Key="MainTextBox"
+        x:Key="MainPlaceholderTextBox"
         BasedOn="{StaticResource {x:Type TextBox}}"
         TargetType="{x:Type local:PlaceholderTextBoxControl}">
+        <Setter Property="Margin" Value="0,5,0,0" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="CaretBrush" Value="{StaticResource MainBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:PlaceholderTextBoxControl}">
@@ -16,9 +21,10 @@
                         <converters:AddLeftPaddingConverter x:Key="AddLeftPaddingConverter" />
                     </ControlTemplate.Resources>
                     <Border
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
+                        x:Name="border"
+                        Background="Transparent"
+                        BorderBrush="{StaticResource MainBrush}"
+                        BorderThickness="0,0,0,1">
                         <Grid>
                             <TextBlock
                                 Padding="{TemplateBinding Padding,
@@ -36,6 +42,14 @@
                             <ScrollViewer x:Name="PART_ContentHost" />
                         </Grid>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource MainLightBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource MainBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

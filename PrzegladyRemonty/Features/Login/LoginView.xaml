@@ -126,9 +126,9 @@
             </Grid>
 
             <StackPanel
-                Grid.Row="2"
+                Grid.Row="1"
                 Width="300"
-                Margin="0,35,0,0"
+                Margin="247,35,247,0"
                 Orientation="Vertical">
 
                 <Image
