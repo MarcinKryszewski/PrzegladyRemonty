@@ -75,7 +75,12 @@
                         <Button
                             Height="40"
                             Command="{Binding NavigateActionsCategoriesCommand}"
-                            Content="ActionsCategories"
+                            Content="Czynności"
+                            Style="{StaticResource NavButton}" />
+                        <Button
+                            Height="40"
+                            Command="{Binding NavigateActionsCategoriesCommand}"
+                            Content="Części"
                             Style="{StaticResource NavButton}" />
                     </StackPanel>
                 </Expander.Content>

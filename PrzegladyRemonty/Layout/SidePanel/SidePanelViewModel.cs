@@ -3,6 +3,7 @@ using PrzegladyRemonty.Features.Areas;
 using PrzegladyRemonty.Features.Dashboard;
 using PrzegladyRemonty.Features.Lines;
 using PrzegladyRemonty.Features.Maintenance;
+using PrzegladyRemonty.Features.Parts;
 using PrzegladyRemonty.Features.Transporters;
 using PrzegladyRemonty.Features.WorkOrders;
 using PrzegladyRemonty.Shared.Commands;
@@ -21,6 +22,7 @@ namespace PrzegladyRemonty.Layout.SidePanel
         public ICommand NavigateTransportersCommand { get; }
         public ICommand NavigateWorkOrdersCommand { get; }
         public ICommand NavigateActionsCategoriesCommand { get; }
+        public ICommand NavigatePartsCommand { get; }
 
         public SidePanelViewModel(
             INavigationService<AreasViewModel> areasNavigationService,
@@ -29,7 +31,8 @@ namespace PrzegladyRemonty.Layout.SidePanel
             INavigationService<MaintenanceViewModel> maintenanceNavigationService,
             INavigationService<TransportersViewModel> transportersNavigationService,
             INavigationService<WorkOrdersViewModel> workOrdersVNavigationService,
-            INavigationService<ActionsCategoriesViewModel> actionsCategoriesVNavigationService)
+            INavigationService<ActionsCategoriesViewModel> actionsCategoriesNavigationService,
+            INavigationService<PartsViewModel> partsNavigationService)
         {
             NavigateAreasCommand = new NavigateCommand<AreasViewModel>(areasNavigationService);
             NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(dashboardNavigationService);
@@ -37,7 +40,8 @@ namespace PrzegladyRemonty.Layout.SidePanel
             NavigateMaintenanceCommand = new NavigateCommand<MaintenanceViewModel>(maintenanceNavigationService);
             NavigateTransportersCommand = new NavigateCommand<TransportersViewModel>(transportersNavigationService);
             NavigateWorkOrdersCommand = new NavigateCommand<WorkOrdersViewModel>(workOrdersVNavigationService);
-            NavigateActionsCategoriesCommand = new NavigateCommand<ActionsCategoriesViewModel>(actionsCategoriesVNavigationService);
+            NavigateActionsCategoriesCommand = new NavigateCommand<ActionsCategoriesViewModel>(actionsCategoriesNavigationService);
+            NavigatePartsCommand = new NavigateCommand<PartsViewModel>(partsNavigationService);
         }
 
     }
