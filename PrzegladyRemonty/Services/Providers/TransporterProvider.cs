@@ -18,8 +18,8 @@ namespace PrzegladyRemonty.Services.Providers
         #region SQLCommands
         private const string _createSQL = @"
                 INSERT INTO
-                transporter (Name, Active, Area)
-                VALUES (@Name, True, @Area)
+                transporter (Name, Active, Area, TransporterType)
+                VALUES (@Name, True, @Area, @TransporterType)
                 ";
         private const string _deleteSQL = @"
                 DELETE
@@ -39,8 +39,9 @@ namespace PrzegladyRemonty.Services.Providers
                 UPDATE  transporter
                 SET 
                     Name = @Name,
-                    Active = @Active
-                    Area = @Area
+                    Active = @Active,
+                    Area = @Area,
+                    TransporterType = @TransporterType
                 WHERE Id = @Id
                 ";
         #endregion
@@ -57,7 +58,8 @@ namespace PrzegladyRemonty.Services.Providers
             object parameters = new
             {
                 Name = transporter.Name,
-                Area = transporter.Area
+                Area = transporter.Area,
+                TransporterType = transporter.TransporterType
             };
             await database.ExecuteAsync(_createSQL, parameters);
         }
@@ -94,7 +96,8 @@ namespace PrzegladyRemonty.Services.Providers
                 Id = transporter.Id,
                 Name = transporter.Name,
                 Active = transporter.Active,
-                Area = transporter.Area
+                Area = transporter.Area,
+                TransporterType = transporter.TransporterType
             };
             await database.ExecuteAsync(_updateSQL, parameters);
         }
@@ -102,7 +105,12 @@ namespace PrzegladyRemonty.Services.Providers
 
         private static Transporter ToTransporter(TransporterDTO transporterDTO)
         {
-            return new Transporter(transporterDTO.Id, transporterDTO.Name, transporterDTO.Active, transporterDTO.Area);
+            return new Transporter(
+                transporterDTO.Id,
+                transporterDTO.Name,
+                transporterDTO.Active,
+                transporterDTO.Area,
+                transporterDTO.TransporterType);
         }
     }
 }

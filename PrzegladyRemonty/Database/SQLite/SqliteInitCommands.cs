@@ -28,6 +28,8 @@ namespace PrzegladyRemonty.Database.SQLite
              Active INTEGER,
              Area INTEGER,
              LastMaintenance TEXT,
+             TransporterType INTEGER,
+             FOREIGN KEY(TransporterType) REFERENCES transporterType(Id),
              PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _actionCategorySQLCommand = @"
@@ -119,6 +121,12 @@ namespace PrzegladyRemonty.Database.SQLite
                 PRIMARY KEY(Id AUTOINCREMENT),
                 FOREIGN KEY(Transporter) REFERENCES transporter(Id)
             )";
+        private const string _transporterTypesSQLCommand = @"
+            CREATE TABLE transporterType (
+                Id INTEGER, 
+                Name TEXT,
+                PRIMARY KEY(Id AUTOINCREMENT)
+            );";
 
         public SqliteInitCommands()
         {
@@ -136,7 +144,8 @@ namespace PrzegladyRemonty.Database.SQLite
                 _workOrderSQLCommand,
                 _workOrderMaintenanceSQLCommand,
                 _partSQLCommand,
-                _transporterPartSQLCommand
+                _transporterPartSQLCommand,
+                _transporterTypesSQLCommand
             };
         }
     }

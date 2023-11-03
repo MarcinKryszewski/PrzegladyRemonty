@@ -26,8 +26,10 @@ namespace PrzegladyRemonty.Database.MS_Access
                 Name VARCHAR, 
                 Active BIT, 
                 Area INT, 
-                LastMaintenance DATETIME, 
+                LastMaintenance DATETIME,
+                TransporterType INT,
                 FOREIGN KEY (Area) REFERENCES area (Id)
+                FOREIGN KEY (TransporterType) REFERENCES transporterType (Id)
             );";
         private const string _actionCategorySQLCommand = @"
             CREATE TABLE actionCategory (
@@ -110,6 +112,11 @@ namespace PrzegladyRemonty.Database.MS_Access
                 FOREIGN KEY (Part) REFERENCES part (Id),
                 FOREIGN KEY (Transporter) REFERENCES transporter (Id)
             )";
+        private const string _transporterTypesSQLCommand = @"
+            CREATE TABLE transporterType (
+                Id AUTOINCREMENT PRIMARY KEY, 
+                Name VARCHAR
+            );";
 
         public MsAccessInitCommands()
         {
@@ -127,7 +134,8 @@ namespace PrzegladyRemonty.Database.MS_Access
                 _workOrderSQLCommand,
                 _workOrderMaintenanceSQLCommand,
                 _partSQLCommand,
-                _transporterPartSQLCommand
+                _transporterPartSQLCommand,
+                _transporterTypesSQLCommand
             };
         }
     }

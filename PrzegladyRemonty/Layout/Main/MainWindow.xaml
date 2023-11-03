@@ -11,6 +11,7 @@
     xmlns:main="clr-namespace:PrzegladyRemonty.Layout.Main"
     xmlns:maintenance="clr-namespace:PrzegladyRemonty.Features.Maintenance"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:parts="clr-namespace:PrzegladyRemonty.Features.Parts"
     xmlns:transporters="clr-namespace:PrzegladyRemonty.Features.Transporters"
     xmlns:workorders="clr-namespace:PrzegladyRemonty.Features.WorkOrders"
     Title="MainWindow"
@@ -49,6 +50,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type actionsCategories:ActionsCategoriesViewModel}">
                 <actionsCategories:ActionsCategoriesView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type parts:PartsViewModel}">
+                <parts:PartsView />
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

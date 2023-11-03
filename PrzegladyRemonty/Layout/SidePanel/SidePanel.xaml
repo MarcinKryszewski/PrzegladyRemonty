@@ -79,7 +79,7 @@
                             Style="{StaticResource NavButton}" />
                         <Button
                             Height="40"
-                            Command="{Binding NavigateActionsCategoriesCommand}"
+                            Command="{Binding NavigatePartsCommand}"
                             Content="Części"
                             Style="{StaticResource NavButton}" />
                     </StackPanel>

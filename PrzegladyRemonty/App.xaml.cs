@@ -9,6 +9,7 @@ using PrzegladyRemonty.Features.Dashboard;
 using PrzegladyRemonty.Features.Lines;
 using PrzegladyRemonty.Features.Login;
 using PrzegladyRemonty.Features.Maintenance;
+using PrzegladyRemonty.Features.Parts;
 using PrzegladyRemonty.Features.Transporters;
 using PrzegladyRemonty.Features.WorkOrders;
 using PrzegladyRemonty.Layout.Main;
@@ -61,6 +62,8 @@ namespace PrzegladyRemonty
                 services.AddSingleton<TransporterProvider>();
                 services.AddSingleton<WorkOrderMaintenanceProvider>();
                 services.AddSingleton<WorkOrderProvider>();
+                services.AddSingleton<PartProvider>();
+                services.AddSingleton<TransporterPartProvider>();
             }).Build();
 
             _layoutHost = Host.CreateDefaultBuilder().ConfigureServices(services =>
@@ -127,7 +130,8 @@ namespace PrzegladyRemonty
                 CreateMaintenanceNavigationService(),
                 CreateTransportersNavigationService(),
                 CreateWorkOrdersNavigationService(),
-                CreateActionsCategoriesNavigationService()
+                CreateActionsCategoriesNavigationService(),
+                CreatePartsNavigationService()
             );
         }
         private INavigationService<AreasViewModel> CreateAreasNavigationService()
@@ -196,6 +200,16 @@ namespace PrzegladyRemonty
             (
                 _navigationStore,
                 () => new ActionsCategoriesViewModel(),
+                CreateSidePanelViewModel,
+                _topPanelViewModel
+            );
+        }
+        private INavigationService<PartsViewModel> CreatePartsNavigationService()
+        {
+            return new LayoutNavigationService<PartsViewModel>
+            (
+                _navigationStore,
+                () => new PartsViewModel(),
                 CreateSidePanelViewModel,
                 _topPanelViewModel
             );

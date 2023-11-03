@@ -7,6 +7,7 @@ namespace PrzegladyRemonty.Database.DTOs
         public bool Active { get; set; }
         public int Area { get; set; }
         public string LastMaintenance { get; set; }
+        public int TransporterType { get; set; }
 
     }
 }
