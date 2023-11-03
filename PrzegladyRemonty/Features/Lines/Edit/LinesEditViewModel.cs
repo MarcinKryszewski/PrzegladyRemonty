@@ -22,22 +22,22 @@ namespace PrzegladyRemonty.Features.Lines
                 _lineId = value;
             }
         }
-        public string LineName
+        public string Name
         {
             get => _lineName;
             set
             {
                 _lineName = value;
-                OnPropertyChanged(nameof(LineName));
+                OnPropertyChanged(nameof(Name));
             }
         }
-        public bool LineActive
+        public bool Active
         {
             get => _lineActive;
             set
             {
                 _lineActive = value;
-                OnPropertyChanged(nameof(LineActive));
+                OnPropertyChanged(nameof(Active));
             }
         }
 

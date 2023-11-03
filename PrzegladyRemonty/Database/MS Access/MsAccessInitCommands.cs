@@ -95,9 +95,9 @@ namespace PrzegladyRemonty.Database.MS_Access
         private const string _partSQLCommand = @"
             CREATE TABLE part (
                 Id AUTOINCREMENT PRIMARY KEY,
-                Name TEXT,
-                Producent INTEGER,
-                ProducentNumber TEXT,
+                Name VARCHAR,
+                Producent VARCHAR,
+                ProducentNumber VARCHAR,
                 PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _transporterPartSQLCommand = @"

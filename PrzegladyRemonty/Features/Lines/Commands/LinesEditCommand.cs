@@ -18,8 +18,8 @@ namespace PrzegladyRemonty.Features.Lines
         {
             Line line = new(
                 _linesEditViewModel.LineId,
-                _linesEditViewModel.LineName,
-                _linesEditViewModel.LineActive
+                _linesEditViewModel.Name,
+                _linesEditViewModel.Active
                 );
             line.Edit(_lineProvider);
             _linesEditViewModel.NavigateMainCommand.Execute(null);

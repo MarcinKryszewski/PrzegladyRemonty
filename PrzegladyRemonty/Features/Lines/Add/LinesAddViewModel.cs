@@ -13,13 +13,13 @@ namespace PrzegladyRemonty.Features.Lines
         private string _lineName;
         private readonly IHost _databaseHost;
 
-        public string LineName
+        public string Name
         {
             get => _lineName;
             set
             {
                 _lineName = value;
-                OnPropertyChanged(nameof(LineName));
+                OnPropertyChanged(nameof(Name));
             }
         }
 

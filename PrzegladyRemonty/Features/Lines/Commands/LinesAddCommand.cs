@@ -16,7 +16,7 @@ namespace PrzegladyRemonty.Features.Lines
 
         public override void Execute(object parameter)
         {
-            string lineName = _linesAddViewModel.LineName;
+            string lineName = _linesAddViewModel.Name;
 
             Line line = new(lineName);
             line.Add(_lineProvider);

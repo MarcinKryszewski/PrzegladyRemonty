@@ -104,7 +104,7 @@ namespace PrzegladyRemonty.Database.SQLite
             CREATE TABLE IF NOT EXISTS part (
                 Id INTEGER,
                 Name TEXT,
-                Producent INTEGER,
+                Producent TEXT,
                 ProducentNumber TEXT,
                 PRIMARY KEY(Id AUTOINCREMENT)
             )";
