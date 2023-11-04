@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PrzegladyRemonty.Commands.Load;
+using PrzegladyRemonty.Interfaces;
 using PrzegladyRemonty.Models;
 using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Commands;
@@ -12,7 +14,7 @@ using System.Windows.Input;
 
 namespace PrzegladyRemonty.Features.Areas
 {
-    public class AreasMainViewModel : ViewModelBase
+    public class AreasMainViewModel : ViewModelBase, IAreaUpdate
     {
         private readonly ObservableCollection<Area> _areas;
         private readonly IHost _databaseHost;

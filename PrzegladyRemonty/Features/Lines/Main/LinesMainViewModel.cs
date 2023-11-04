@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PrzegladyRemonty.Features.Lines.Commands;
+using PrzegladyRemonty.Commands.Load;
+using PrzegladyRemonty.Interfaces;
 using PrzegladyRemonty.Models;
 using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Commands;
@@ -12,7 +13,7 @@ using System.Windows.Input;
 
 namespace PrzegladyRemonty.Features.Lines
 {
-    public class LinesMainViewModel : ViewModelBase
+    public class LinesMainViewModel : ViewModelBase, ILineUpdate
     {
         private readonly ObservableCollection<Line> _lines;
         private readonly IHost _databaseHost;

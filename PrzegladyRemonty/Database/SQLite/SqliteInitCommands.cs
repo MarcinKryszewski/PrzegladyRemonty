@@ -8,90 +8,91 @@ namespace PrzegladyRemonty.Database.SQLite
 
         private const string _lineSQLCommand = @"
             CREATE TABLE IF NOT EXISTS line (
-             Id INTEGER,
-             Name TEXT,
-             Active INTEGER,
-             PRIMARY KEY(Id AUTOINCREMENT)
+                Id INTEGER,
+                Name TEXT,
+                Active INTEGER,
+                PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _areaSQLCommand = @"
             CREATE TABLE IF NOT EXISTS area (
-             Id INTEGER,
-             Name INTEGER,
-             Active INTEGER,
-             Line INTEGER,
-             PRIMARY KEY(Id AUTOINCREMENT)
+                Id INTEGER,
+                Name INTEGER,
+                Active INTEGER,
+                Line INTEGER,
+                PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _transporterSQLCommand = @"
             CREATE TABLE IF NOT EXISTS transporter (
-             Id INTEGER,
-             Name TEXT,
-             Active INTEGER,
-             Area INTEGER,
-             LastMaintenance TEXT,
-             TransporterType INTEGER,
-             FOREIGN KEY(TransporterType) REFERENCES transporterType(Id),
-             PRIMARY KEY(Id AUTOINCREMENT)
+                Id INTEGER,
+                Name TEXT,
+                Active INTEGER,
+                Area INTEGER,
+                LastMaintenance TEXT,
+                TransporterType INTEGER,
+                FOREIGN KEY(Area) REFERENCES area (Id),
+                FOREIGN KEY(TransporterType) REFERENCES transporterType(Id),
+                PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _actionCategorySQLCommand = @"
             CREATE TABLE IF NOT EXISTS actionCategory (
-             Id INTEGER,
-             Name TEXT,
-             PRIMARY KEY(Id AUTOINCREMENT)
+                Id INTEGER,
+                Name TEXT,
+                PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _transporterActionSQLCommand = @"
             CREATE TABLE IF NOT EXISTS transporterAction (
-             Id INTEGER,
-             Transporter INTEGER,
-             MaintenanceAction INTEGER,
-             Frequency INTEGER,
-             FrequencyUnit TEXT,
-             FOREIGN KEY(MaintenanceAction) REFERENCES actionCategory(Id),
-             FOREIGN KEY(Transporter) REFERENCES transporter(Id),
-             PRIMARY KEY(Id AUTOINCREMENT)
+                Id INTEGER,
+                Transporter INTEGER,
+                MaintenanceAction INTEGER,
+                Frequency INTEGER,
+                FrequencyUnit TEXT,
+                FOREIGN KEY(MaintenanceAction) REFERENCES actionCategory(Id),
+                FOREIGN KEY(Transporter) REFERENCES transporter(Id),
+                PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _permissionSQLCommand = @"
             CREATE TABLE IF NOT EXISTS permission (
-             Id INTEGER,
-             Name TEXT,
-             PermissionValue INTEGER,
-             PRIMARY KEY(Id AUTOINCREMENT)
+                Id INTEGER,
+                Name TEXT,
+                PermissionValue INTEGER,
+                PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _personSQLCommand = @"
             CREATE TABLE IF NOT EXISTS person (
-             Id INTEGER,
-             Login TEXT,
-             Name TEXT,
-             Surname TEXT,
-             Active INTEGER,
-             PRIMARY KEY(Id AUTOINCREMENT)
+                Id INTEGER,
+                Login TEXT,
+                Name TEXT,
+                Surname TEXT,
+                Active INTEGER,
+                PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _personPermissionSQLCommand = @"
             CREATE TABLE IF NOT EXISTS personPermission (
-             Id INTEGER,
-             Person INTEGER,
-             Permission INTEGER,
-             PRIMARY KEY(Id AUTOINCREMENT),
-             FOREIGN KEY(Person) REFERENCES person(Id),
-             FOREIGN KEY(Permission) REFERENCES permission(Id)
+                Id INTEGER,
+                Person INTEGER,
+                Permission INTEGER,
+                PRIMARY KEY(Id AUTOINCREMENT),
+                FOREIGN KEY(Person) REFERENCES person(Id),
+                FOREIGN KEY(Permission) REFERENCES permission(Id)
             )";
         private const string _maintenanceSQLCommand = @"
             CREATE TABLE IF NOT EXISTS maintenance (
-             Id INTEGER,
-             MaintenanceDate TEXT,
-             Mechanic INTEGER,
-             MaintenanceAction INTEGER,
-             Completed INTEGER,
-             Description TEXT,
-             FOREIGN KEY(Mechanic) REFERENCES person(Id),
-             FOREIGN KEY(MaintenanceAction) REFERENCES transporterAction(Id),
-             PRIMARY KEY(Id AUTOINCREMENT)
+                Id INTEGER,
+                MaintenanceDate TEXT,
+                Mechanic INTEGER,
+                MaintenanceAction INTEGER,
+                Completed INTEGER,
+                Description TEXT,
+                FOREIGN KEY(Mechanic) REFERENCES person(Id),
+                FOREIGN KEY(MaintenanceAction) REFERENCES transporterAction(Id),
+                PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _workOrderSQLCommand = @"
             CREATE TABLE IF NOT EXISTS workOrder (
-             Id INTEGER,
-             Created TEXT,
-             CreatedBy INTEGER,
-             PRIMARY KEY(Id AUTOINCREMENT)
+                Id INTEGER,
+                Created TEXT,
+                CreatedBy INTEGER,
+                PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _workOrderMaintenanceSQLCommand = @"
             CREATE TABLE IF NOT EXISTS workOrderMaintenance (
@@ -122,7 +123,7 @@ namespace PrzegladyRemonty.Database.SQLite
                 FOREIGN KEY(Transporter) REFERENCES transporter(Id)
             )";
         private const string _transporterTypesSQLCommand = @"
-            CREATE TABLE transporterType (
+            CREATE TABLE IF NOT EXISTS transporterType (
                 Id INTEGER, 
                 Name TEXT,
                 PRIMARY KEY(Id AUTOINCREMENT)

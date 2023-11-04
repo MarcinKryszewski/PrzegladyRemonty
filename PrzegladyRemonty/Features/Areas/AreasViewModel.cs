@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PrzegladyRemonty.Commands.Load;
+using PrzegladyRemonty.Interfaces;
 using PrzegladyRemonty.Models;
 using PrzegladyRemonty.Services;
 using PrzegladyRemonty.Services.Providers;
@@ -12,7 +14,7 @@ using System.Windows.Input;
 
 namespace PrzegladyRemonty.Features.Areas
 {
-    public class AreasViewModel : ViewModelBase
+    public class AreasViewModel : ViewModelBase, ILineUpdate
     {
         private readonly NavigationStore _navigationStore;
         private readonly IHost _databaseHost;

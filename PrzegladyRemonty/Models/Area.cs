@@ -41,6 +41,7 @@ namespace PrzegladyRemonty.Models
         {
             _line = line;
         }
+
         public void Add(AreaProvider areaProvider)
         {
             areaProvider.Create(this);

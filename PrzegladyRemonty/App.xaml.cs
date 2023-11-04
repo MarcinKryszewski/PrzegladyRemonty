@@ -64,6 +64,7 @@ namespace PrzegladyRemonty
                 services.AddSingleton<WorkOrderProvider>();
                 services.AddSingleton<PartProvider>();
                 services.AddSingleton<TransporterPartProvider>();
+                services.AddSingleton<TransporterTypeProvider>();
             }).Build();
 
             _layoutHost = Host.CreateDefaultBuilder().ConfigureServices(services =>
@@ -179,7 +180,7 @@ namespace PrzegladyRemonty
             return new LayoutNavigationService<TransportersViewModel>
             (
                 _navigationStore,
-                () => new TransportersViewModel(),
+                () => new TransportersViewModel(_databaseHost),
                 CreateSidePanelViewModel,
                 _topPanelViewModel
             );

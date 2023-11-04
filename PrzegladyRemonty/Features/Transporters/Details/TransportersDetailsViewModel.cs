@@ -1,24 +1,21 @@
-﻿using System.Windows.Input;
+﻿using Microsoft.Extensions.Hosting;
 using PrzegladyRemonty.Shared.Commands;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.ViewModels;
+using System.Windows.Input;
 namespace PrzegladyRemonty.Features.Transporters
 {
     public class TransportersDetailsViewModel : ViewModelBase
     {
+        private readonly IHost _database;
         public ICommand NavigateMainCommand { get; }
-        public ICommand NavigateEditCommand { get; }
-        public ICommand NavigateAddCommand { get; }
 
         public TransportersDetailsViewModel(
             INavigationService<TransportersMainViewModel> transportersMainViewModel,
-            INavigationService<TransportersEditViewModel> transportersEditViewModel,
-            INavigationService<TransportersAddViewModel> transportersAddViewModel
-            )
+            IHost database)
         {
             NavigateMainCommand = new NavigateCommand<TransportersMainViewModel>(transportersMainViewModel);
-            NavigateEditCommand = new NavigateCommand<TransportersEditViewModel>(transportersEditViewModel);
-            NavigateAddCommand = new NavigateCommand<TransportersAddViewModel>(transportersAddViewModel);
+            _database = database;
         }
     }
 }
