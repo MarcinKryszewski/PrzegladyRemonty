@@ -5,6 +5,7 @@ using PrzegladyRemonty.Features.Lines;
 using PrzegladyRemonty.Features.Maintenance;
 using PrzegladyRemonty.Features.Parts;
 using PrzegladyRemonty.Features.Transporters;
+using PrzegladyRemonty.Features.TransporterTypes;
 using PrzegladyRemonty.Features.WorkOrders;
 using PrzegladyRemonty.Shared.Commands;
 using PrzegladyRemonty.Shared.Services;
@@ -23,6 +24,7 @@ namespace PrzegladyRemonty.Layout.SidePanel
         public ICommand NavigateWorkOrdersCommand { get; }
         public ICommand NavigateActionsCategoriesCommand { get; }
         public ICommand NavigatePartsCommand { get; }
+        public ICommand NavigateTransporterTypesCommand { get; }
 
         public SidePanelViewModel(
             INavigationService<AreasViewModel> areasNavigationService,
@@ -32,7 +34,8 @@ namespace PrzegladyRemonty.Layout.SidePanel
             INavigationService<TransportersViewModel> transportersNavigationService,
             INavigationService<WorkOrdersViewModel> workOrdersVNavigationService,
             INavigationService<ActionsCategoriesViewModel> actionsCategoriesNavigationService,
-            INavigationService<PartsViewModel> partsNavigationService)
+            INavigationService<PartsViewModel> partsNavigationService,
+            INavigationService<TransporterTypesViewModel> transporterTypesNavigationService)
         {
             NavigateAreasCommand = new NavigateCommand<AreasViewModel>(areasNavigationService);
             NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(dashboardNavigationService);
@@ -42,6 +45,7 @@ namespace PrzegladyRemonty.Layout.SidePanel
             NavigateWorkOrdersCommand = new NavigateCommand<WorkOrdersViewModel>(workOrdersVNavigationService);
             NavigateActionsCategoriesCommand = new NavigateCommand<ActionsCategoriesViewModel>(actionsCategoriesNavigationService);
             NavigatePartsCommand = new NavigateCommand<PartsViewModel>(partsNavigationService);
+            NavigateTransporterTypesCommand = new NavigateCommand<TransporterTypesViewModel>(transporterTypesNavigationService);
         }
     }
 }

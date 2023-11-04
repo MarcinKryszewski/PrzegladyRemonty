@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace PrzegladyRemonty.Models
 {
-    public class TransporterType : IModel<TransporterTypeProvider>
+    public class TransporterType
     {
         public int Id { get; }
         public string Name { get; }

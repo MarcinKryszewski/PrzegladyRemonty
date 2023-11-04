@@ -82,6 +82,11 @@
                             Command="{Binding NavigatePartsCommand}"
                             Content="Części"
                             Style="{StaticResource NavButton}" />
+                        <Button
+                            Height="40"
+                            Command="{Binding NavigateTransporterTypesCommand}"
+                            Content="Rodzaje"
+                            Style="{StaticResource NavButton}" />
                     </StackPanel>
                 </Expander.Content>
             </Expander>

@@ -11,6 +11,7 @@ using PrzegladyRemonty.Features.Login;
 using PrzegladyRemonty.Features.Maintenance;
 using PrzegladyRemonty.Features.Parts;
 using PrzegladyRemonty.Features.Transporters;
+using PrzegladyRemonty.Features.TransporterTypes;
 using PrzegladyRemonty.Features.WorkOrders;
 using PrzegladyRemonty.Layout.Main;
 using PrzegladyRemonty.Layout.SidePanel;
@@ -132,7 +133,8 @@ namespace PrzegladyRemonty
                 CreateTransportersNavigationService(),
                 CreateWorkOrdersNavigationService(),
                 CreateActionsCategoriesNavigationService(),
-                CreatePartsNavigationService()
+                CreatePartsNavigationService(),
+                CreateTransporterTypesNavigationService()
             );
         }
         private INavigationService<AreasViewModel> CreateAreasNavigationService()
@@ -211,6 +213,16 @@ namespace PrzegladyRemonty
             (
                 _navigationStore,
                 () => new PartsViewModel(),
+                CreateSidePanelViewModel,
+                _topPanelViewModel
+            );
+        }
+        private INavigationService<TransporterTypesViewModel> CreateTransporterTypesNavigationService()
+        {
+            return new LayoutNavigationService<TransporterTypesViewModel>
+            (
+                _navigationStore,
+                () => new TransporterTypesViewModel(_databaseHost),
                 CreateSidePanelViewModel,
                 _topPanelViewModel
             );

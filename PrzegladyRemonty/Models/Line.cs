@@ -21,7 +21,6 @@ namespace PrzegladyRemonty.Models
             Active = active;
             _areas = new ObservableCollection<Area>();
         }
-
         public Line(string name)
         {
             Name = name;
