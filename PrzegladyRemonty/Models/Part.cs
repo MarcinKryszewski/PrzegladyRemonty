@@ -1,4 +1,7 @@
-﻿namespace PrzegladyRemonty.Models
+﻿using PrzegladyRemonty.Services.Providers;
+using System.Threading.Tasks;
+
+namespace PrzegladyRemonty.Models
 {
     public class Part
     {
@@ -21,6 +24,17 @@
             Producent = producent;
             ProducentNumber = producentNumber;
         }
-
+        public void Add(PartProvider provider)
+        {
+            provider.Create(this);
+        }
+        public void Edit(PartProvider provider)
+        {
+            provider.Update(this);
+        }
+        public async Task Delete(PartProvider provider)
+        {
+            await provider.Delete(Id);
+        }
     }
 }

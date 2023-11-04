@@ -212,7 +212,7 @@ namespace PrzegladyRemonty
             return new LayoutNavigationService<PartsViewModel>
             (
                 _navigationStore,
-                () => new PartsViewModel(),
+                () => new PartsViewModel(_databaseHost),
                 CreateSidePanelViewModel,
                 _topPanelViewModel
             );
