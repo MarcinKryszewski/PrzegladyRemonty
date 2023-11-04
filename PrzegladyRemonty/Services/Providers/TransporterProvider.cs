@@ -2,6 +2,7 @@
 using Dapper;
 using PrzegladyRemonty.Database;
 using PrzegladyRemonty.Database.DTOs;
+using PrzegladyRemonty.Interfaces;
 using PrzegladyRemonty.Models;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace PrzegladyRemonty.Services.Providers
 {
-    public class TransporterProvider : IDatabaseDTOProvider<Transporter>
+    public class TransporterProvider : IProvider<Transporter>
     {
         private readonly DatabaseConnectionFactory _dbContextFactory;
 
@@ -58,8 +59,8 @@ namespace PrzegladyRemonty.Services.Providers
             object parameters = new
             {
                 Name = transporter.Name,
-                Area = transporter.Area,
-                TransporterType = transporter.TransporterType
+                Area = transporter.AreaId,
+                TransporterType = transporter.TransporterTypeId
             };
             await database.ExecuteAsync(_createSQL, parameters);
         }
@@ -96,8 +97,8 @@ namespace PrzegladyRemonty.Services.Providers
                 Id = transporter.Id,
                 Name = transporter.Name,
                 Active = transporter.Active,
-                Area = transporter.Area,
-                TransporterType = transporter.TransporterType
+                Area = transporter.AreaId,
+                TransporterType = transporter.TransporterTypeId
             };
             await database.ExecuteAsync(_updateSQL, parameters);
         }

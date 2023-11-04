@@ -43,6 +43,5 @@ namespace PrzegladyRemonty.Layout.SidePanel
             NavigateActionsCategoriesCommand = new NavigateCommand<ActionsCategoriesViewModel>(actionsCategoriesNavigationService);
             NavigatePartsCommand = new NavigateCommand<PartsViewModel>(partsNavigationService);
         }
-
     }
 }

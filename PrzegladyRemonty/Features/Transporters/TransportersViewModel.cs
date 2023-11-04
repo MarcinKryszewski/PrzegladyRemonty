@@ -89,9 +89,10 @@ namespace PrzegladyRemonty.Features.Transporters
                 _navigationStore,
                 () => new TransportersAddViewModel(
                     CreateTransportersMainNavigationService(),
-                    _databaseHost
-
-                )
+                    _databaseHost,
+                    _lines,
+                    _areas,
+                    _transporterTypes)
             );
         }
         private INavigationService<TransportersDetailsViewModel> CreateTransportersDetailsNavigationService()
@@ -110,10 +111,8 @@ namespace PrzegladyRemonty.Features.Transporters
             return new DefaultNavigationService<TransportersEditViewModel>
             (
                 _navigationStore,
-                () => new TransportersEditViewModel(
-                    CreateTransportersMainNavigationService(),
-                    _databaseHost
-                    )
+                () => new TransportersEditViewModel(CreateTransportersMainNavigationService(), _databaseHost,
+                _lines, _areas, _transporterTypes, _selectedTransporter)
             );
         }
 

@@ -10,8 +10,9 @@ namespace PrzegladyRemonty.Models
     {
         private Area _area;
         private TransporterType _transporterType;
-        private readonly ObservableCollection<Part> _parts;
         private DateOnly _lastMaintenance;
+        private readonly ObservableCollection<Part> _parts;
+        private readonly ObservableCollection<TransporterAction> _actions;
 
         public int Id { get; }
         public string Name { get; }
@@ -22,6 +23,7 @@ namespace PrzegladyRemonty.Models
         public Area Area => _area;
         public TransporterType TransporterType => _transporterType;
         public IEnumerable<Part> Parts => _parts;
+        public IEnumerable<TransporterAction> Actions => _actions;
 
         public Transporter(int id, string name, bool active, int area, int transporterType)
         {
@@ -50,6 +52,10 @@ namespace PrzegladyRemonty.Models
         public void AddPart(Part part)
         {
             _parts.Add(part);
+        }
+        public void AddAction(TransporterAction action)
+        {
+            _actions.Add(action);
         }
         public void SetMaintenance(DateOnly maintenanceDate = default)
         {

@@ -2,6 +2,7 @@
 using Dapper;
 using PrzegladyRemonty.Database;
 using PrzegladyRemonty.Database.DTOs;
+using PrzegladyRemonty.Interfaces;
 using PrzegladyRemonty.Models;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace PrzegladyRemonty.Services.Providers
 {
-    public class ActionCategoryProvider : IDatabaseDTOProvider<ActionCategory>
+    public class ActionCategoryProvider : IProvider<ActionCategory>
     {
         private readonly DatabaseConnectionFactory _dbContextFactory;
 

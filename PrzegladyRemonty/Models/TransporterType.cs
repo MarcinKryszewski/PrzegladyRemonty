@@ -1,6 +1,9 @@
-﻿namespace PrzegladyRemonty.Models
+﻿using PrzegladyRemonty.Services.Providers;
+using System.Threading.Tasks;
+
+namespace PrzegladyRemonty.Models
 {
-    public class TransporterType
+    public class TransporterType : IModel<TransporterTypeProvider>
     {
         public int Id { get; }
         public string Name { get; }
@@ -13,6 +16,19 @@
         {
             Id = id;
             Name = name;
+        }
+
+        public void Add(TransporterTypeProvider provider)
+        {
+            provider.Create(this);
+        }
+        public void Edit(TransporterTypeProvider provider)
+        {
+            provider.Update(this);
+        }
+        public async Task Delete(TransporterTypeProvider provider)
+        {
+            await provider.Delete(Id);
         }
     }
 }
