@@ -174,7 +174,7 @@ namespace PrzegladyRemonty
             return new LayoutNavigationService<MaintenanceViewModel>
             (
                 _navigationStore,
-                () => new MaintenanceViewModel(),
+                () => new MaintenanceViewModel(_databaseHost),
                 CreateSidePanelViewModel,
                 _topPanelViewModel
             );

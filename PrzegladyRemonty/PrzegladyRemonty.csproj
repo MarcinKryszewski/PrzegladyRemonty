@@ -41,6 +41,10 @@
 
 	<ItemGroup>
 		<Folder Include="Features\CRUD\" />
+		<Folder Include="Features\Maintenance\TransportersChoose\ActionsList\" />
+		<Folder Include="Features\Maintenance\TransportersChoose\PartsList\" />
+		<Folder Include="Features\Maintenance\TransportersChoose\ProductionLineTree\" />
+		<Folder Include="Features\Maintenance\TransportersChoose\TransporterCart\" />
 		<Folder Include="Features\Parts\" />
 		<Folder Include="Stores\" />
 		<Folder Include="Themes\Controls\PlaceholderTextBox\Themes\" />

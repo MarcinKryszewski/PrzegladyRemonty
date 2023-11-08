@@ -1,11 +1,11 @@
 ﻿<UserControl
-    x:Class="PrzegladyRemonty.Features.MaintenanceHistory.MaintenanceHistoryView"
+    x:Class="PrzegladyRemonty.Features.Maintenance.TransporterCartView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:maintenanceHistory="clr-namespace:PrzegladyRemonty.Features.MaintenanceHistory"
+    xmlns:maintenance="clr-namespace:PrzegladyRemonty.Features.Maintenance"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DataContext="{d:DesignInstance Type=maintenanceHistory:MaintenanceHistoryViewModel}"
+    d:DataContext="{d:DesignInstance Type=maintenance:TransporterCartViewModel}"
     d:DesignHeight="975"
     d:DesignWidth="1670"
     mc:Ignorable="d">
@@ -13,6 +13,6 @@
         <TextBlock
             FontSize="40"
             Foreground="Wheat"
-            Text="MaintenanceHistory" />
+            Text="TransporterCart" />
     </Grid>
 </UserControl>

@@ -10,9 +10,22 @@
     d:DesignWidth="1670"
     mc:Ignorable="d">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
         <TextBlock
+            Grid.Row="0"
             FontSize="40"
             Foreground="Wheat"
             Text="Maintenance" />
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type maintenance:TransportersChooseViewModel}">
+                    <maintenance:TransportersChooseView />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
     </Grid>
 </UserControl>
