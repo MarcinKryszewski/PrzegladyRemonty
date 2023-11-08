@@ -16,7 +16,8 @@
 		<None Remove="Resources\PrzegladyRemonty.accdb" />
 	</ItemGroup>
 
-<!--
+<!-- 
+-->
 	<ItemGroup>
 	  <COMReference Include="ADOX">
 	    <WrapperTool>tlbimp</WrapperTool>
@@ -28,7 +29,9 @@
 	    <EmbedInteropTypes>true</EmbedInteropTypes>
 	  </COMReference>
 	</ItemGroup>
--->
+	
+	<!-- 
+	-->
 
 	<ItemGroup>
 	  <Content Include="appsettings.json">

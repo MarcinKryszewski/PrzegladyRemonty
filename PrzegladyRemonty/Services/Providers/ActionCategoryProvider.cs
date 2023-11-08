@@ -19,8 +19,8 @@ namespace PrzegladyRemonty.Services.Providers
         #region SQLCommands
         private const string _createSQL = @"
                 INSERT INTO
-                actionCategory (Name, Active)
-                VALUES (@Name, True)
+                actionCategory (Name)
+                VALUES (@Name)
                 ";
         private const string _deleteSQL = @"
                 DELETE
@@ -39,8 +39,7 @@ namespace PrzegladyRemonty.Services.Providers
         private const string _updateSQL = @"
                 UPDATE actionCategory
                 SET 
-                    Name = @Name,
-                    Active = @Active
+                    Name = @Name
                 WHERE Id = @Id
                 ";
         #endregion

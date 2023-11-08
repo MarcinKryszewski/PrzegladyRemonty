@@ -1,4 +1,4 @@
-﻿//using ADOX;
+﻿using ADOX;//
 using Dapper;
 using PrzegladyRemonty.Database.MS_Access;
 using System.Data;
@@ -23,9 +23,10 @@ namespace PrzegladyRemonty.Database.Initializers
         }
         static void CreateEmptyAccdbFile(string filePath)
         {
-            /*Catalog catalog = new();
+            /**/
+            Catalog catalog = new();
             catalog.Create($"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={filePath};Jet OLEDB:Engine Type=5");
-            catalog = null;*/
+            catalog = null;/**/
         }
 
         private void CreateDatabase()

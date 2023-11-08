@@ -204,7 +204,7 @@ namespace PrzegladyRemonty
             return new LayoutNavigationService<ActionsCategoriesViewModel>
             (
                 _navigationStore,
-                () => new ActionsCategoriesViewModel(),
+                () => new ActionsCategoriesViewModel(_databaseHost),
                 CreateSidePanelViewModel,
                 _topPanelViewModel
             );
@@ -214,7 +214,7 @@ namespace PrzegladyRemonty
             return new LayoutNavigationService<PartsViewModel>
             (
                 _navigationStore,
-                () => new PartsViewModel(),
+                () => new PartsViewModel(_databaseHost),
                 CreateSidePanelViewModel,
                 _topPanelViewModel
             );

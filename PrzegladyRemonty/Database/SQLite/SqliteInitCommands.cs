@@ -21,6 +21,12 @@ namespace PrzegladyRemonty.Database.SQLite
                 Line INTEGER,
                 PRIMARY KEY(Id AUTOINCREMENT)
             )";
+        private const string _transporterTypeSQLCommand = @"
+            CREATE TABLE IF NOT EXISTS transporterType (
+                Id INTEGER, 
+                Name TEXT,
+                PRIMARY KEY(Id AUTOINCREMENT)
+            );";
         private const string _transporterSQLCommand = @"
             CREATE TABLE IF NOT EXISTS transporter (
                 Id INTEGER,
@@ -136,6 +142,7 @@ namespace PrzegladyRemonty.Database.SQLite
                 _lineSQLCommand,
                 _areaSQLCommand,
                 _transporterSQLCommand,
+                _transporterTypeSQLCommand,
                 _actionCategorySQLCommand,
                 _transporterActionSQLCommand,
                 _permissionSQLCommand,
@@ -145,8 +152,7 @@ namespace PrzegladyRemonty.Database.SQLite
                 _workOrderSQLCommand,
                 _workOrderMaintenanceSQLCommand,
                 _partSQLCommand,
-                _transporterPartSQLCommand,
-                _transporterTypesSQLCommand
+                _transporterPartSQLCommand
             };
         }
     }

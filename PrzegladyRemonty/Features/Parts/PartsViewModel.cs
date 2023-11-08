@@ -1,4 +1,5 @@
-﻿using PrzegladyRemonty.Services;
+﻿using Microsoft.Extensions.Hosting;
+using PrzegladyRemonty.Services;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.Stores;
 using PrzegladyRemonty.Shared.ViewModels;
@@ -8,19 +9,27 @@ namespace PrzegladyRemonty.Features.Parts
     public class PartsViewModel : ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
+        private readonly IHost _databaseHost;
+        private readonly SelectedPart _transproterType;
+
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
-        public PartsViewModel()
+
+        public PartsViewModel(IHost databaseHost)
         {
             _navigationStore = new NavigationStore();
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            _databaseHost = databaseHost;
+            _transproterType = new SelectedPart();
+
             INavigationService<PartsMainViewModel> PartsMainNavigationService = CreatePartsMainNavigationService();
             PartsMainNavigationService.Navigate();
-
         }
+
         private void OnCurrentViewModelChanged()
         {
             OnPropertyChanged(nameof(CurrentViewModel));
         }
+
         private INavigationService<PartsMainViewModel> CreatePartsMainNavigationService()
         {
             return new DefaultNavigationService<PartsMainViewModel>
@@ -29,9 +38,12 @@ namespace PrzegladyRemonty.Features.Parts
                 () => new PartsMainViewModel(
                     CreatePartsEditNavigationService(),
                     CreatePartsAddNavigationService(),
-                    CreatePartsDetailsNavigationService())
+                    CreatePartsDetailsNavigationService(),
+                    _transproterType,
+                    _databaseHost)
             );
         }
+
         private INavigationService<PartsAddViewModel> CreatePartsAddNavigationService()
         {
             return new DefaultNavigationService<PartsAddViewModel>
@@ -39,23 +51,22 @@ namespace PrzegladyRemonty.Features.Parts
                 _navigationStore,
                 () => new PartsAddViewModel(
                     CreatePartsMainNavigationService(),
-                    CreatePartsEditNavigationService(),
-                    CreatePartsDetailsNavigationService()
+                    _databaseHost
                 )
             );
         }
+
         private INavigationService<PartsDetailsViewModel> CreatePartsDetailsNavigationService()
         {
             return new DefaultNavigationService<PartsDetailsViewModel>
             (
                 _navigationStore,
                 () => new PartsDetailsViewModel(
-                    CreatePartsMainNavigationService(),
-                    CreatePartsEditNavigationService(),
-                    CreatePartsAddNavigationService()
+                    CreatePartsMainNavigationService()
                 )
             );
         }
+
         private INavigationService<PartsEditViewModel> CreatePartsEditNavigationService()
         {
             return new DefaultNavigationService<PartsEditViewModel>
@@ -63,9 +74,11 @@ namespace PrzegladyRemonty.Features.Parts
                 _navigationStore,
                 () => new PartsEditViewModel(
                     CreatePartsMainNavigationService(),
-                    CreatePartsAddNavigationService(),
-                    CreatePartsDetailsNavigationService())
+                    _transproterType,
+                    _databaseHost)
             );
         }
+
+
     }
 }

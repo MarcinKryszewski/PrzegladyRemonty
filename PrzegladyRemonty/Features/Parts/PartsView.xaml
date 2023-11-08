@@ -4,8 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:transporters="clr-namespace:PrzegladyRemonty.Features.Parts"
-    d:DataContext="{d:DesignInstance Type=transporters:PartsViewModel}"
+    xmlns:parts="clr-namespace:PrzegladyRemonty.Features.Parts"
+    d:DataContext="{d:DesignInstance Type=parts:PartsViewModel}"
     d:DesignHeight="975"
     d:DesignWidth="1670"
     mc:Ignorable="d">
@@ -17,22 +17,23 @@
 
         <TextBlock
             Grid.Row="0"
+            VerticalAlignment="Top"
             FontSize="40"
             Foreground="Wheat"
             Text="Parts" />
         <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type transporters:PartsAddViewModel}">
-                    <transporters:PartsAddView />
+                <DataTemplate DataType="{x:Type parts:PartsAddViewModel}">
+                    <parts:PartsAddView />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type transporters:PartsDetailsViewModel}">
-                    <transporters:PartsDetailsView />
+                <DataTemplate DataType="{x:Type parts:PartsDetailsViewModel}">
+                    <parts:PartsDetailsView />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type transporters:PartsEditViewModel}">
-                    <transporters:PartsEditView />
+                <DataTemplate DataType="{x:Type parts:PartsEditViewModel}">
+                    <parts:PartsEditView />
                 </DataTemplate>
-                <DataTemplate DataType="{x:Type transporters:PartsMainViewModel}">
-                    <transporters:PartsMainView />
+                <DataTemplate DataType="{x:Type parts:PartsMainViewModel}">
+                    <parts:PartsMainView />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
