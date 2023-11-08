@@ -1,4 +1,5 @@
-﻿using PrzegladyRemonty.Services;
+﻿using Microsoft.Extensions.Hosting;
+using PrzegladyRemonty.Services;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.Stores;
 using PrzegladyRemonty.Shared.ViewModels;
@@ -8,19 +9,27 @@ namespace PrzegladyRemonty.Features.ActionsCategories
     public class ActionsCategoriesViewModel : ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
+        private readonly IHost _databaseHost;
+        private readonly SelectedActionCategory _transproterType;
+
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
-        public ActionsCategoriesViewModel()
+
+        public ActionsCategoriesViewModel(IHost databaseHost)
         {
             _navigationStore = new NavigationStore();
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            _databaseHost = databaseHost;
+            _transproterType = new SelectedActionCategory();
+
             INavigationService<ActionsCategoriesMainViewModel> ActionsCategoriesMainNavigationService = CreateActionsCategoriesMainNavigationService();
             ActionsCategoriesMainNavigationService.Navigate();
-
         }
+
         private void OnCurrentViewModelChanged()
         {
             OnPropertyChanged(nameof(CurrentViewModel));
         }
+
         private INavigationService<ActionsCategoriesMainViewModel> CreateActionsCategoriesMainNavigationService()
         {
             return new DefaultNavigationService<ActionsCategoriesMainViewModel>
@@ -29,9 +38,12 @@ namespace PrzegladyRemonty.Features.ActionsCategories
                 () => new ActionsCategoriesMainViewModel(
                     CreateActionsCategoriesEditNavigationService(),
                     CreateActionsCategoriesAddNavigationService(),
-                    CreateActionsCategoriesDetailsNavigationService())
+                    CreateActionsCategoriesDetailsNavigationService(),
+                    _transproterType,
+                    _databaseHost)
             );
         }
+
         private INavigationService<ActionsCategoriesAddViewModel> CreateActionsCategoriesAddNavigationService()
         {
             return new DefaultNavigationService<ActionsCategoriesAddViewModel>
@@ -39,23 +51,22 @@ namespace PrzegladyRemonty.Features.ActionsCategories
                 _navigationStore,
                 () => new ActionsCategoriesAddViewModel(
                     CreateActionsCategoriesMainNavigationService(),
-                    CreateActionsCategoriesEditNavigationService(),
-                    CreateActionsCategoriesDetailsNavigationService()
+                    _databaseHost
                 )
             );
         }
+
         private INavigationService<ActionsCategoriesDetailsViewModel> CreateActionsCategoriesDetailsNavigationService()
         {
             return new DefaultNavigationService<ActionsCategoriesDetailsViewModel>
             (
                 _navigationStore,
                 () => new ActionsCategoriesDetailsViewModel(
-                    CreateActionsCategoriesMainNavigationService(),
-                    CreateActionsCategoriesEditNavigationService(),
-                    CreateActionsCategoriesAddNavigationService()
+                    CreateActionsCategoriesMainNavigationService()
                 )
             );
         }
+
         private INavigationService<ActionsCategoriesEditViewModel> CreateActionsCategoriesEditNavigationService()
         {
             return new DefaultNavigationService<ActionsCategoriesEditViewModel>
@@ -63,9 +74,11 @@ namespace PrzegladyRemonty.Features.ActionsCategories
                 _navigationStore,
                 () => new ActionsCategoriesEditViewModel(
                     CreateActionsCategoriesMainNavigationService(),
-                    CreateActionsCategoriesAddNavigationService(),
-                    CreateActionsCategoriesDetailsNavigationService())
+                    _transproterType,
+                    _databaseHost)
             );
         }
+
+
     }
 }

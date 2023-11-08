@@ -202,7 +202,7 @@ namespace PrzegladyRemonty
             return new LayoutNavigationService<ActionsCategoriesViewModel>
             (
                 _navigationStore,
-                () => new ActionsCategoriesViewModel(),
+                () => new ActionsCategoriesViewModel(_databaseHost),
                 CreateSidePanelViewModel,
                 _topPanelViewModel
             );
