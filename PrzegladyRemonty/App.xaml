@@ -4,6 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Startup="ApplicationStart">
 
-    <Application.Resources />
+    <Application.Resources>
+    <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="Themes/Colors.xaml"/>
+            <ResourceDictionary Source="Themes/Controls/Buttons.xaml" />
+            <ResourceDictionary Source="Themes/Controls/PlaceholderTextBoxes.xaml" />
+            <ResourceDictionary Source="Themes/Controls/TextBoxes.xaml" />
+            <ResourceDictionary Source="Themes/Controls/ComboBoxes.xaml" />
+            <ResourceDictionary Source="Themes/Controls/CheckBoxes.xaml" />
+            <ResourceDictionary Source="Themes/Controls/Expanders.xaml" />
+        </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+</Application.Resources>
 
 </Application>

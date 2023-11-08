@@ -10,16 +10,6 @@
     d:DesignWidth="1670"
     mc:Ignorable="d">
 
-
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../../Themes/Colors.xaml" />
-
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Border Background="{StaticResource MainDarkBrush}">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -28,8 +18,6 @@
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="5" />
             </Grid.ColumnDefinitions>
-
-
 
             <Button
                 x:Name="btnMinimize"

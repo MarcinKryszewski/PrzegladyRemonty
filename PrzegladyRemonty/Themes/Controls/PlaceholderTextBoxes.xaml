@@ -3,9 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:PrzegladyRemonty.Controls.PlaceholderTextBox.Converters"
     xmlns:local="clr-namespace:PrzegladyRemonty.Controls.PlaceholderTextBox">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="../Colors.xaml" />
-    </ResourceDictionary.MergedDictionaries>
     <Style
         x:Key="MainPlaceholderTextBox"
         BasedOn="{StaticResource {x:Type TextBox}}"

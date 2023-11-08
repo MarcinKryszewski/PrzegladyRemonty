@@ -10,15 +10,6 @@
     d:DesignHeight="975"
     d:DesignWidth="250"
     mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../../Themes/Colors.xaml" />
-                <ResourceDictionary Source="../../Themes/Controls/Buttons.xaml" />
-                <ResourceDictionary Source="../../Themes/Controls/Expanders.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Border
         Background="{StaticResource Grey500Brush}"
         BorderBrush="{StaticResource Grey300Brush}"

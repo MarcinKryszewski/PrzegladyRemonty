@@ -16,14 +16,6 @@
     d:Width="1920"
     mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../../Themes/Colors.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Border>
         <Border.Background>
             <SolidColorBrush Color="{StaticResource Grey400Color}" />
