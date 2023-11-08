@@ -39,6 +39,11 @@
                 Command="{Binding NavigateWorkOrdersCommand}"
                 Content="Zlecenia"
                 Style="{StaticResource NavButton}" />
+            <Button
+                Height="40"
+                Command="{Binding NavigateMaintenanceHistoryCommand}"
+                Content="Historia przeglądów"
+                Style="{StaticResource NavButton}" />
 
             <Expander IsExpanded="False" Style="{StaticResource ExpanderStyle1}">
                 <Expander.Header>

@@ -3,6 +3,7 @@ using PrzegladyRemonty.Features.Areas;
 using PrzegladyRemonty.Features.Dashboard;
 using PrzegladyRemonty.Features.Lines;
 using PrzegladyRemonty.Features.Maintenance;
+using PrzegladyRemonty.Features.MaintenanceHistory;
 using PrzegladyRemonty.Features.Parts;
 using PrzegladyRemonty.Features.Transporters;
 using PrzegladyRemonty.Features.TransporterTypes;
@@ -25,6 +26,7 @@ namespace PrzegladyRemonty.Layout.SidePanel
         public ICommand NavigateActionsCategoriesCommand { get; }
         public ICommand NavigatePartsCommand { get; }
         public ICommand NavigateTransporterTypesCommand { get; }
+        public ICommand NavigateMaintenanceHistoryCommand { get; }
 
         public SidePanelViewModel(
             INavigationService<AreasViewModel> areasNavigationService,
@@ -35,7 +37,8 @@ namespace PrzegladyRemonty.Layout.SidePanel
             INavigationService<WorkOrdersViewModel> workOrdersVNavigationService,
             INavigationService<ActionsCategoriesViewModel> actionsCategoriesNavigationService,
             INavigationService<PartsViewModel> partsNavigationService,
-            INavigationService<TransporterTypesViewModel> transporterTypesNavigationService)
+            INavigationService<TransporterTypesViewModel> transporterTypesNavigationService,
+            INavigationService<MaintenanceHistoryViewModel> maintenanceHistoryNavigationService)
         {
             NavigateAreasCommand = new NavigateCommand<AreasViewModel>(areasNavigationService);
             NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(dashboardNavigationService);
@@ -46,6 +49,7 @@ namespace PrzegladyRemonty.Layout.SidePanel
             NavigateActionsCategoriesCommand = new NavigateCommand<ActionsCategoriesViewModel>(actionsCategoriesNavigationService);
             NavigatePartsCommand = new NavigateCommand<PartsViewModel>(partsNavigationService);
             NavigateTransporterTypesCommand = new NavigateCommand<TransporterTypesViewModel>(transporterTypesNavigationService);
+            NavigateMaintenanceHistoryCommand = new NavigateCommand<MaintenanceHistoryViewModel>(maintenanceHistoryNavigationService);
         }
     }
 }

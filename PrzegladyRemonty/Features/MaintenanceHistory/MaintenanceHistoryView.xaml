@@ -1,0 +1,18 @@
+﻿<UserControl
+    x:Class="PrzegladyRemonty.Features.MaintenanceHistory.MaintenanceHistoryView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:maintenance="clr-namespace:PrzegladyRemonty.Features.MaintenanceHistory"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignInstance Type=maintenance:MaintenanceHistoryViewModel}"
+    d:DesignHeight="975"
+    d:DesignWidth="1670"
+    mc:Ignorable="d">
+    <Grid>
+        <TextBlock
+            FontSize="40"
+            Foreground="Wheat"
+            Text="MaintenanceHistory" />
+    </Grid>
+</UserControl>
