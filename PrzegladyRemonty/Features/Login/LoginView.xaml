@@ -16,16 +16,6 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
-
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Themes/Colors.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Themes/Controls/Buttons.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
-
     <Border BorderThickness="3" CornerRadius="10">
         <Border.BorderBrush>
             <SolidColorBrush Color="{StaticResource MainDarkColor}" />
