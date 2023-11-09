@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using PrzegladyRemonty.Database;
 using PrzegladyRemonty.Database.Initializers;
@@ -33,14 +34,16 @@ namespace PrzegladyRemonty
 {
     public partial class App : Application
     {
+        #region Fields
         private readonly IConfiguration _configuration;
         private readonly IHost _databaseHost;
-        private readonly IHost _layoutHost;
+        private readonly IHost _navigationHost;
         private readonly LoginViewModel _loginViewModel;
         private readonly NavigationStore _navigationStore;
         private readonly TopPanelViewModel _topPanelViewModel;
-        private readonly DatabaseConnectionFactory _database;
+        private readonly SidePanelViewModel _sidePanelViewModel;
         private readonly UserStore _user;
+        #endregion
 
         public App()
         {
@@ -51,36 +54,49 @@ namespace PrzegladyRemonty
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            _database = new(_configuration);
-
             _databaseHost = Host.CreateDefaultBuilder().ConfigureServices((hostContext, services) =>
             {
-                services.AddSingleton(_database);
+                services.AddSingleton(new DatabaseConnectionFactory(_configuration));
+
                 ProvidersServices(services);
             }).Build();
-
-            _layoutHost = Host.CreateDefaultBuilder().ConfigureServices(services =>
-            {
-                services.AddSingleton(_user);
-                services.AddSingleton<NavigationStore>();
-                services.AddSingleton<TopPanelViewModel>();
-            }).Build();
-
             _databaseHost.Start();
 
-            _layoutHost.Start();
+            _navigationHost = Host.CreateDefaultBuilder().ConfigureServices((hostContext, services) =>
+            {
+                services.AddSingleton(_user);
+                services.AddSingleton(_databaseHost);
 
-            _navigationStore = _layoutHost.Services.GetRequiredService<NavigationStore>();
+                services.AddSingleton(new NavigationStore());
+                services.AddSingleton<TopPanelViewModel>();
+
+                services.AddSingleton<AreasViewModel>();
+                services.AddSingleton<DashboardViewModel>();
+                services.AddSingleton<LinesViewModel>();
+                services.AddSingleton<MaintenanceViewModel>();
+                services.AddSingleton<TransportersViewModel>();
+                services.AddSingleton<WorkOrdersViewModel>();
+                services.AddSingleton<ActionsCategoriesViewModel>();
+                services.AddSingleton<PartsViewModel>();
+                services.AddSingleton<TransporterTypesViewModel>();
+                services.AddSingleton<MaintenanceHistoryViewModel>();
+
+
+            }).Build();
+            _navigationHost.Start();
+
+            _navigationStore = _navigationHost.Services.GetRequiredService<NavigationStore>();
+            _topPanelViewModel = _navigationHost.Services.GetRequiredService<TopPanelViewModel>();
+            _sidePanelViewModel = CreateSidePanelViewModel();
+
             _loginViewModel = new LoginViewModel(_databaseHost, _user);
-            _topPanelViewModel = _layoutHost.Services.GetRequiredService<TopPanelViewModel>();
+
         }
-
-
 
         private void ApplicationStart(object sender, StartupEventArgs e)
         {
             _databaseHost.Start();
-            _layoutHost.Start();
+            _navigationHost.Start();
 
             using DatabaseConnectionFactory connectionFactory = _databaseHost.Services.GetRequiredService<DatabaseConnectionFactory>();
             using IDbConnection connection = connectionFactory.Connect();
@@ -98,7 +114,6 @@ namespace PrzegladyRemonty
             _loginViewModel.PropertyChanged += OnUserAuthenticated;
             _loginViewModel.UserLogin(Environment.UserName);
         }
-
         private void OnUserAuthenticated(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(_loginViewModel.IsAuthenticated))
@@ -135,11 +150,13 @@ namespace PrzegladyRemonty
                 CreateMaintenanceHistoryNavigationService()
             );
         }
+
+        #region CreateNavigationServices
         private INavigationService<AreasViewModel> CreateAreasNavigationService()
         {
             return new LayoutNavigationService<AreasViewModel>
             (
-                _navigationStore,
+                _navigationStore, //+
                 () => new AreasViewModel(_databaseHost),
                 CreateSidePanelViewModel,
                 _topPanelViewModel
@@ -235,6 +252,7 @@ namespace PrzegladyRemonty
                 _topPanelViewModel
             );
         }
+        #endregion
 
         private static void ProvidersServices(IServiceCollection services)
         {
