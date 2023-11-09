@@ -33,11 +33,9 @@ namespace PrzegladyRemonty
 {
     public partial class App : Application
     {
-
         private readonly IConfiguration _configuration;
         private readonly IHost _databaseHost;
         private readonly IHost _layoutHost;
-        private readonly IHost _userHost;
         private readonly LoginViewModel _loginViewModel;
         private readonly NavigationStore _navigationStore;
         private readonly TopPanelViewModel _topPanelViewModel;
@@ -58,21 +56,7 @@ namespace PrzegladyRemonty
             _databaseHost = Host.CreateDefaultBuilder().ConfigureServices((hostContext, services) =>
             {
                 services.AddSingleton(_database);
-
-                services.AddSingleton<ActionCategoryProvider>();
-                services.AddSingleton<AreaProvider>();
-                services.AddSingleton<LineProvider>();
-                services.AddSingleton<MaintenanceProvider>();
-                services.AddSingleton<PermissionProvider>();
-                services.AddSingleton<PersonPermissionProvider>();
-                services.AddSingleton<PersonProvider>();
-                services.AddSingleton<TransporterActionProvider>();
-                services.AddSingleton<TransporterProvider>();
-                services.AddSingleton<WorkOrderMaintenanceProvider>();
-                services.AddSingleton<WorkOrderProvider>();
-                services.AddSingleton<PartProvider>();
-                services.AddSingleton<TransporterPartProvider>();
-                services.AddSingleton<TransporterTypeProvider>();
+                ProvidersServices(services);
             }).Build();
 
             _layoutHost = Host.CreateDefaultBuilder().ConfigureServices(services =>
@@ -90,6 +74,8 @@ namespace PrzegladyRemonty
             _loginViewModel = new LoginViewModel(_databaseHost, _user);
             _topPanelViewModel = _layoutHost.Services.GetRequiredService<TopPanelViewModel>();
         }
+
+
 
         private void ApplicationStart(object sender, StartupEventArgs e)
         {
@@ -239,7 +225,6 @@ namespace PrzegladyRemonty
                 _topPanelViewModel
             );
         }
-
         private INavigationService<MaintenanceHistoryViewModel> CreateMaintenanceHistoryNavigationService()
         {
             return new LayoutNavigationService<MaintenanceHistoryViewModel>
@@ -249,6 +234,24 @@ namespace PrzegladyRemonty
                 CreateSidePanelViewModel,
                 _topPanelViewModel
             );
+        }
+
+        private static void ProvidersServices(IServiceCollection services)
+        {
+            services.AddSingleton<ActionCategoryProvider>();
+            services.AddSingleton<AreaProvider>();
+            services.AddSingleton<LineProvider>();
+            services.AddSingleton<MaintenanceProvider>();
+            services.AddSingleton<PermissionProvider>();
+            services.AddSingleton<PersonPermissionProvider>();
+            services.AddSingleton<PersonProvider>();
+            services.AddSingleton<TransporterActionProvider>();
+            services.AddSingleton<TransporterProvider>();
+            services.AddSingleton<WorkOrderMaintenanceProvider>();
+            services.AddSingleton<WorkOrderProvider>();
+            services.AddSingleton<PartProvider>();
+            services.AddSingleton<TransporterPartProvider>();
+            services.AddSingleton<TransporterTypeProvider>();
         }
     }
 }
