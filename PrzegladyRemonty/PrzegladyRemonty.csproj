@@ -7,7 +7,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Features\Lines\Edit\LinesEditCommand.cs" />
+	  <Compile Remove="Features\Lines\**" />
+	  <Compile Remove="Features\Parts\**" />
+	  <EmbeddedResource Remove="Features\Lines\**" />
+	  <EmbeddedResource Remove="Features\Parts\**" />
+	  <None Remove="Features\Lines\**" />
+	  <None Remove="Features\Parts\**" />
+	  <Page Remove="Features\Lines\**" />
+	  <Page Remove="Features\Parts\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -45,13 +52,7 @@
 		<Folder Include="Features\Maintenance\TransportersChoose\PartsList\" />
 		<Folder Include="Features\Maintenance\TransportersChoose\ProductionLineTree\" />
 		<Folder Include="Features\Maintenance\TransportersChoose\TransporterCart\" />
-		<Folder Include="Features\Parts\" />
-		<Folder Include="Stores\" />
 		<Folder Include="Themes\Controls\PlaceholderTextBox\Themes\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="Features\Lines\Commands\LinesEditCommand.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

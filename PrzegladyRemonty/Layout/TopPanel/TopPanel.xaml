@@ -19,6 +19,15 @@
                 <ColumnDefinition Width="5" />
             </Grid.ColumnDefinitions>
 
+            <TextBlock
+                Grid.Column="0"
+                Margin="20,0,0,0"
+                VerticalAlignment="Center"
+                FontSize="26"
+                FontWeight="Bold"
+                Foreground="{StaticResource WhiteDarkBrush}"
+                Text="{Binding HelloMassage}" />
+
             <Button
                 x:Name="btnMinimize"
                 Grid.Column="1"

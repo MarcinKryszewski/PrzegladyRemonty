@@ -45,10 +45,15 @@ namespace PrzegladyRemonty.Services.Providers
                 Active = @Active
             WHERE Id = @Id
             ";
-        private const string _countByName = @"
+        private const string _countByLogin = @"
             SELECT COUNT(*)
             FROM person
-            WHERE Name = @Name
+            WHERE Login = @Login
+            ";
+        private const string _getByLogin = @"
+            SELECT *
+            FROM person
+            WHERE Login = @Login
             ";
         #endregion
 
@@ -109,20 +114,31 @@ namespace PrzegladyRemonty.Services.Providers
         }
         #endregion
 
-        public bool Exists(string name)
+        public bool Exists(string login)
         {
             int count = 0;
             using (IDbConnection database = _dbContextFactory.Connect())
             {
                 object parameters = new
                 {
-                    Name = name
+                    Login = login
                 };
-                count = database.ExecuteScalar<int>(_countByName, parameters);
+                count = database.ExecuteScalar<int>(_countByLogin, parameters);
             }
             if (count == 1) return true;
             if (count > 1) return true; //TODO: this is an error, requires handler
             return false;
+        }
+
+        public Person GetByLogin(string login)
+        {
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
+            {
+                Login = login
+            };
+            PersonDTO personDTO = database.QuerySingleOrDefault<PersonDTO>(_getByLogin, parameters);
+            return ToPerson(personDTO);
         }
 
         private static Person ToPerson(PersonDTO personDTO)

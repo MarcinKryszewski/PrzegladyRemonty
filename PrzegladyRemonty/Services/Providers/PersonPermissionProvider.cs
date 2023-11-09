@@ -18,31 +18,36 @@ namespace PrzegladyRemonty.Services.Providers
 
         #region SQLCommands
         private const string _createSQL = @"
-                INSERT INTO
-                personPermission (Person, Permission)
-                VALUES (@Person, @Permission)
-                ";
+            INSERT INTO
+            personPermission (Person, Permission)
+            VALUES (@Person, @Permission)
+            ";
         private const string _deleteSQL = @"
-                DELETE
-                FROM personPermission
-                WHERE Id = @Id
-                ";
+            DELETE
+            FROM personPermission
+            WHERE Id = @Id
+            ";
         private const string _getAllSQL = @"
-                SELECT *
-                FROM personPermission
-                ";
+            SELECT *
+            FROM personPermission
+            ";
         private const string _getOneSQL = @"
-                SELECT *
-                FROM personPermission
-                WHERE Id = @Id
-                ";
+            SELECT *
+            FROM personPermission
+            WHERE Id = @Id
+            ";
         private const string _updateSQL = @"
-                UPDATE  personPermission
-                SET 
-                    Person = @Person,
-                    Permission = @Permission
-                WHERE Id = @Id
-                ";
+            UPDATE  personPermission
+            SET 
+                Person = @Person,
+                Permission = @Permission
+            WHERE Id = @Id
+            ";
+        private const string _getAllForUserSQL = @"
+            SELECT *
+            FROM personPermission
+            WHERE Person = @Person
+            ";
         #endregion
 
         public PersonPermissionProvider(DatabaseConnectionFactory dbContextFactory)
@@ -98,6 +103,17 @@ namespace PrzegladyRemonty.Services.Providers
             await database.ExecuteAsync(_updateSQL, parameters);
         }
         #endregion
+
+        public async Task<IEnumerable<PersonPermission>> GetAllUserPermissions(int userId)
+        {
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
+            {
+                Person = userId
+            };
+            IEnumerable<PersonPermissionDTO> personPermissionDTOs = await database.QueryAsync<PersonPermissionDTO>(_getAllForUserSQL, parameters);
+            return personPermissionDTOs.Select(ToPersonPermission);
+        }
 
         private static PersonPermission ToPersonPermission(PersonPermissionDTO personPermissionDTO)
         {

@@ -1,12 +1,21 @@
-﻿using PrzegladyRemonty.Services.Providers;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.ViewModels;
+using PrzegladyRemonty.Stores;
+using System;
 using System.Windows.Input;
 
 namespace PrzegladyRemonty.Features.Login
 {
     public class LoginViewModel : ViewModelBase
     {
+        private readonly IServiceProvider _databaseServices;
         private string _username;
+
+        private readonly PersonProvider _personProvider;
+        private readonly PersonPermissionProvider _personPermissionProvider;
+        private readonly PermissionProvider _permissionProvider;
         public string Username
         {
             get => _username;
@@ -41,9 +50,22 @@ namespace PrzegladyRemonty.Features.Login
 
         public ICommand LoginCommand { get; }
 
-        public LoginViewModel(PersonProvider personProvider)
+        public LoginViewModel(IHost databaseHost, UserStore user)
         {
-            LoginCommand = new LoginCommand(this, personProvider);
+            _databaseServices = databaseHost.Services;
+
+            _personProvider = _databaseServices.GetRequiredService<PersonProvider>();
+            _personPermissionProvider = _databaseServices.GetRequiredService<PersonPermissionProvider>();
+            _permissionProvider = _databaseServices.GetRequiredService<PermissionProvider>();
+
+            LoginCommand = new LoginCommand(this, _personProvider, _personPermissionProvider, _permissionProvider, user);
         }
+
+        public void UserLogin(string login)
+        {
+            LoginCommand.Execute(login);
+        }
+
+
     }
 }

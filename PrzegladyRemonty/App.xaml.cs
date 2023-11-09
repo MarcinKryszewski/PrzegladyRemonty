@@ -21,6 +21,8 @@ using PrzegladyRemonty.Services;
 using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.Stores;
+using PrzegladyRemonty.Stores;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.IO;
@@ -35,13 +37,17 @@ namespace PrzegladyRemonty
         private readonly IConfiguration _configuration;
         private readonly IHost _databaseHost;
         private readonly IHost _layoutHost;
+        private readonly IHost _userHost;
         private readonly LoginViewModel _loginViewModel;
         private readonly NavigationStore _navigationStore;
         private readonly TopPanelViewModel _topPanelViewModel;
         private readonly DatabaseConnectionFactory _database;
+        private readonly UserStore _user;
 
         public App()
         {
+            _user = new UserStore();
+
             _configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
@@ -71,14 +77,17 @@ namespace PrzegladyRemonty
 
             _layoutHost = Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
+                services.AddSingleton(_user);
                 services.AddSingleton<NavigationStore>();
                 services.AddSingleton<TopPanelViewModel>();
             }).Build();
 
             _databaseHost.Start();
+
             _layoutHost.Start();
+
             _navigationStore = _layoutHost.Services.GetRequiredService<NavigationStore>();
-            _loginViewModel = new LoginViewModel(_databaseHost.Services.GetRequiredService<PersonProvider>());
+            _loginViewModel = new LoginViewModel(_databaseHost, _user);
             _topPanelViewModel = _layoutHost.Services.GetRequiredService<TopPanelViewModel>();
         }
 
@@ -101,6 +110,7 @@ namespace PrzegladyRemonty
 
             loginView.Show();
             _loginViewModel.PropertyChanged += OnUserAuthenticated;
+            _loginViewModel.UserLogin(Environment.UserName);
         }
 
         private void OnUserAuthenticated(object sender, PropertyChangedEventArgs e)
