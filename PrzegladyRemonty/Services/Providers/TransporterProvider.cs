@@ -4,6 +4,7 @@ using PrzegladyRemonty.Database;
 using PrzegladyRemonty.Database.DTOs;
 using PrzegladyRemonty.Interfaces;
 using PrzegladyRemonty.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -42,7 +43,8 @@ namespace PrzegladyRemonty.Services.Providers
                     Name = @Name,
                     Active = @Active,
                     Area = @Area,
-                    TransporterType = @TransporterType
+                    TransporterType = @TransporterType,
+                    LastMaintenance = @LastMaintenance
                 WHERE Id = @Id
                 ";
         #endregion
@@ -98,7 +100,8 @@ namespace PrzegladyRemonty.Services.Providers
                 Name = transporter.Name,
                 Active = transporter.Active,
                 Area = transporter.AreaId,
-                TransporterType = transporter.TransporterTypeId
+                TransporterType = transporter.TransporterTypeId,
+                LastMaintenance = transporter.LastMaintenance
             };
             await database.ExecuteAsync(_updateSQL, parameters);
         }
@@ -111,7 +114,17 @@ namespace PrzegladyRemonty.Services.Providers
                 transporterDTO.Name,
                 transporterDTO.Active,
                 transporterDTO.Area,
-                transporterDTO.TransporterType);
+                transporterDTO.TransporterType,
+                MaintenanceDateParser(transporterDTO.LastMaintenance));
+        }
+
+        private static DateOnly MaintenanceDateParser(string lastMaintenance)
+        {
+            if (lastMaintenance == null)
+            {
+                return DateOnly.FromDayNumber(0);
+            }
+            return DateOnly.Parse(lastMaintenance);
         }
     }
 }

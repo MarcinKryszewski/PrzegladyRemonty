@@ -1,4 +1,6 @@
-﻿using PrzegladyRemonty.Layout.Content;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using PrzegladyRemonty.Layout.Content;
 using PrzegladyRemonty.Layout.SidePanel;
 using PrzegladyRemonty.Layout.TopPanel;
 using PrzegladyRemonty.Shared.Services;
@@ -15,15 +17,16 @@ namespace PrzegladyRemonty.Services
         private readonly Func<SidePanelViewModel> _createSidePanelViewModel;
         private readonly TopPanelViewModel _topPanelViewModel;
 
-        public LayoutNavigationService(NavigationStore navigationStore,
+        public LayoutNavigationService(IHost _navigationHost,
             Func<TViewModel> createViewModel,
-            Func<SidePanelViewModel> createSidePanelViewModel,
-            TopPanelViewModel topPanelViewModel)
+            Func<SidePanelViewModel> createSidePanelViewModel)
         {
-            _navigationStore = navigationStore;
+            IServiceProvider services = _navigationHost.Services;
+            _navigationStore = services.GetRequiredService<NavigationStore>();
+            _topPanelViewModel = services.GetRequiredService<TopPanelViewModel>();
+
             _createViewModel = createViewModel;
             _createSidePanelViewModel = createSidePanelViewModel;
-            _topPanelViewModel = topPanelViewModel;
         }
 
         public void Navigate()

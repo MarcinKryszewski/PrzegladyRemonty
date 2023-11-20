@@ -22,7 +22,8 @@ namespace PrzegladyRemonty.Features.Transporters
                 _viewModel.Name,
                 _viewModel.Active,
                 _viewModel.Area.Id,
-                _viewModel.TransporterType.Id);
+                _viewModel.TransporterType.Id,
+                _viewModel.MaintenanceDate);
 
             transporter.Edit(_provider);
             _viewModel.NavigateMainCommand.Execute(null);

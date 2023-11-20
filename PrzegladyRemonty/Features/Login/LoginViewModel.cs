@@ -13,9 +13,6 @@ namespace PrzegladyRemonty.Features.Login
         private readonly IServiceProvider _databaseServices;
         private string _username;
 
-        private readonly PersonProvider _personProvider;
-        private readonly PersonPermissionProvider _personPermissionProvider;
-        private readonly PermissionProvider _permissionProvider;
         public string Username
         {
             get => _username;
@@ -50,22 +47,21 @@ namespace PrzegladyRemonty.Features.Login
 
         public ICommand LoginCommand { get; }
 
-        public LoginViewModel(IHost databaseHost, UserStore user)
+        public LoginViewModel(IHost databaseHost, IHost userHost)
         {
             _databaseServices = databaseHost.Services;
 
-            _personProvider = _databaseServices.GetRequiredService<PersonProvider>();
-            _personPermissionProvider = _databaseServices.GetRequiredService<PersonPermissionProvider>();
-            _permissionProvider = _databaseServices.GetRequiredService<PermissionProvider>();
-
-            LoginCommand = new LoginCommand(this, _personProvider, _personPermissionProvider, _permissionProvider, user);
+            LoginCommand = new LoginCommand(
+                this,
+                _databaseServices.GetRequiredService<PersonProvider>(),
+                _databaseServices.GetRequiredService<PersonPermissionProvider>(),
+                _databaseServices.GetRequiredService<PermissionProvider>(),
+                userHost.Services.GetRequiredService<UserStore>());
         }
 
         public void UserLogin(string login)
         {
             LoginCommand.Execute(login);
         }
-
-
     }
 }

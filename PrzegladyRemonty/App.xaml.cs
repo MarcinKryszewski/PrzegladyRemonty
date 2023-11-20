@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using PrzegladyRemonty.Database;
 using PrzegladyRemonty.Database.Initializers;
@@ -38,17 +37,13 @@ namespace PrzegladyRemonty
         private readonly IConfiguration _configuration;
         private readonly IHost _databaseHost;
         private readonly IHost _navigationHost;
+        private readonly IHost _userHost;
+
         private readonly LoginViewModel _loginViewModel;
-        private readonly NavigationStore _navigationStore;
-        private readonly TopPanelViewModel _topPanelViewModel;
-        private readonly SidePanelViewModel _sidePanelViewModel;
-        private readonly UserStore _user;
         #endregion
 
         public App()
         {
-            _user = new UserStore();
-
             _configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
@@ -62,35 +57,20 @@ namespace PrzegladyRemonty
             }).Build();
             _databaseHost.Start();
 
+            _userHost = Host.CreateDefaultBuilder().ConfigureServices((hostContext, services) =>
+            {
+                services.AddSingleton(new UserStore());
+            }).Build();
+            _userHost.Start();
+
             _navigationHost = Host.CreateDefaultBuilder().ConfigureServices((hostContext, services) =>
             {
-                services.AddSingleton(_user);
-                services.AddSingleton(_databaseHost);
-
-                services.AddSingleton(new NavigationStore());
-                services.AddSingleton<TopPanelViewModel>();
-
-                services.AddSingleton<AreasViewModel>();
-                services.AddSingleton<DashboardViewModel>();
-                services.AddSingleton<LinesViewModel>();
-                services.AddSingleton<MaintenanceViewModel>();
-                services.AddSingleton<TransportersViewModel>();
-                services.AddSingleton<WorkOrdersViewModel>();
-                services.AddSingleton<ActionsCategoriesViewModel>();
-                services.AddSingleton<PartsViewModel>();
-                services.AddSingleton<TransporterTypesViewModel>();
-                services.AddSingleton<MaintenanceHistoryViewModel>();
-
-
+                services.AddSingleton<NavigationStore>();
+                services.AddSingleton<TopPanelViewModel>(new TopPanelViewModel(_userHost.Services.GetRequiredService<UserStore>()));
             }).Build();
             _navigationHost.Start();
 
-            _navigationStore = _navigationHost.Services.GetRequiredService<NavigationStore>();
-            _topPanelViewModel = _navigationHost.Services.GetRequiredService<TopPanelViewModel>();
-            _sidePanelViewModel = CreateSidePanelViewModel();
-
-            _loginViewModel = new LoginViewModel(_databaseHost, _user);
-
+            _loginViewModel = new LoginViewModel(_databaseHost, _userHost);
         }
 
         private void ApplicationStart(object sender, StartupEventArgs e)
@@ -98,9 +78,7 @@ namespace PrzegladyRemonty
             _databaseHost.Start();
             _navigationHost.Start();
 
-            using DatabaseConnectionFactory connectionFactory = _databaseHost.Services.GetRequiredService<DatabaseConnectionFactory>();
-            using IDbConnection connection = connectionFactory.Connect();
-
+            using IDbConnection connection = _databaseHost.Services.GetRequiredService<DatabaseConnectionFactory>().Connect();
             DatabaseInitializerFactory initializer = new(_configuration, connection);
             IDatabaseInitializer databaseInitializer = initializer.CreateInitializer();
             databaseInitializer.Initialize();
@@ -124,7 +102,7 @@ namespace PrzegladyRemonty
                     INavigationService<DashboardViewModel> dashboardNavigationService = CreateDashboardNavigationService();
                     MainWindow = new MainWindow()
                     {
-                        DataContext = new MainViewModel(_navigationStore)
+                        DataContext = new MainViewModel(_navigationHost.Services.GetRequiredService<NavigationStore>())
                     };
                     dashboardNavigationService.Navigate();
 
@@ -156,100 +134,90 @@ namespace PrzegladyRemonty
         {
             return new LayoutNavigationService<AreasViewModel>
             (
-                _navigationStore, //+
+                _navigationHost,
                 () => new AreasViewModel(_databaseHost),
-                CreateSidePanelViewModel,
-                _topPanelViewModel
+                CreateSidePanelViewModel
             );
         }
         private INavigationService<DashboardViewModel> CreateDashboardNavigationService()
         {
             return new LayoutNavigationService<DashboardViewModel>
             (
-                _navigationStore,
+                _navigationHost,
                 () => new DashboardViewModel(),
-                CreateSidePanelViewModel,
-                _topPanelViewModel
+                CreateSidePanelViewModel
             );
         }
         private INavigationService<LinesViewModel> CreateLinesNavigationService()
         {
             return new LayoutNavigationService<LinesViewModel>
             (
-                _navigationStore,
+                _navigationHost,
                 () => new LinesViewModel(_databaseHost),
-                CreateSidePanelViewModel,
-                _topPanelViewModel
+                CreateSidePanelViewModel
             );
         }
         private INavigationService<MaintenanceViewModel> CreateMaintenanceNavigationService()
         {
             return new LayoutNavigationService<MaintenanceViewModel>
             (
-                _navigationStore,
+                _navigationHost,
                 () => new MaintenanceViewModel(_databaseHost),
-                CreateSidePanelViewModel,
-                _topPanelViewModel
+                CreateSidePanelViewModel
             );
         }
         private INavigationService<TransportersViewModel> CreateTransportersNavigationService()
         {
             return new LayoutNavigationService<TransportersViewModel>
             (
-                _navigationStore,
+                _navigationHost,
                 () => new TransportersViewModel(_databaseHost),
-                CreateSidePanelViewModel,
-                _topPanelViewModel
+                CreateSidePanelViewModel
             );
         }
         private INavigationService<WorkOrdersViewModel> CreateWorkOrdersNavigationService()
         {
             return new LayoutNavigationService<WorkOrdersViewModel>
             (
-                _navigationStore,
+                _navigationHost,
                 () => new WorkOrdersViewModel(),
-                CreateSidePanelViewModel,
-                _topPanelViewModel
+                CreateSidePanelViewModel
             );
         }
         private INavigationService<ActionsCategoriesViewModel> CreateActionsCategoriesNavigationService()
         {
             return new LayoutNavigationService<ActionsCategoriesViewModel>
             (
-                _navigationStore,
+                _navigationHost,
                 () => new ActionsCategoriesViewModel(_databaseHost),
-                CreateSidePanelViewModel,
-                _topPanelViewModel
+                CreateSidePanelViewModel
             );
         }
         private INavigationService<PartsViewModel> CreatePartsNavigationService()
         {
             return new LayoutNavigationService<PartsViewModel>
             (
-                _navigationStore,
+                _navigationHost,
                 () => new PartsViewModel(_databaseHost),
-                CreateSidePanelViewModel,
-                _topPanelViewModel
+                CreateSidePanelViewModel
             );
         }
         private INavigationService<TransporterTypesViewModel> CreateTransporterTypesNavigationService()
         {
             return new LayoutNavigationService<TransporterTypesViewModel>
             (
-                _navigationStore,
+                _navigationHost,
                 () => new TransporterTypesViewModel(_databaseHost),
-                CreateSidePanelViewModel,
-                _topPanelViewModel
+                CreateSidePanelViewModel
             );
         }
         private INavigationService<MaintenanceHistoryViewModel> CreateMaintenanceHistoryNavigationService()
         {
             return new LayoutNavigationService<MaintenanceHistoryViewModel>
             (
-                _navigationStore,
+                _navigationHost,
                 () => new MaintenanceHistoryViewModel(),
-                CreateSidePanelViewModel,
-                _topPanelViewModel
+                CreateSidePanelViewModel
             );
         }
         #endregion

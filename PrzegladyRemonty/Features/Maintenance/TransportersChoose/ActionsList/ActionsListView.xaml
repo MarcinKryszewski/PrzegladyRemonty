@@ -6,13 +6,39 @@
     xmlns:maintenance="clr-namespace:PrzegladyRemonty.Features.Maintenance"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DataContext="{d:DesignInstance Type=maintenance:ActionsListViewModel}"
-    d:DesignHeight="975"
+    d:DesignHeight="835"
     d:DesignWidth="1670"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock
-            FontSize="40"
-            Foreground="Wheat"
-            Text="ActionsList" />
+        <ListView
+            VerticalAlignment="Stretch"
+            ItemsSource="{Binding Path=Actions}"
+            SelectionMode="Single">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Id}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Name}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

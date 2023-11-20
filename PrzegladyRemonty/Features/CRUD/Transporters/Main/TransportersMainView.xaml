@@ -24,7 +24,7 @@
 
         <ListView
             Grid.Row="1"
-            MaxHeight="850"
+            VerticalAlignment="Stretch"
             ItemsSource="{Binding Transporters}"
             SelectedItem="{Binding SelectedTransporter, Mode=TwoWay}"
             SelectionMode="Single">

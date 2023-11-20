@@ -12,38 +12,48 @@ namespace PrzegladyRemonty.Models
         private TransporterType _transporterType;
         private DateOnly _lastMaintenance;
         private readonly ObservableCollection<Part> _parts;
-        private readonly ObservableCollection<TransporterAction> _actions;
+        private readonly ObservableCollection<ActionCategory> _actions;
+        private int _transporterTypeId;
 
         public int Id { get; }
         public string Name { get; }
         public bool Active { get; }
         public int AreaId { get; }
         public DateOnly LastMaintenance => _lastMaintenance;
-        public int TransporterTypeId { get; }
+        public int TransporterTypeId => _transporterTypeId;
         public Area Area => _area;
         public TransporterType TransporterType => _transporterType;
         public IEnumerable<Part> Parts => _parts;
-        public IEnumerable<TransporterAction> Actions => _actions;
+        public IEnumerable<ActionCategory> Actions => _actions;
 
-        public Transporter(int id, string name, bool active, int area, int transporterType)
+        public Transporter(int id, string name, bool active, int area, int transporterType, DateOnly lastMaintenance)
         {
             Id = id;
             Name = name;
             Active = active;
             AreaId = area;
-            TransporterTypeId = transporterType;
+            _transporterTypeId = transporterType;
+            _lastMaintenance = lastMaintenance;
+
+            _parts = new ObservableCollection<Part>();
+            _actions = new ObservableCollection<ActionCategory>();
         }
 
         public Transporter(string name, int area, int transporterType)
         {
             Name = name;
             AreaId = area;
-            TransporterTypeId = transporterType;
+            _transporterTypeId = transporterType;
+            _lastMaintenance = DateOnly.FromDayNumber(0);
+
+            _parts = new ObservableCollection<Part>();
+            _actions = new ObservableCollection<ActionCategory>();
         }
 
         public void SetType(TransporterType transporterType)
         {
             _transporterType = transporterType;
+            _transporterTypeId = transporterType.Id;
         }
         public void SetArea(Area area)
         {
@@ -53,7 +63,7 @@ namespace PrzegladyRemonty.Models
         {
             _parts.Add(part);
         }
-        public void AddAction(TransporterAction action)
+        public void AddAction(ActionCategory action)
         {
             _actions.Add(action);
         }

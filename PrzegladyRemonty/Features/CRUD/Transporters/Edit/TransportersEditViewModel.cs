@@ -6,6 +6,7 @@ using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Commands;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace PrzegladyRemonty.Features.Transporters
         private readonly IEnumerable<Line> _lines;
         private readonly IEnumerable<Area> _areas;
         private readonly IEnumerable<TransporterType> _transporterTypes;
+        private readonly DateOnly _maintenanceDate;
 
         private string _name;
         private bool _active;
@@ -79,6 +81,7 @@ namespace PrzegladyRemonty.Features.Transporters
                 OnPropertyChanged(nameof(TransporterType));
             }
         }
+        public DateOnly MaintenanceDate => _maintenanceDate;
         public bool IsLineSelected => _line != null;
         public IEnumerable<Line> Lines => _lines;
         public IEnumerable<Area> Areas => _areasFiltered;
@@ -110,6 +113,7 @@ namespace PrzegladyRemonty.Features.Transporters
             _active = transporter.Active;
             _line = transporter.Area.Line;
             _transporterType = transporter.TransporterType;
+            _maintenanceDate = transporter.LastMaintenance;
 
             ArasFiltered();
             _area = transporter.Area;

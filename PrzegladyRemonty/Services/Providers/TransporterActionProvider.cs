@@ -112,7 +112,7 @@ namespace PrzegladyRemonty.Services.Providers
                 (
                     transporterActionDTO.Id,
                     transporterActionDTO.Transporter,
-                    transporterActionDTO.Action,
+                    transporterActionDTO.MaintenanceAction,
                     transporterActionDTO.Frequency,
                     transporterActionDTO.FrequencyUnit
                 );

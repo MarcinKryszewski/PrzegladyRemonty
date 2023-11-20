@@ -4,24 +4,8 @@
 		<OutputType>WinExe</OutputType>
 		<TargetFramework>net7.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
+		<Platforms>AnyCPU</Platforms>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <Compile Remove="Features\Lines\**" />
-	  <Compile Remove="Features\Parts\**" />
-	  <EmbeddedResource Remove="Features\Lines\**" />
-	  <EmbeddedResource Remove="Features\Parts\**" />
-	  <None Remove="Features\Lines\**" />
-	  <None Remove="Features\Parts\**" />
-	  <Page Remove="Features\Lines\**" />
-	  <Page Remove="Features\Parts\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Remove="appsettings.json" />
-		<None Remove="Resources\logo.png" />
-		<None Remove="Resources\PrzegladyRemonty.accdb" />
-	</ItemGroup>
 
 <!-- 
 
@@ -50,7 +34,6 @@
 		<Folder Include="Features\CRUD\" />
 		<Folder Include="Features\Maintenance\TransportersChoose\ActionsList\" />
 		<Folder Include="Features\Maintenance\TransportersChoose\PartsList\" />
-		<Folder Include="Features\Maintenance\TransportersChoose\ProductionLineTree\" />
 		<Folder Include="Features\Maintenance\TransportersChoose\TransporterCart\" />
 		<Folder Include="Themes\Controls\PlaceholderTextBox\Themes\" />
 	</ItemGroup>
@@ -64,6 +47,7 @@
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
 		<PackageReference Include="QuestPDF" Version="2023.10.0" />
 		<PackageReference Include="System.Data.OleDb" Version="7.0.0" />
 		<PackageReference Include="System.Data.SQLite.Core" Version="1.0.118" />

@@ -24,12 +24,12 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250" />
-                <ColumnDefinition />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="65" />
-                <RowDefinition />
+                <RowDefinition Height="975" />
             </Grid.RowDefinitions>
 
             <Border

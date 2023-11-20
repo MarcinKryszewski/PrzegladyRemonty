@@ -12,21 +12,46 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
         <maintenance:ProductionLineListView Grid.Column="0" DataContext="{Binding ProductionLineListViewModel}" />
 
-        <Grid Grid.Column="1">
+        <GridSplitter
+            Grid.Column="1"
+            Width="3"
+            Margin="0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch"
+            Background="{StaticResource MainDarkBrush}" />
+
+        <Grid Grid.Column="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>                    
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*" MinHeight="50px" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" MinHeight="50px" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" MinHeight="50px" />
             </Grid.RowDefinitions>
 
             <maintenance:TransporterCartView Grid.Row="0" DataContext="{Binding TransporterCartViewModel}" />
-            <maintenance:ActionsListView Grid.Row="1" DataContext="{Binding ActionsListViewModel}" />
-            <maintenance:PartsListView Grid.Row="2" DataContext="{Binding PartsListViewModel}" />
+            <GridSplitter
+                Grid.Row="1"
+                Height="3"
+                Margin="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Background="{StaticResource MainDarkBrush}" />
+            <maintenance:ActionsListView Grid.Row="2" DataContext="{Binding ActionsListViewModel}" />
+            <GridSplitter
+                Grid.Row="3"
+                Height="3"
+                Margin="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Background="{StaticResource MainDarkBrush}" />
+            <maintenance:PartsListView Grid.Row="4" DataContext="{Binding PartsListViewModel}" />
 
         </Grid>
     </Grid>
