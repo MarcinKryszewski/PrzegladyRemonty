@@ -1,4 +1,6 @@
-﻿using PrzegladyRemonty.Features.ActionsCategories;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using PrzegladyRemonty.Features.ActionsCategories;
 using PrzegladyRemonty.Features.Areas;
 using PrzegladyRemonty.Features.Dashboard;
 using PrzegladyRemonty.Features.Lines;
@@ -11,12 +13,14 @@ using PrzegladyRemonty.Features.WorkOrders;
 using PrzegladyRemonty.Shared.Commands;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.ViewModels;
+using PrzegladyRemonty.Stores;
 using System.Windows.Input;
 
 namespace PrzegladyRemonty.Layout.SidePanel
 {
     public class SidePanelViewModel : ViewModelBase
     {
+        private SelectedPanelStore _selectedPanel;
         public ICommand NavigateAreasCommand { get; }
         public ICommand NavigateDashboardCommand { get; }
         public ICommand NavigateLinesCommand { get; }
@@ -28,6 +32,8 @@ namespace PrzegladyRemonty.Layout.SidePanel
         public ICommand NavigateTransporterTypesCommand { get; }
         public ICommand NavigateMaintenanceHistoryCommand { get; }
 
+        public string SelectedPanelName => _selectedPanel.PanelName;
+
         public SidePanelViewModel(
             INavigationService<AreasViewModel> areasNavigationService,
             INavigationService<DashboardViewModel> dashboardNavigationService,
@@ -38,7 +44,8 @@ namespace PrzegladyRemonty.Layout.SidePanel
             INavigationService<ActionsCategoriesViewModel> actionsCategoriesNavigationService,
             INavigationService<PartsViewModel> partsNavigationService,
             INavigationService<TransporterTypesViewModel> transporterTypesNavigationService,
-            INavigationService<MaintenanceHistoryViewModel> maintenanceHistoryNavigationService)
+            INavigationService<MaintenanceHistoryViewModel> maintenanceHistoryNavigationService,
+            IHost navigationServices)
         {
             NavigateAreasCommand = new NavigateCommand<AreasViewModel>(areasNavigationService);
             NavigateDashboardCommand = new NavigateCommand<DashboardViewModel>(dashboardNavigationService);
@@ -50,6 +57,7 @@ namespace PrzegladyRemonty.Layout.SidePanel
             NavigatePartsCommand = new NavigateCommand<PartsViewModel>(partsNavigationService);
             NavigateTransporterTypesCommand = new NavigateCommand<TransporterTypesViewModel>(transporterTypesNavigationService);
             NavigateMaintenanceHistoryCommand = new NavigateCommand<MaintenanceHistoryViewModel>(maintenanceHistoryNavigationService);
+            _selectedPanel = navigationServices.Services.GetRequiredService<SelectedPanelStore>();
         }
     }
 }

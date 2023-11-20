@@ -5,11 +5,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:sidepanel="clr-namespace:PrzegladyRemonty.Layout.SidePanel"
+    xmlns:converters="clr-namespace:PrzegladyRemonty.Converters"
     x:Name="userControl"
     d:DataContext="{d:DesignInstance Type=sidepanel:SidePanelViewModel}"
     d:DesignHeight="975"
     d:DesignWidth="250"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:ButtonStyleConverter x:Key="ButtonStyleConverter" />
+    </UserControl.Resources>
     <Border
         Background="{StaticResource Grey500Brush}"
         BorderBrush="{StaticResource Grey300Brush}"
@@ -19,22 +23,22 @@
                 Height="40"
                 Command="{Binding NavigateDashboardCommand}"
                 Content="Dashboard"
-                Style="{StaticResource NavButtonActive}" />
+                Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=Dashboard}" />
             <Button
                 Height="40"
                 Command="{Binding NavigateMaintenanceCommand}"
                 Content="Przeglądy"
-                Style="{StaticResource NavButton}" />
+                Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=Maintenance}" />
             <Button
                 Height="40"
                 Command="{Binding NavigateWorkOrdersCommand}"
                 Content="Zlecenia"
-                Style="{StaticResource NavButton}" />
+                Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=WorkOrders}" />
             <Button
                 Height="40"
                 Command="{Binding NavigateMaintenanceHistoryCommand}"
                 Content="Historia przeglądów"
-                Style="{StaticResource NavButton}" />
+                Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=MaintenanceHistory}" />
 
             <Expander IsExpanded="False" Style="{StaticResource ExpanderStyle1}">
                 <Expander.Header>
@@ -56,37 +60,38 @@
                         <Button
                             Height="40"
                             Command="{Binding NavigateLinesCommand}"
-                            Content="Linia"
-                            Style="{StaticResource NavButton}" />
+                            Content="Linie"
+                           Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=Lines}" />
                         <Button
                             Height="40"
                             Command="{Binding NavigateAreasCommand}"
-                            Content="Obszar"
-                            Style="{StaticResource NavButtonActive}" />
+                            Content="Obszary"
+                            Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=Areas}" />
                         <Button
                             Height="40"
                             Command="{Binding NavigateTransportersCommand}"
-                            Content="Transporter"
-                            Style="{StaticResource NavButton}" />
+                            Content="Transportery"
+                            Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=Transporters}" />
+                        <Button
+                            Height="40"
+                            Command="{Binding NavigateTransporterTypesCommand}"
+                            Content="Rodzaje transporterów"
+                            Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=TransporterTypes}" />
                         <Button
                             Height="40"
                             Command="{Binding NavigateActionsCategoriesCommand}"
                             Content="Czynności"
-                            Style="{StaticResource NavButton}" />
+                            Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=ActionsCategories}" />
                         <Button
                             Height="40"
                             Command="{Binding NavigatePartsCommand}"
                             Content="Części"
-                            Style="{StaticResource NavButton}" />
-                        <Button
-                            Height="40"
-                            Command="{Binding NavigateTransporterTypesCommand}"
-                            Content="Rodzaje"
-                            Style="{StaticResource NavButton}" />
+                            Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=Parts}" />
+                        
                     </StackPanel>
                 </Expander.Content>
             </Expander>
-            <TextBlock />
+            <TextBlock Text="{Binding SelectedPanelName}" />
         </StackPanel>
 
     </Border>

@@ -60,7 +60,7 @@
                         x:Name="border"
                         Background="Transparent"
                         BorderBrush="{StaticResource MainBrush}"
-                        BorderThickness="0.5"
+                        BorderThickness="2.5"
                         CornerRadius="20"
                         SnapsToDevicePixels="true">
                         <ContentPresenter
@@ -74,10 +74,10 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsDefaulted" Value="true" />
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="border" Property="BorderThickness" Value="1.5" />
+                            <Setter TargetName="border" Property="BorderThickness" Value="4" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter TargetName="border" Property="BorderThickness" Value="3" />
+                            <Setter TargetName="border" Property="BorderThickness" Value="4" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter TargetName="border" Property="Background" Value="{StaticResource Grey600Brush}" />

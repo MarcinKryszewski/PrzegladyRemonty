@@ -66,6 +66,7 @@ namespace PrzegladyRemonty.Services.Providers
             };
             await database.ExecuteAsync(_createSQL, parameters);
         }
+
         public async Task Delete(int id)
         {
             using IDbConnection database = _dbContextFactory.Connect();

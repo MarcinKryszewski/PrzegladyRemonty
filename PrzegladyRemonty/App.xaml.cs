@@ -66,6 +66,7 @@ namespace PrzegladyRemonty
             _navigationHost = Host.CreateDefaultBuilder().ConfigureServices((hostContext, services) =>
             {
                 services.AddSingleton<NavigationStore>();
+                services.AddSingleton<SelectedPanelStore>();
                 services.AddSingleton<TopPanelViewModel>(new TopPanelViewModel(_userHost.Services.GetRequiredService<UserStore>()));
             }).Build();
             _navigationHost.Start();
@@ -125,7 +126,8 @@ namespace PrzegladyRemonty
                 CreateActionsCategoriesNavigationService(),
                 CreatePartsNavigationService(),
                 CreateTransporterTypesNavigationService(),
-                CreateMaintenanceHistoryNavigationService()
+                CreateMaintenanceHistoryNavigationService(),
+                _navigationHost
             );
         }
 
