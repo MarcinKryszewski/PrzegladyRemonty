@@ -57,34 +57,39 @@
 
         <StackPanel
             Grid.Row="2"
+            Margin="0,10,0,10"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Button
                 Width="200"
                 Height="40"
+                Margin="5,0,5,0"
                 Command="{Binding NavigateDetailsCommand}"
-                Content="Details"
+                Content="Szczegóły"
                 IsEnabled="{Binding IsTransporterTypeSelected}"
-                Style="{StaticResource NavButton}" />
+                Style="{StaticResource SideButton}" />
             <Button
                 Width="200"
                 Height="40"
+                Margin="5,0,5,0"
                 Command="{Binding NavigateEditCommand}"
-                Content="Edit"
+                Content="Edycja"
                 IsEnabled="{Binding IsTransporterTypeSelected}"
-                Style="{StaticResource NavButton}" />
+                Style="{StaticResource SideButton}" />
             <Button
                 Width="200"
                 Height="40"
+                Margin="5,0,5,0"
                 Command="{Binding NavigateAddCommand}"
-                Content="Add"
-                Style="{StaticResource NavButton}" />
+                Content="Dodaj nowy"
+                Style="{StaticResource SideButton}" />
             <Button
                 Width="200"
                 Height="40"
+                Margin="5,0,5,0"
                 Command="{Binding TransporterTypesRemoveCommand}"
                 Content="Usuń"
-                Style="{StaticResource NavButton}" />
+                Style="{StaticResource SideButton}" />
         </StackPanel>
 
     </Grid>

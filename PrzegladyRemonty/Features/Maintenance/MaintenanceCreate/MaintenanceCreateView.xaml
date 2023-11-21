@@ -1,0 +1,76 @@
+﻿<UserControl
+    x:Class="PrzegladyRemonty.Features.Maintenance.MaintenanceCreateView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:PrzegladyRemonty.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PrzegladyRemonty.Features.Maintenance"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignInstance Type=local:MaintenanceCreateViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:ReverseBooleanConverter x:Key="ReverseBooleanConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontWeight="Bold"
+                Foreground="{StaticResource MainBrush}"
+                Text="NUMER ZLECENIA" />
+            <TextBlock
+                Grid.Row="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontWeight="Bold"
+                Foreground="{StaticResource MainBrush}"
+                Text="{Binding Path=WorkOrderNumber}" />
+            <TreeView Grid.Row="2" ItemsSource="{Binding Path=TransportersCart.Transporters}">
+                <TreeView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name}" />
+                    </DataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button
+                    Grid.Column="0"
+                    Height="40"
+                    Content="Wróć"
+                    IsEnabled="{Binding Path=WorkOrderNumberCreated, Converter={StaticResource ReverseBooleanConverter}}"
+                    Style="{StaticResource SideButtonFlat}" />
+                <Button
+                    Grid.Column="1"
+                    Height="40"
+                    Content="Stwórz"
+                    IsEnabled="{Binding Path=WorkOrderNumberCreated, Converter={StaticResource ReverseBooleanConverter}}"
+                    Style="{StaticResource MainButtonFlat}" />
+            </Grid>
+
+        </Grid>
+
+
+        <ListView Grid.Column="2" />
+
+    </Grid>
+</UserControl>

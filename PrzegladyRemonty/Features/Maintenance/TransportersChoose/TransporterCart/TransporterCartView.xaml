@@ -12,7 +12,6 @@
     mc:Ignorable="d">
     <Grid>
         <ListView
-            Grid.Row="1"
             VerticalAlignment="Stretch"
             ItemsSource="{Binding Transporters}"
             SelectedItem="{Binding SelectedTransporter, Mode=TwoWay}"
@@ -78,5 +77,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
+
     </Grid>
 </UserControl>

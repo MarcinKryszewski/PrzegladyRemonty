@@ -25,6 +25,9 @@
                 <DataTemplate DataType="{x:Type maintenance:TransportersChooseViewModel}">
                     <maintenance:TransportersChooseView />
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type maintenance:MaintenanceCreateViewModel}">
+                    <maintenance:MaintenanceCreateView />
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
     </Grid>

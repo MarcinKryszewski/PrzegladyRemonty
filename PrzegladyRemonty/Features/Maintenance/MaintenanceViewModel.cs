@@ -47,6 +47,7 @@ namespace PrzegladyRemonty.Features.Maintenance
                     services.AddSingleton<MaintenanceTransporterStore>();
 
                     services.AddSingleton(_navigationStore);
+
                     services.AddTransient((s) => CreateTransportersChooseViewModel(s));
                     services.AddSingleton<CreateViewModel<TransportersChooseViewModel>>((s) => () => s.GetRequiredService<TransportersChooseViewModel>());
                     services.AddSingleton<NavigationService<TransportersChooseViewModel>>((s) =>
@@ -54,6 +55,16 @@ namespace PrzegladyRemonty.Features.Maintenance
                         return new NavigationService<TransportersChooseViewModel>(
                             s.GetRequiredService<NavigationStore>(),
                             s.GetRequiredService<CreateViewModel<TransportersChooseViewModel>>()
+                        );
+                    });
+
+                    services.AddTransient((s) => CreateMaintenanceCreateViewModel(s));
+                    services.AddSingleton<CreateViewModel<MaintenanceCreateViewModel>>((s) => () => s.GetRequiredService<MaintenanceCreateViewModel>());
+                    services.AddSingleton<NavigationService<MaintenanceCreateViewModel>>((s) =>
+                    {
+                        return new NavigationService<MaintenanceCreateViewModel>(
+                            s.GetRequiredService<NavigationStore>(),
+                            s.GetRequiredService<CreateViewModel<MaintenanceCreateViewModel>>()
                         );
                     });
 
@@ -76,6 +87,11 @@ namespace PrzegladyRemonty.Features.Maintenance
         private static TransportersChooseViewModel CreateTransportersChooseViewModel(IServiceProvider services)
         {
             return new TransportersChooseViewModel(services);
+        }
+
+        private static MaintenanceCreateViewModel CreateMaintenanceCreateViewModel(IServiceProvider services)
+        {
+            return new MaintenanceCreateViewModel(services);
         }
 
         private Brewery SetBrewery()
@@ -164,14 +180,14 @@ namespace PrzegladyRemonty.Features.Maintenance
 
         private IEnumerable<ActionCategory> GetActions()
         {
-            IEnumerable<ActionCategory> someList = _databaseServices.GetRequiredService<ActionCategoryProvider>().GetAll().Result;
-            return someList;
+            IEnumerable<ActionCategory> actionsList = _databaseServices.GetRequiredService<ActionCategoryProvider>().GetAll().Result;
+            return actionsList;
         }
 
         private IEnumerable<TransporterAction> GetTransporterActions()
         {
-            IEnumerable<TransporterAction> someList = _databaseServices.GetRequiredService<TransporterActionProvider>().GetAll().Result;
-            return someList;
+            IEnumerable<TransporterAction> actionsList = _databaseServices.GetRequiredService<TransporterActionProvider>().GetAll().Result;
+            return actionsList;
         }
     }
 }

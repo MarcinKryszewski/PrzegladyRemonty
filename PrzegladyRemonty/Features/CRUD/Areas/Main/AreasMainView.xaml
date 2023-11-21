@@ -71,11 +71,13 @@
 
         <StackPanel
             Grid.Row="2"
+            Margin="0,10,0,10"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Button
                 Width="200"
                 Height="40"
+                Margin="5,0,5,0"
                 Command="{Binding NavigateDetailsCommand}"
                 Content="Details"
                 IsEnabled="{Binding IsSelected}"
@@ -83,6 +85,7 @@
             <Button
                 Width="200"
                 Height="40"
+                Margin="5,0,5,0"
                 Command="{Binding NavigateEditCommand}"
                 Content="Edit"
                 IsEnabled="{Binding IsSelected}"
@@ -90,12 +93,14 @@
             <Button
                 Width="200"
                 Height="40"
+                Margin="5,0,5,0"
                 Command="{Binding NavigateAddCommand}"
                 Content="Add"
                 Style="{StaticResource SideButton}" />
             <Button
                 Width="200"
                 Height="40"
+                Margin="5,0,5,0"
                 Command="{Binding RemoveCommand}"
                 Content="Usuń"
                 Style="{StaticResource SideButton}" />

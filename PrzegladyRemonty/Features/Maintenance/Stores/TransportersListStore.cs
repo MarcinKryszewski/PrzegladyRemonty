@@ -24,13 +24,11 @@ public class TransportersListStore
 
     public void RemoveTransporter(Transporter transporter)
     {
-        /*var itemToRemove = _transporters.FirstOrDefault(item => item.Id == transporter.Id);
-
-        if (itemToRemove != null)
-        {
-            _transporters.Remove(itemToRemove);
-        }*/
-
         _transporters.Remove(transporter);
+    }
+
+    public void Clear()
+    {
+        _transporters.Clear();
     }
 }
