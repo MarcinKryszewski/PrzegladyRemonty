@@ -102,12 +102,22 @@ namespace PrzegladyRemonty.Services.Providers
 
         public int CreateAndReturnId(WorkOrder workOrder)
         {
-            int id;
-            Create(workOrder);
-
             using IDbConnection database = _dbContextFactory.Connect();
-            id = database.Query<int>("SELECT @@IDENTITY").Single();
-            return id;
+            object parameters = new
+            {
+                Created = workOrder.Created,
+                CreatedBy = workOrder.CreatedBy
+            };
+            database.ExecuteAsync(_createSQL, parameters);
+
+            string lastIdSQL = _dbContextFactory.DatabaseType switch
+            {
+                "SQLite" => "SELECT last_insert_rowid()",
+                "Access" => "SELECT @@IDENTITY",
+                _ => "",
+            };
+
+            return database.Query<int>(lastIdSQL).Single();
         }
 
         private static WorkOrder ToWorkOrder(WorkOrderDTO workOrderDTO)

@@ -100,11 +100,11 @@
                     Command="{Binding Path=ReturnCommand}"
                     Content="Wróć"
                     FontSize="20"
-                    IsEnabled="{Binding Path=WorkOrderNumberCreated, Converter={StaticResource ReverseBooleanConverter}}"
                     Style="{StaticResource SideButtonFlat}" />
                 <Button
                     Grid.Column="1"
                     Height="40"
+                    Command="{Binding Path=CreateWorkOrderCommand}"
                     Content="Stwórz"
                     FontSize="20"
                     IsEnabled="{Binding Path=WorkOrderNumberCreated, Converter={StaticResource ReverseBooleanConverter}}"

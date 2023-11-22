@@ -19,8 +19,8 @@ namespace PrzegladyRemonty.Services.Providers
         #region SQLCommands
         private const string _createSQL = @"
                 INSERT INTO
-                maintenance (MaintenanceDate, Mechanic, MaintenanceAction, Completed, Description)
-                VALUES (@MaintenanceDate, @Mechanic, @MaintenanceAction, FALSE, @Description)
+                maintenance (MaintenanceAction, Completed)
+                VALUES (@MaintenanceAction, FALSE)
                 ";
         private const string _deleteSQL = @"
                 DELETE
@@ -61,11 +61,7 @@ namespace PrzegladyRemonty.Services.Providers
             using IDbConnection database = _dbContextFactory.Connect();
             object parameters = new
             {
-                MaintenanceDate = maintenance.MaintenanceDate,
-                Mechanic = maintenance.Mechanic,
-                MaintenanceAction = maintenance.MaintenanceAction,
-                Completed = maintenance.Completed,
-                Description = maintenance.Description
+                MaintenanceAction = maintenance.MaintenanceAction
             };
             await database.ExecuteAsync(_createSQL, parameters);
         }
@@ -110,6 +106,25 @@ namespace PrzegladyRemonty.Services.Providers
             await database.ExecuteAsync(_updateSQL, parameters);
         }
         #endregion
+
+        public int CreateAndReturnId(Maintenance maintenance)
+        {
+            using IDbConnection database = _dbContextFactory.Connect();
+            object parameters = new
+            {
+                MaintenanceAction = maintenance.MaintenanceAction
+            };
+            database.ExecuteAsync(_createSQL, parameters);
+
+            string lastIdSQL = _dbContextFactory.DatabaseType switch
+            {
+                "SQLite" => "SELECT last_insert_rowid()",
+                "Access" => "SELECT @@IDENTITY",
+                _ => "",
+            };
+
+            return database.Query<int>(lastIdSQL).Single();
+        }
 
         private static Maintenance ToMaintenance(MaintenanceDTO maintenanceDTO)
         {

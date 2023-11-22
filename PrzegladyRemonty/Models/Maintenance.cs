@@ -10,15 +10,9 @@
         public string Description { get; }
 
         public Maintenance(
-            string maintenanceDate,
-            int mechanic,
-            int maintenanceAction,
-            string description)
+            int maintenanceAction)
         {
-            MaintenanceDate = maintenanceDate;
-            Mechanic = mechanic;
             MaintenanceAction = maintenanceAction;
-            Description = description;
         }
 
         public Maintenance(

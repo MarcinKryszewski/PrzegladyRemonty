@@ -5,6 +5,7 @@ using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.Stores;
 using PrzegladyRemonty.Shared.ViewModels;
+using PrzegladyRemonty.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,7 +30,7 @@ namespace PrzegladyRemonty.Features.Maintenance
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        public MaintenanceViewModel(IHost databaseHost)
+        public MaintenanceViewModel(IHost databaseHost, IHost userHost)
         {
             _databaseServices = databaseHost.Services;
             _navigationStore = new NavigationStore();
@@ -56,6 +57,8 @@ namespace PrzegladyRemonty.Features.Maintenance
                     services.AddSingleton(_transporterParts);
                     services.AddSingleton(_transporterActions);
                     services.AddSingleton(_brewery);
+
+                    services.AddSingleton(userHost.Services.GetRequiredService<UserStore>());
 
                     services.AddSingleton<TransportersChooseViewModel>();
                     services.AddSingleton<ProductionLineListViewModel>();
