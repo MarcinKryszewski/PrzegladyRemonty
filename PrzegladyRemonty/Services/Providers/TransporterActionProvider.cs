@@ -58,8 +58,8 @@ namespace PrzegladyRemonty.Services.Providers
             using IDbConnection database = _dbContextFactory.Connect();
             object parameters = new
             {
-                Transporter = transporterAction.Transporter,
-                MaintenanceAction = transporterAction.Action,
+                Transporter = transporterAction.TransporterId,
+                MaintenanceAction = transporterAction.ActionId,
                 Frequency = transporterAction.Frequency,
                 FrequencyUnit = transporterAction.FrequencyUnit
             };
@@ -96,8 +96,8 @@ namespace PrzegladyRemonty.Services.Providers
             object parameters = new
             {
                 Id = transporterAction.Id,
-                Transporter = transporterAction.Transporter,
-                MaintenanceAction = transporterAction.Action,
+                Transporter = transporterAction.TransporterId,
+                MaintenanceAction = transporterAction.ActionId,
                 Frequency = transporterAction.Frequency,
                 FrequencyUnit = transporterAction.FrequencyUnit
 

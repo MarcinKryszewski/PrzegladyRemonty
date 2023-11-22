@@ -100,6 +100,16 @@ namespace PrzegladyRemonty.Services.Providers
         }
         #endregion
 
+        public int CreateAndReturnId(WorkOrder workOrder)
+        {
+            int id;
+            Create(workOrder);
+
+            using IDbConnection database = _dbContextFactory.Connect();
+            id = database.Query<int>("SELECT @@IDENTITY").Single();
+            return id;
+        }
+
         private static WorkOrder ToWorkOrder(WorkOrderDTO workOrderDTO)
         {
             return new WorkOrder

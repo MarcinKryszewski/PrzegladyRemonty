@@ -7,6 +7,7 @@ using PrzegladyRemonty.Shared.Stores;
 using PrzegladyRemonty.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace PrzegladyRemonty.Features.Maintenance
@@ -15,10 +16,16 @@ namespace PrzegladyRemonty.Features.Maintenance
     {
         private readonly NavigationStore _navigationStore;
         private readonly IServiceProvider _databaseServices;
-        private readonly TransportersListStore _transporters;
+        private readonly TransportersListStore _transportersList;
         private readonly TransporterStore _transporter;
         private readonly IHost _maintenanceHost;
         private readonly Brewery _brewery;
+
+        private ObservableCollection<TransporterPart> _transporterParts;
+        private ObservableCollection<TransporterAction> _transporterActions;
+        private readonly IEnumerable<Transporter> _transporters;
+        private readonly IEnumerable<ActionCategory> _actions;
+        private readonly IEnumerable<Part> _parts;
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
@@ -29,6 +36,15 @@ namespace PrzegladyRemonty.Features.Maintenance
 
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
+            _transporterParts = new ObservableCollection<TransporterPart>(GetTransportersParts());
+            _transporterActions = new ObservableCollection<TransporterAction>(GetTransporterActions());
+            _transporters = GetTransporters();
+            _actions = GetActions();
+            _parts = GetParts();
+
+            SetTransportersParts();
+            SetTransportersActions();
+
             _brewery = SetBrewery();
 
             _maintenanceHost = Host
@@ -37,6 +53,8 @@ namespace PrzegladyRemonty.Features.Maintenance
                 {
                     services.AddSingleton<TransportersListStore>();
                     services.AddTransient<TransporterStore>();
+                    services.AddSingleton(_transporterParts);
+                    services.AddSingleton(_transporterActions);
                     services.AddSingleton(_brewery);
 
                     services.AddSingleton<TransportersChooseViewModel>();
@@ -47,6 +65,10 @@ namespace PrzegladyRemonty.Features.Maintenance
                     services.AddSingleton<MaintenanceTransporterStore>();
 
                     services.AddSingleton(_navigationStore);
+
+                    services.AddSingleton(_databaseServices.GetRequiredService<WorkOrderProvider>());
+                    services.AddSingleton(_databaseServices.GetRequiredService<WorkOrderMaintenanceProvider>());
+                    services.AddSingleton(_databaseServices.GetRequiredService<MaintenanceProvider>());
 
                     services.AddTransient((s) => CreateTransportersChooseViewModel(s));
                     services.AddSingleton<CreateViewModel<TransportersChooseViewModel>>((s) => () => s.GetRequiredService<TransportersChooseViewModel>());
@@ -73,8 +95,6 @@ namespace PrzegladyRemonty.Features.Maintenance
                 .Build();
             _maintenanceHost.Start();
 
-            //_transporter = _maintenanceHost.Services.GetRequiredService<TransporterStore>();
-
             NavigationService<TransportersChooseViewModel> navigationService = _maintenanceHost.Services.GetRequiredService<NavigationService<TransportersChooseViewModel>>();
             navigationService.Navigate();
         }
@@ -92,6 +112,24 @@ namespace PrzegladyRemonty.Features.Maintenance
         private static MaintenanceCreateViewModel CreateMaintenanceCreateViewModel(IServiceProvider services)
         {
             return new MaintenanceCreateViewModel(services);
+        }
+
+        private void SetTransportersParts()
+        {
+            foreach (TransporterPart transporterPart in _transporterParts)
+            {
+                transporterPart.SetPart(_parts.First(p => p.Id == transporterPart.PartId));
+                transporterPart.SetTransporter(_transporters.First(t => t.Id == transporterPart.TransporterId));
+            }
+        }
+
+        private void SetTransportersActions()
+        {
+            foreach (TransporterAction transporterAction in _transporterActions)
+            {
+                transporterAction.SetAction(_actions.First(a => a.Id == transporterAction.ActionId));
+                transporterAction.SetTransporter(_transporters.First(t => t.Id == transporterAction.TransporterId));
+            }
         }
 
         private Brewery SetBrewery()
@@ -123,22 +161,22 @@ namespace PrzegladyRemonty.Features.Maintenance
 
         private void AddTransporters(Area area)
         {
-            foreach (Transporter transporter in GetTransporters().Where(c => c.AreaId == area.Id).ToList())
+            foreach (Transporter transporter in _transporters.Where(c => c.AreaId == area.Id).ToList())
             {
                 transporter.SetType(GetTransportersType().FirstOrDefault(b => b.Id == transporter.TransporterTypeId));
 
-                IEnumerable<TransporterPart> transportersParts = GetTransportersParts().Where(b => b.Transporter == transporter.Id);
-                IEnumerable<Part> parts = GetParts().Where(c => transportersParts.Any(b => b.Part == c.Id));
+                IEnumerable<TransporterPart> transportersParts = _transporterParts.Where(b => b.TransporterId == transporter.Id);
+                IEnumerable<Part> parts = _parts.Where(c => transportersParts.Any(b => b.PartId == c.Id));
 
-                foreach (var part in parts)
+                foreach (Part part in parts)
                 {
                     transporter.AddPart(part);
                 }
 
-                IEnumerable<TransporterAction> transportersActions = GetTransporterActions().Where(b => b.Transporter == transporter.Id);
-                IEnumerable<ActionCategory> actions = GetActions().Where(c => transportersActions.Any(b => b.Action == c.Id));
+                IEnumerable<TransporterAction> transportersActions = _transporterActions.Where(b => b.TransporterId == transporter.Id);
+                IEnumerable<ActionCategory> actions = _actions.Where(c => transportersActions.Any(b => b.ActionId == c.Id));
 
-                foreach (var action in actions)
+                foreach (ActionCategory action in actions)
                 {
                     transporter.AddAction(action);
                 }
