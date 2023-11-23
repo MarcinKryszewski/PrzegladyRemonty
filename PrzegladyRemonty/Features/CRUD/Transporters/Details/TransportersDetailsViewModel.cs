@@ -19,7 +19,9 @@ namespace PrzegladyRemonty.Features.Transporters
         private readonly IServiceProvider _databaseServices;
         private readonly SelectedTransporter _selectedTransporter;
         private ObservableCollection<TransporterPart> _transporterParts;
+        private ObservableCollection<TransporterPart> _transporterPartsSelected;
         private ObservableCollection<TransporterAction> _transporterActions;
+        private ObservableCollection<TransporterAction> _transporterActionsSelected;
 
         private Part _partSelected;
         private readonly ObservableCollection<Part> _parts;
@@ -34,12 +36,12 @@ namespace PrzegladyRemonty.Features.Transporters
         public Part SelectedPart => _partSelected;
         public ObservableCollection<Part> Parts => _parts;
         public ObservableCollection<Part> PartsSelected => _partsSelected;
-        public ObservableCollection<Part> PartsList => new(_selectedTransporter.Transporter.Parts);
+        public ObservableCollection<TransporterPart> PartsList => new(_transporterPartsSelected);
 
         public ActionCategory SelectedAction => _actionSelected;
         public ObservableCollection<ActionCategory> Actions => _actions;
         public ObservableCollection<ActionCategory> ActionsSelected => _actionsSelected;
-        public ObservableCollection<ActionCategory> ActionsList => new(_selectedTransporter.Transporter.Actions);
+        public ObservableCollection<TransporterAction> ActionsList => new(_transporterActionsSelected);
 
         public Transporter Transporter => _selectedTransporter.Transporter;
 
@@ -63,6 +65,8 @@ namespace PrzegladyRemonty.Features.Transporters
 
             _transporterParts = new ObservableCollection<TransporterPart>(GetTransportersParts());
             _transporterActions = new ObservableCollection<TransporterAction>(GetTransporterActions());
+            _transporterPartsSelected = new ObservableCollection<TransporterPart>(GetTransportersPartsSelected());
+            _transporterActionsSelected = new ObservableCollection<TransporterAction>(GetTransporterActionsSelected());
 
             _parts = parts;
             _partsSelected = new();
@@ -114,6 +118,16 @@ namespace PrzegladyRemonty.Features.Transporters
             return _databaseServices.GetRequiredService<TransporterPartProvider>().GetAll().Result;
         }
 
+        private IEnumerable<TransporterPart> GetTransportersPartsSelected()
+        {
+            ObservableCollection<TransporterPart> transporterParts = new();
+            foreach (TransporterPart transporterPart in _transporterParts)
+            {
+                if (transporterPart.Transporter.Id == _selectedTransporter.Transporter.Id) transporterParts.Add(transporterPart);
+            }
+            return transporterParts;
+        }
+
         private IEnumerable<ActionCategory> GetActions()
         {
             IEnumerable<ActionCategory> actionsList = _databaseServices.GetRequiredService<ActionCategoryProvider>().GetAll().Result;
@@ -124,6 +138,16 @@ namespace PrzegladyRemonty.Features.Transporters
         {
             IEnumerable<TransporterAction> actionsList = _databaseServices.GetRequiredService<TransporterActionProvider>().GetAll().Result;
             return actionsList;
+        }
+
+        private IEnumerable<TransporterAction> GetTransporterActionsSelected()
+        {
+            ObservableCollection<TransporterAction> transporterActions = new();
+            foreach (TransporterAction transporterAction in _transporterActions)
+            {
+                if (transporterAction.Transporter.Id == _selectedTransporter.Transporter.Id) transporterActions.Add(transporterAction);
+            }
+            return transporterActions;
         }
     }
 }
