@@ -21,7 +21,7 @@ namespace PrzegladyRemonty.Features.Transporters
             int areaId = _viewModel.Area.Id;
             int transporterTypeId = _viewModel.TransporterType.Id;
 
-            Transporter transporter = new Transporter(transporterName, areaId, transporterTypeId);
+            Transporter transporter = new(transporterName, areaId, transporterTypeId);
             transporter.Add(_provider);
             _viewModel.NavigateMainCommand.Execute(null);
         }

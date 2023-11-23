@@ -17,7 +17,7 @@ using System.Windows.Input;
 
 namespace PrzegladyRemonty.Features.Transporters
 {
-    public class TransportersViewModel : ViewModelBase, ILineUpdate, IAreaUpdate, IPartUpdate, ITransporterTypeUpdate
+    public class TransportersViewModel : ViewModelBase, ILineUpdate, IAreaUpdate, IPartUpdate, ITransporterTypeUpdate, IActionCategoryUpdate
     {
         private readonly NavigationStore _navigationStore;
         private readonly IHost _databaseHost;
@@ -26,10 +26,12 @@ namespace PrzegladyRemonty.Features.Transporters
         private readonly ObservableCollection<Area> _areas;
         private readonly ObservableCollection<Part> _parts;
         private readonly ObservableCollection<TransporterType> _transporterTypes;
+        private readonly ObservableCollection<ActionCategory> _actions;
         private readonly ICommand _loadLines;
         private readonly ICommand _loadAreas;
         private readonly ICommand _loadParts;
         private readonly ICommand _loadTransporterTypes;
+        private readonly ICommand _loadActions;
 
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
@@ -48,16 +50,19 @@ namespace PrzegladyRemonty.Features.Transporters
             _lines = new ObservableCollection<Line>();
             _areas = new ObservableCollection<Area>();
             _parts = new ObservableCollection<Part>();
+            _actions = new ObservableCollection<ActionCategory>();
             _transporterTypes = new ObservableCollection<TransporterType>();
 
             _loadLines = new LinesLoadCommand(this, databaseServices.GetRequiredService<LineProvider>());
             _loadAreas = new AreasLoadCommand(this, databaseServices.GetService<AreaProvider>());
             _loadParts = new PartsLoadCommand(this, databaseServices.GetRequiredService<PartProvider>());
+            _loadActions = new ActionsCategoriesLoadCommand(this, databaseServices.GetRequiredService<ActionCategoryProvider>());
             _loadTransporterTypes = new TransporterTypesLoadCommand(this, databaseServices.GetRequiredService<TransporterTypeProvider>());
 
             _loadLines.Execute(null);
             _loadAreas.Execute(null);
             _loadParts.Execute(null);
+            _loadActions.Execute(null);
             _loadTransporterTypes.Execute(null);
 
             TransportersMainNavigationService.Navigate();
@@ -102,7 +107,10 @@ namespace PrzegladyRemonty.Features.Transporters
                 _navigationStore,
                 () => new TransportersDetailsViewModel(
                     CreateTransportersMainNavigationService(),
-                    _databaseHost
+                    _databaseHost,
+                    _selectedTransporter,
+                    _parts,
+                    _actions
                 )
             );
         }
@@ -148,6 +156,15 @@ namespace PrzegladyRemonty.Features.Transporters
             foreach (TransporterType type in transporterTypes)
             {
                 _transporterTypes.Add(type);
+            }
+        }
+
+        public void UpdateActions(IEnumerable<ActionCategory> actions)
+        {
+            _actions.Clear();
+            foreach (ActionCategory action in actions)
+            {
+                _actions.Add(action);
             }
         }
     }
