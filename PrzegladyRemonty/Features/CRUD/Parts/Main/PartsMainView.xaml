@@ -29,12 +29,6 @@
             SelectedItem="{Binding SelectedPart, Mode=TwoWay}"
             SelectionMode="Single">
 
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
-
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID">

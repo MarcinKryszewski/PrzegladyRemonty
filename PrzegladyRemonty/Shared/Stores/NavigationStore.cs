@@ -25,3 +25,4 @@ namespace PrzegladyRemonty.Shared.Stores
         }
     }
 }
+

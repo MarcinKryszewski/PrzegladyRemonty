@@ -92,6 +92,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <Button
@@ -108,6 +109,14 @@
                     Content="Stwórz"
                     FontSize="20"
                     IsEnabled="{Binding Path=WorkOrderNumberCreated, Converter={StaticResource ReverseBooleanConverter}}"
+                    Style="{StaticResource MainButtonFlat}" />
+                <Button
+                    Grid.Column="2"
+                    Height="40"
+                    Command="{Binding Path=CreateWorkOrderCommand}"
+                    Content="Wydrukuj"
+                    FontSize="20"
+                    IsEnabled="{Binding Path=WorkOrderNumberCreated}"
                     Style="{StaticResource MainButtonFlat}" />
             </Grid>
         </Grid>

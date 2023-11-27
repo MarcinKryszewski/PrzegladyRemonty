@@ -23,13 +23,6 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                    <Setter Property="Cursor" Value="Hand" />
-                </Style>
-            </ListView.ItemContainerStyle>
-
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="ID">

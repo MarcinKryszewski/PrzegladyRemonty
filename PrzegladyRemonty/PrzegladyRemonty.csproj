@@ -33,7 +33,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Features\CRUD\" />
+		<Folder Include="Features\CRUD\Roles\" />
+		<Folder Include="Features\CRUD\Users\" />
 		<Folder Include="Features\Maintenance\TransportersChoose\ActionsList\" />
 		<Folder Include="Features\Maintenance\TransportersChoose\PartsList\" />
 		<Folder Include="Features\Maintenance\TransportersChoose\TransporterCart\" />

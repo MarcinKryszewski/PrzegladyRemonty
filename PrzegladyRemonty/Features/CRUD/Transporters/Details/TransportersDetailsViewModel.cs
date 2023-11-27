@@ -1,16 +1,16 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using PrzegladyRemonty.Features.Transporters.Stores;
 using PrzegladyRemonty.Models;
+using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Commands;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
-using System;
-using Microsoft.Extensions.DependencyInjection;
-using PrzegladyRemonty.Services.Providers;
 using System.Linq;
+using System.Windows.Input;
 
 namespace PrzegladyRemonty.Features.Transporters
 {
@@ -121,10 +121,10 @@ namespace PrzegladyRemonty.Features.Transporters
         private IEnumerable<TransporterPart> GetTransportersPartsSelected()
         {
             ObservableCollection<TransporterPart> transporterParts = new();
-            foreach (TransporterPart transporterPart in _transporterParts)
+            /*foreach (TransporterPart transporterPart in _transporterParts)
             {
                 if (transporterPart.Transporter.Id == _selectedTransporter.Transporter.Id) transporterParts.Add(transporterPart);
-            }
+            }*/
             return transporterParts;
         }
 
@@ -143,10 +143,10 @@ namespace PrzegladyRemonty.Features.Transporters
         private IEnumerable<TransporterAction> GetTransporterActionsSelected()
         {
             ObservableCollection<TransporterAction> transporterActions = new();
-            foreach (TransporterAction transporterAction in _transporterActions)
+            /*foreach (TransporterAction transporterAction in _transporterActions)
             {
                 if (transporterAction.Transporter.Id == _selectedTransporter.Transporter.Id) transporterActions.Add(transporterAction);
-            }
+            }*/
             return transporterActions;
         }
     }

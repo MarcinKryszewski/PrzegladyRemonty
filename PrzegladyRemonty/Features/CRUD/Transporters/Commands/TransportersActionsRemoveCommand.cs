@@ -1,5 +1,3 @@
-using System.Collections.ObjectModel;
-using PrzegladyRemonty.Models;
 using PrzegladyRemonty.Shared.Commands;
 
 namespace PrzegladyRemonty.Features.Transporters
@@ -15,7 +13,7 @@ namespace PrzegladyRemonty.Features.Transporters
 
         public override void Execute(object parameter)
         {
-            _viewModel.ActionsList.Remove(_viewModel.SelectedAction);
+            //_viewModel.ActionsList.Remove(_viewModel.SelectedAction);
         }
     }
 }
