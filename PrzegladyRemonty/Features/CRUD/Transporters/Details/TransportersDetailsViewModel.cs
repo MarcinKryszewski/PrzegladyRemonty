@@ -1,14 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using PrzegladyRemonty.Features.Transporters.Stores;
 using PrzegladyRemonty.Models;
-using PrzegladyRemonty.Services.Providers;
-using PrzegladyRemonty.Shared.Commands;
-using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 
 namespace PrzegladyRemonty.Features.Transporters
