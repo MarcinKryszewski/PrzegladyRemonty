@@ -20,7 +20,7 @@
             FontSize="40"
             Foreground="Wheat"
             Text="Work Orders List" />
-        
+
         <ListView
             Grid.Row="1"
             Width="800"
@@ -91,9 +91,9 @@
                 Content="Szczegóły"
                 IsEnabled="{Binding IsSelected}"
                 Style="{StaticResource MainButtonFlat}" />
-            
+
         </StackPanel>
 
-        
+
     </Grid>
 </UserControl>

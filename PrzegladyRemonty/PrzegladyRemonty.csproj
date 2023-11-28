@@ -9,6 +9,10 @@
 		<AnalysisLevel>latest</AnalysisLevel>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <None Remove="Features\WorkOrders\WorkOrdersList\WorkOrdersListView.xaml~RF14b3a6f.TMP" />
+	</ItemGroup>
+
 <!-- 
 
 	<ItemGroup>

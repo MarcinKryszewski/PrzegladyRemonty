@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace PrzegladyRemonty.Models
@@ -6,11 +7,15 @@ namespace PrzegladyRemonty.Models
     public class WorkOrder
     {
         private ObservableCollection<Maintenance> _maintenances;
+        private Person _creator;
         public int Id { get; }
         public string Created { get; }
+        public DateOnly CreatedDate => DateOnly.Parse(Created);
         public int CreatedBy { get; }
+        public Person Creator => _creator;
         public string Status { get; }
         public IEnumerable<Maintenance> Maintenances => _maintenances;
+        public int CompletedTasks { get; set; }
 
         public WorkOrder(string created, int createdBy, string status = "Otwarte")
         {
@@ -35,6 +40,11 @@ namespace PrzegladyRemonty.Models
         public void RemoveMaintenance(Maintenance maintenance)
         {
             _maintenances.Remove(maintenance);
+        }
+
+        public void SetCreator(Person creator)
+        {
+            _creator = creator;
         }
     }
 }

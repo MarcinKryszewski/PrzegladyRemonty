@@ -23,13 +23,15 @@ namespace PrzegladyRemonty.Services.Providers
                 VALUES (@Transporter, @MaintenanceAction, @Frequency, @FrequencyUnit)
                 ";
         private const string _deleteSQL = @"
-                DELETE
-                FROM transporterAction
+                UPDATE  transporterAction
+                SET 
+                    Status = 'DELETED'
                 WHERE Id = @Id
                 ";
         private const string _getAllSQL = @"
                 SELECT *
                 FROM transporterAction
+                WHERE Status IS NULL OR NOT Status = 'DELETED'
                 ";
         private const string _getOneSQL = @"
                 SELECT *

@@ -47,7 +47,8 @@ namespace PrzegladyRemonty.Database.MS_Access
                 Transporter INT, 
                 MaintenanceAction INT, 
                 Frequency INT, 
-                FrequencyUnit VARCHAR, 
+                FrequencyUnit VARCHAR,
+                Status VARCHAR,
                 FOREIGN KEY (Transporter) REFERENCES transporter (Id), 
                 FOREIGN KEY (MaintenanceAction) REFERENCES actionCategory (Id)
             );";

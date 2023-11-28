@@ -1,9 +1,14 @@
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using PrzegladyRemonty.Features.Transporters.Stores;
 using PrzegladyRemonty.Models;
+using PrzegladyRemonty.Services.Providers;
+using PrzegladyRemonty.Shared.Commands;
+using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace PrzegladyRemonty.Features.Transporters
@@ -18,15 +23,13 @@ namespace PrzegladyRemonty.Features.Transporters
         private ObservableCollection<TransporterPart> _transporterParts;
         private ObservableCollection<Part> _parts;
 
-
-
         private TransporterAction _transporterAction;
         private ActionCategory _action;
         private ObservableCollection<TransporterAction> _transporterActions;
         private ObservableCollection<ActionCategory> _actions;
 
-
         public Transporter Transporter => _transporter.Transporter;
+
         public IEnumerable<TransporterPart> TransporterParts => _transporterParts;
         public IEnumerable<Part> Parts => _parts;
 
