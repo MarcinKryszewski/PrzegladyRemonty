@@ -1,26 +1,25 @@
-using System.Collections.ObjectModel;
 using PrzegladyRemonty.Models;
+using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Commands;
 
 namespace PrzegladyRemonty.Features.Transporters
 {
     public class TransportersActionsAddCommand : CommandBase
     {
-        private ObservableCollection<ActionCategory> _actionsSelected;
-        private ObservableCollection<ActionCategory> _actionsList;
+        private readonly TransporterActionProvider _provider;
+        private TransportersDetailsViewModel _viewModel;
 
-        public TransportersActionsAddCommand(ObservableCollection<ActionCategory> actionsSelected, ObservableCollection<ActionCategory> actionsList)
+        public TransportersActionsAddCommand(TransporterActionProvider provider, TransportersDetailsViewModel viewModel)
         {
-            _actionsSelected = actionsSelected;
-            _actionsList = actionsList;
+            _provider = provider;
+            _viewModel = viewModel;
         }
 
         public override void Execute(object parameter)
         {
-            foreach (ActionCategory action in _actionsSelected)
-            {
-                if (!_actionsList.Contains(action)) _actionsList.Add(action);
-            }
+            _viewModel.Transporter.AddAction(_viewModel.SelectedAction);
+            _provider.Create(new TransporterAction(_viewModel.Transporter.Id, _viewModel.SelectedAction.Id, 3, "M"));
+            _viewModel.GetTransporterActions();
         }
     }
 }

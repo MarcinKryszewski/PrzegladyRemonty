@@ -182,7 +182,7 @@ namespace PrzegladyRemonty
             return new LayoutNavigationService<WorkOrdersViewModel>
             (
                 _navigationHost,
-                () => new WorkOrdersViewModel(),
+                () => new WorkOrdersViewModel(_databaseHost.Services, _userHost.Services),
                 CreateSidePanelViewModel
             );
         }

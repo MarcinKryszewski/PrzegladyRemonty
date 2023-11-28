@@ -1,19 +1,24 @@
+using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Commands;
 
 namespace PrzegladyRemonty.Features.Transporters
 {
     public class TransportersActionsRemoveCommand : CommandBase
     {
-        private TransportersDetailsViewModel _viewModel;
+        private readonly TransporterActionProvider _provider;
+        private readonly TransportersDetailsViewModel _viewModel;
 
-        public TransportersActionsRemoveCommand(TransportersDetailsViewModel viewModel)
+        public TransportersActionsRemoveCommand(TransporterActionProvider provider, TransportersDetailsViewModel viewModel)
         {
+            _provider = provider;
             _viewModel = viewModel;
         }
 
         public override void Execute(object parameter)
         {
-            //_viewModel.ActionsList.Remove(_viewModel.SelectedAction);
+            _viewModel.Transporter.RemoveAction(_viewModel.SelectedTransporterAction.Action);
+            _provider.Delete(_viewModel.SelectedTransporterAction.Id).Wait();
+            _viewModel.GetTransporterActions();
         }
     }
 }

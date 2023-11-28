@@ -14,5 +14,15 @@
             FontSize="40"
             Foreground="Wheat"
             Text="Work Orders" />
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type workorders:WorkOrdersConfirmViewModel}">
+                    <workorders:WorkOrdersConfirmView />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type workorders:WorkOrdersListViewModel}">
+                    <workorders:WorkOrdersListView />
+                </DataTemplate>
+            </ContentControl.Resources>
+        </ContentControl>
     </Grid>
 </UserControl>

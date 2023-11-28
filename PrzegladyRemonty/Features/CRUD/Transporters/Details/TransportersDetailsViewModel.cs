@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using PrzegladyRemonty.Features.Transporters.Stores;
 using PrzegladyRemonty.Models;
 using PrzegladyRemonty.Services.Providers;
@@ -16,138 +15,126 @@ namespace PrzegladyRemonty.Features.Transporters
 {
     public class TransportersDetailsViewModel : ViewModelBase
     {
-        private readonly IServiceProvider _databaseServices;
-        private readonly SelectedTransporter _selectedTransporter;
+        private SelectedTransporter _transporter;
+        private IServiceProvider _databaseServices;
+
+        private TransporterPart _transporterPart;
+        private Part _part;
         private ObservableCollection<TransporterPart> _transporterParts;
-        private ObservableCollection<TransporterPart> _transporterPartsSelected;
+        private ObservableCollection<Part> _parts;
+
+
+
+        private TransporterAction _transporterAction;
+        private ActionCategory _action;
         private ObservableCollection<TransporterAction> _transporterActions;
-        private ObservableCollection<TransporterAction> _transporterActionsSelected;
+        private ObservableCollection<ActionCategory> _actions;
 
-        private Part _partSelected;
-        private readonly ObservableCollection<Part> _parts;
-        private readonly ObservableCollection<Part> _partsSelected;
-        private readonly ObservableCollection<Part> _partsList;
 
-        private ActionCategory _actionSelected;
-        private readonly ObservableCollection<ActionCategory> _actions;
-        private readonly ObservableCollection<ActionCategory> _actionsSelected;
-        private readonly ObservableCollection<ActionCategory> _actionsList;
+        public Transporter Transporter => _transporter.Transporter;
+        public IEnumerable<TransporterPart> TransporterParts => _transporterParts;
+        public IEnumerable<Part> Parts => _parts;
 
-        public Part SelectedPart => _partSelected;
-        public ObservableCollection<Part> Parts => _parts;
-        public ObservableCollection<Part> PartsSelected => _partsSelected;
-        public ObservableCollection<TransporterPart> PartsList => new(_transporterPartsSelected);
+        public IEnumerable<TransporterAction> TransporterActions => _transporterActions;
+        public IEnumerable<ActionCategory> Actions => _actions;
 
-        public ActionCategory SelectedAction => _actionSelected;
-        public ObservableCollection<ActionCategory> Actions => _actions;
-        public ObservableCollection<ActionCategory> ActionsSelected => _actionsSelected;
-        public ObservableCollection<TransporterAction> ActionsList => new(_transporterActionsSelected);
+        public TransporterAction SelectedTransporterAction
+        {
+            get => _transporterAction;
+            set
+            {
+                _transporterAction = value;
+                OnPropertyChanged(nameof(SelectedTransporterAction));
+            }
+        }
 
-        public Transporter Transporter => _selectedTransporter.Transporter;
+        public ActionCategory SelectedAction
+        {
+            get => _action;
+            set
+            {
+                _action = value;
+                OnPropertyChanged(nameof(SelectedAction));
+            }
+        }
 
-        public ICommand NavigateMainCommand { get; }
-        public ICommand AddActions { get; }
-        public ICommand AddParts { get; }
-        public ICommand RemoveAction { get; }
+        public TransporterPart SelectedTransporterPart
+        {
+            get => _transporterPart;
+            set
+            {
+                _transporterPart = value;
+                OnPropertyChanged(nameof(SelectedTransporterPart));
+            }
+        }
+
+        public Part SelectedPart
+        {
+            get => _part;
+            set
+            {
+                _part = value;
+                OnPropertyChanged(nameof(SelectedPart));
+            }
+        }
+
+        public ICommand AddPart { get; }
         public ICommand RemovePart { get; }
-        public ICommand SaveTransporters { get; }
+        public ICommand AddAction { get; }
+        public ICommand RemoveAction { get; }
+        public ICommand NavigateMainCommand { get; }
 
-        public TransportersDetailsViewModel(
-            INavigationService<TransportersMainViewModel> transportersMainViewModel,
-            IHost database,
-            SelectedTransporter selectedTransporter,
-            ObservableCollection<Part> parts,
-            ObservableCollection<ActionCategory> actions)
+        public TransportersDetailsViewModel(INavigationService<TransportersMainViewModel> transportersMainViewModel, IServiceProvider databaseServices, SelectedTransporter transporter, ObservableCollection<Part> parts, ObservableCollection<ActionCategory> actions)
         {
-            NavigateMainCommand = new NavigateCommand<TransportersMainViewModel>(transportersMainViewModel);
-            _databaseServices = database.Services;
-            _selectedTransporter = selectedTransporter;
-
-            _transporterParts = new ObservableCollection<TransporterPart>(GetTransportersParts());
-            _transporterActions = new ObservableCollection<TransporterAction>(GetTransporterActions());
-            _transporterPartsSelected = new ObservableCollection<TransporterPart>(GetTransportersPartsSelected());
-            _transporterActionsSelected = new ObservableCollection<TransporterAction>(GetTransporterActionsSelected());
-
+            _transporter = transporter;
+            _databaseServices = databaseServices;
             _parts = parts;
-            _partsSelected = new();
-            _partsList = new ObservableCollection<Part>(_selectedTransporter.Transporter.Parts);
-
             _actions = actions;
-            _actionsSelected = new();
-            _actionsList = new ObservableCollection<ActionCategory>(_selectedTransporter.Transporter.Actions);
 
-            SetSelectedTransporter();
+            _transporterParts = new();
+            _transporterActions = new();
 
-            AddActions = new TransportersActionsAddCommand(_actionsSelected, _actionsList);
-            RemoveAction = new TransportersActionsRemoveCommand(this);
+            GetTransporterParts();
+            GetTransporterActions();
 
-            AddParts = new TransportersPartsAddCommand(_partsSelected, _partsList);
-            RemovePart = new TransportersPartsRemoveCommand(this);
+            TransporterActionProvider actionProvider = _databaseServices.GetRequiredService<TransporterActionProvider>();
+            TransporterPartProvider partProvider = _databaseServices.GetRequiredService<TransporterPartProvider>();
 
-            SaveTransporters = new TransportersSaveCommand();
+            AddPart = new TransportersPartsAddCommand(partProvider, this);
+            RemovePart = new TransportersPartsRemoveCommand(partProvider, this);
+            AddAction = new TransportersActionsAddCommand(actionProvider, this);
+            RemoveAction = new TransportersActionsRemoveCommand(actionProvider, this);
+            NavigateMainCommand = new NavigateCommand<TransportersMainViewModel>(transportersMainViewModel);
         }
 
-        private void SetSelectedTransporter()
+        public void GetTransporterParts()
         {
-            Transporter transporter = _selectedTransporter.Transporter;
-
-            IEnumerable<TransporterPart> transportersParts = _transporterParts.Where(b => b.TransporterId == transporter.Id);
-            IEnumerable<Part> parts = _parts.Where(c => transportersParts.Any(b => b.PartId == c.Id));
-
-            foreach (Part part in parts)
+            _transporterParts.Clear();
+            foreach (TransporterPart transporterPart in _databaseServices.GetRequiredService<TransporterPartProvider>().GetAll().Result)
             {
-                transporter.AddPart(part);
-            }
-
-            IEnumerable<TransporterAction> transportersActions = _transporterActions.Where(b => b.TransporterId == transporter.Id);
-            IEnumerable<ActionCategory> actions = _actions.Where(c => transportersActions.Any(b => b.ActionId == c.Id));
-
-            foreach (ActionCategory action in actions)
-            {
-                transporter.AddAction(action);
+                if (transporterPart.TransporterId == _transporter.Transporter.Id)
+                {
+                    transporterPart.SetPart(_parts.Single(p => p.Id == transporterPart.PartId));
+                    transporterPart.SetTransporter(_transporter.Transporter);
+                    _transporterParts.Add(transporterPart);
+                }
             }
         }
-
-        private IEnumerable<Part> GetParts()
+        public void GetTransporterActions()
         {
-            return _databaseServices.GetRequiredService<PartProvider>().GetAll().Result;
-        }
-
-        private IEnumerable<TransporterPart> GetTransportersParts()
-        {
-            return _databaseServices.GetRequiredService<TransporterPartProvider>().GetAll().Result;
-        }
-
-        private IEnumerable<TransporterPart> GetTransportersPartsSelected()
-        {
-            ObservableCollection<TransporterPart> transporterParts = new();
-            /*foreach (TransporterPart transporterPart in _transporterParts)
+            _transporterActions.Clear();
+            foreach (TransporterAction transporterAction in _databaseServices.GetRequiredService<TransporterActionProvider>().GetAll().Result)
             {
-                if (transporterPart.Transporter.Id == _selectedTransporter.Transporter.Id) transporterParts.Add(transporterPart);
-            }*/
-            return transporterParts;
+                if (transporterAction.TransporterId == _transporter.Transporter.Id)
+                {
+                    transporterAction.SetAction(_actions.Single(a => a.Id == transporterAction.ActionId));
+                    transporterAction.SetTransporter(_transporter.Transporter);
+                    _transporterActions.Add(transporterAction);
+                }
+            }
         }
 
-        private IEnumerable<ActionCategory> GetActions()
-        {
-            IEnumerable<ActionCategory> actionsList = _databaseServices.GetRequiredService<ActionCategoryProvider>().GetAll().Result;
-            return actionsList;
-        }
 
-        private IEnumerable<TransporterAction> GetTransporterActions()
-        {
-            IEnumerable<TransporterAction> actionsList = _databaseServices.GetRequiredService<TransporterActionProvider>().GetAll().Result;
-            return actionsList;
-        }
 
-        private IEnumerable<TransporterAction> GetTransporterActionsSelected()
-        {
-            ObservableCollection<TransporterAction> transporterActions = new();
-            /*foreach (TransporterAction transporterAction in _transporterActions)
-            {
-                if (transporterAction.Transporter.Id == _selectedTransporter.Transporter.Id) transporterActions.Add(transporterAction);
-            }*/
-            return transporterActions;
-        }
     }
 }

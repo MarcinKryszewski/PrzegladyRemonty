@@ -63,10 +63,21 @@ namespace PrzegladyRemonty.Models
         {
             _parts.Add(part);
         }
+        public void RemovePart(Part part)
+        {
+            _parts.Remove(part);
+        }
+
         public void AddAction(ActionCategory action)
         {
             _actions.Add(action);
         }
+
+        public void RemoveAction(ActionCategory action)
+        {
+            _actions.Remove(action);
+        }
+
         public void SetMaintenance(DateOnly maintenanceDate = default)
         {
             if (maintenanceDate == default)

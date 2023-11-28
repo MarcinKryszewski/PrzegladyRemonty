@@ -19,8 +19,8 @@ namespace PrzegladyRemonty.Services.Providers
         #region SQLCommands
         private const string _createSQL = @"
                 INSERT INTO
-                workOrder (Created, CreatedBy)
-                VALUES (@Created, @CreatedBy)
+                workOrder (Created, CreatedBy, Status)
+                VALUES (@Created, @CreatedBy, @Status)
                 ";
         private const string _deleteSQL = @"
                 DELETE
@@ -31,6 +31,11 @@ namespace PrzegladyRemonty.Services.Providers
                 SELECT *
                 FROM workOrder
                 ";
+        private const string _getAllActiveSQL = @"
+                SELECT *
+                FROM workOrder
+                WHERE Status NOT IN ('Anulowane', 'Zamknięte')
+                ";
         private const string _getOneSQL = @"
                 SELECT *
                 FROM workOrder
@@ -40,7 +45,8 @@ namespace PrzegladyRemonty.Services.Providers
                 UPDATE  workOrder
                 SET 
                     Created = @Created,
-                    CreatedBy = @CreatedBy
+                    CreatedBy = @CreatedBy,
+                    Status = @Status
                 WHERE Id = @Id
                 ";
         #endregion
@@ -57,7 +63,8 @@ namespace PrzegladyRemonty.Services.Providers
             object parameters = new
             {
                 Created = workOrder.Created,
-                CreatedBy = workOrder.CreatedBy
+                CreatedBy = workOrder.CreatedBy,
+                Status = workOrder.Status
             };
             await database.ExecuteAsync(_createSQL, parameters);
         }
@@ -74,6 +81,12 @@ namespace PrzegladyRemonty.Services.Providers
         {
             using IDbConnection database = _dbContextFactory.Connect();
             IEnumerable<WorkOrderDTO> workOrderDTOs = await database.QueryAsync<WorkOrderDTO>(_getAllSQL);
+            return workOrderDTOs.Select(ToWorkOrder);
+        }
+        public async Task<IEnumerable<WorkOrder>> GetAllActive()
+        {
+            using IDbConnection database = _dbContextFactory.Connect();
+            IEnumerable<WorkOrderDTO> workOrderDTOs = await database.QueryAsync<WorkOrderDTO>(_getAllActiveSQL);
             return workOrderDTOs.Select(ToWorkOrder);
         }
         public WorkOrder GetById(int id)
@@ -93,7 +106,8 @@ namespace PrzegladyRemonty.Services.Providers
             {
                 Id = workOrder.Id,
                 Created = workOrder.Created,
-                CreatedBy = workOrder.CreatedBy
+                CreatedBy = workOrder.CreatedBy,
+                Status = workOrder.Status
 
             };
             await database.ExecuteAsync(_updateSQL, parameters);
@@ -106,7 +120,8 @@ namespace PrzegladyRemonty.Services.Providers
             object parameters = new
             {
                 Created = workOrder.Created,
-                CreatedBy = workOrder.CreatedBy
+                CreatedBy = workOrder.CreatedBy,
+                Status = workOrder.Status
             };
             database.ExecuteAsync(_createSQL, parameters);
 
@@ -126,7 +141,8 @@ namespace PrzegladyRemonty.Services.Providers
                 (
                     workOrderDTO.Id,
                     workOrderDTO.Created,
-                    workOrderDTO.CreatedBy
+                    workOrderDTO.CreatedBy,
+                    workOrderDTO.Status
                 );
         }
     }

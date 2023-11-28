@@ -107,7 +107,7 @@ namespace PrzegladyRemonty.Features.Transporters
                 _navigationStore,
                 () => new TransportersDetailsViewModel(
                     CreateTransportersMainNavigationService(),
-                    _databaseHost,
+                    _databaseHost.Services,
                     _selectedTransporter,
                     _parts,
                     _actions
