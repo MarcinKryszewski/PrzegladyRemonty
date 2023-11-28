@@ -105,12 +105,7 @@ namespace PrzegladyRemonty.Features.Transporters
             return new DefaultNavigationService<TransportersDetailsViewModel>
             (
                 _navigationStore,
-                () => new TransportersDetailsViewModel(
-                    CreateTransportersMainNavigationService(),
-                    _databaseHost,
-                    _selectedTransporter,
-                    _parts,
-                    _actions
+                () => new TransportersDetailsViewModel(_databaseHost.Services, _selectedTransporter, _parts, _actions
                 )
             );
         }
