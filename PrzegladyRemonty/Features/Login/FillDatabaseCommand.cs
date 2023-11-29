@@ -203,12 +203,12 @@ namespace PrzegladyRemonty.Features.Login
             provider.Create(new Models.Maintenance(7));
             provider.Create(new Models.Maintenance(8));
 
-            provider.Update(new Models.Maintenance(1, "2023-11-24", 3, 1, true, "Wszystko OK"));
-            provider.Update(new Models.Maintenance(2, "2023-11-24", 3, 4, true, "W normie"));
-            provider.Update(new Models.Maintenance(3, "2023-11-24", 4, 11, true, "Sprawdzone"));
-            provider.Update(new Models.Maintenance(4, "2023-11-24", 4, 12, true, "Stan dobry"));
-            provider.Update(new Models.Maintenance(5, "2023-11-24", 3, 7, true, "Kontrola wykonana"));
-            provider.Update(new Models.Maintenance(6, "2023-11-24", 3, 8, true, "Wymiana"));
+            provider.Update(new Models.Maintenance(1, "2023-11-24", 3, 1, false, "Wszystko OK"));
+            provider.Update(new Models.Maintenance(2, "2023-11-24", 3, 4, false, "W normie"));
+            provider.Update(new Models.Maintenance(3, "2023-11-24", 4, 11, false, "Sprawdzone"));
+            provider.Update(new Models.Maintenance(4, "2023-11-24", 4, 12, false, "Stan dobry"));
+            provider.Update(new Models.Maintenance(5, "2023-11-24", 3, 7, false, "Kontrola wykonana"));
+            provider.Update(new Models.Maintenance(6, "2023-11-24", 3, 8, false, "Wymiana"));
         }
         private void AddWorkOrderMaintenances()
         {

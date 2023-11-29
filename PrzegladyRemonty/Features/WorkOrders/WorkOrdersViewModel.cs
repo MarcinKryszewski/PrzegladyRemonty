@@ -64,7 +64,7 @@ namespace PrzegladyRemonty.Features.WorkOrders
 
         private static WorkOrdersListViewModel CreateWorkOrdersListViewModel(IServiceProvider services)
         {
-            return new WorkOrdersListViewModel(services);
+            return new WorkOrdersListViewModel();
         }
 
         private static WorkOrdersConfirmViewModel CreateWorkOrdersConfirmViewModel(IServiceProvider services)

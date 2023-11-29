@@ -53,6 +53,7 @@ namespace PrzegladyRemonty.Database.SQLite
                 MaintenanceAction INTEGER,
                 Frequency INTEGER,
                 FrequencyUnit TEXT,
+                Status TEXT,
                 FOREIGN KEY(MaintenanceAction) REFERENCES actionCategory(Id),
                 FOREIGN KEY(Transporter) REFERENCES transporter(Id),
                 PRIMARY KEY(Id AUTOINCREMENT)
@@ -99,6 +100,7 @@ namespace PrzegladyRemonty.Database.SQLite
                 Id INTEGER,
                 Created TEXT,
                 CreatedBy INTEGER,
+                Status TEXT,
                 PRIMARY KEY(Id AUTOINCREMENT)
             )";
         private const string _workOrderMaintenanceSQLCommand = @"
@@ -129,12 +131,6 @@ namespace PrzegladyRemonty.Database.SQLite
                 PRIMARY KEY(Id AUTOINCREMENT),
                 FOREIGN KEY(Transporter) REFERENCES transporter(Id)
             )";
-        private const string _transporterTypesSQLCommand = @"
-            CREATE TABLE IF NOT EXISTS transporterType (
-                Id INTEGER, 
-                Name TEXT,
-                PRIMARY KEY(Id AUTOINCREMENT)
-            );";
 
         public SqliteInitCommands()
         {

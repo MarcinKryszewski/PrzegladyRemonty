@@ -146,7 +146,7 @@ namespace PrzegladyRemonty
             return new LayoutNavigationService<DashboardViewModel>
             (
                 _navigationHost,
-                () => new DashboardViewModel(),
+                () => new DashboardViewModel(_databaseHost.Services, _userHost.Services.GetRequiredService<UserStore>()),
                 CreateSidePanelViewModel
             );
         }

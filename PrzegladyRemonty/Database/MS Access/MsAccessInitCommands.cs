@@ -89,7 +89,8 @@ namespace PrzegladyRemonty.Database.MS_Access
             CREATE TABLE workOrder (
                 Id AUTOINCREMENT PRIMARY KEY, 
                 Created DATETIME, 
-                CreatedBy INT, 
+                CreatedBy INT,
+                Status VARCHAR,
                 FOREIGN KEY (CreatedBy) REFERENCES person (Id)
             );";
         private const string _workOrderMaintenanceSQLCommand = @"

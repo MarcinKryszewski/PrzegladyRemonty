@@ -7,5 +7,6 @@ namespace PrzegladyRemonty.Database.DTOs
         public int MaintenanceAction { get; set; }
         public int Frequency { get; set; }
         public string FrequencyUnit { get; set; }
+        public string Status { get; set; }
     }
 }

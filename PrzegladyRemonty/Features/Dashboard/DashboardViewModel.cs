@@ -1,4 +1,8 @@
-﻿using PrzegladyRemonty.Shared.ViewModels;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
+using PrzegladyRemonty.Services.Providers;
+using PrzegladyRemonty.Shared.ViewModels;
+using PrzegladyRemonty.Stores;
 
 namespace PrzegladyRemonty.Features.Dashboard
 {
@@ -6,6 +10,7 @@ namespace PrzegladyRemonty.Features.Dashboard
     {
         private int _openTasks;
         private int _myWorkOrders;
+        private IServiceProvider _databaseServices;
 
         public int OpenTasks
         {
@@ -28,10 +33,12 @@ namespace PrzegladyRemonty.Features.Dashboard
         }
 
 
-        public DashboardViewModel()
+        public DashboardViewModel(IServiceProvider databaseServices, UserStore user)
         {
-            _myWorkOrders = 5;
-            _openTasks = 7;
+            _databaseServices = databaseServices;
+
+            _myWorkOrders = _databaseServices.GetRequiredService<WorkOrderProvider>().CountForUser(user.User.Id);
+            _openTasks = _databaseServices.GetRequiredService<MaintenanceProvider>().CountUncompleted();
         }
 
 

@@ -39,15 +39,21 @@ namespace PrzegladyRemonty.Services.Providers
                 ";
 
         private const string _updateSQL = @"
-                UPDATE maintenance
-                SET 
-                    MaintenanceDate = @MaintenanceDate, 
-                    Mechanic = @Mechanic, 
-                    MaintenanceAction = @MaintenanceAction,
-                    Completed = @Completed, 
-                    Description = @Description
-                WHERE Id = @Id
-                ";
+            UPDATE maintenance
+            SET 
+                MaintenanceDate = @MaintenanceDate, 
+                Mechanic = @Mechanic, 
+                MaintenanceAction = @MaintenanceAction,
+                Completed = @Completed, 
+                Description = @Description
+            WHERE Id = @Id
+            ";
+
+        private const string _countUncompletedSQL = @"
+            SELECT COUNT(*)
+            FROM maintenance
+            WHERE Completed = false;
+            ";
         #endregion
 
         public MaintenanceProvider(DatabaseConnectionFactory dbContextFactory)
@@ -123,6 +129,12 @@ namespace PrzegladyRemonty.Services.Providers
             };
 
             return database.Query<int>(lastIdSQL).Single();
+        }
+
+        public int CountUncompleted()
+        {
+            using IDbConnection database = _dbContextFactory.Connect();
+            return database.ExecuteScalar<int>(_countUncompletedSQL);
         }
 
         private static Maintenance ToMaintenance(MaintenanceDTO maintenanceDTO)

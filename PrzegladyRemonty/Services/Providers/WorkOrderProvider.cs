@@ -49,6 +49,11 @@ namespace PrzegladyRemonty.Services.Providers
                     Status = @Status
                 WHERE Id = @Id
                 ";
+        private const string _countUnfinishedCreatedByUser = @"
+                SELECT *
+                FROM workOrder
+                WHERE Status = 'Otwarte' AND CreatedBy = @User
+                ";
         #endregion
 
         public WorkOrderProvider(DatabaseConnectionFactory dbContextFactory)
@@ -133,6 +138,19 @@ namespace PrzegladyRemonty.Services.Providers
             };
 
             return database.Query<int>(lastIdSQL).Single();
+        }
+
+        public int CountForUser(int userId)
+        {
+            using IDbConnection database = _dbContextFactory.Connect();
+            {
+                object parameters = new
+                {
+                    User = userId
+                };
+                return database.ExecuteScalar<int>(_countUnfinishedCreatedByUser, parameters);
+            }
+
         }
 
         private static WorkOrder ToWorkOrder(WorkOrderDTO workOrderDTO)
