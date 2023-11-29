@@ -12,6 +12,7 @@ namespace PrzegladyRemonty.Features.Login
     {
         private readonly IServiceProvider _databaseServices;
         private string _username;
+        private bool _databaseEmpty;
 
         public string Username
         {
@@ -45,11 +46,28 @@ namespace PrzegladyRemonty.Features.Login
             }
         }
 
+        public bool DatabaseEmpty
+        {
+            get => _databaseEmpty;
+            set
+            {
+                _databaseEmpty = value;
+                OnPropertyChanged(nameof(DatabaseEmpty));
+            }
+        }
+
         public ICommand LoginCommand { get; }
+        public ICommand SetupDatabase { get; }
 
         public LoginViewModel(IHost databaseHost, IHost userHost)
         {
             _databaseServices = databaseHost.Services;
+
+            int usersAmount = _databaseServices.GetRequiredService<PersonProvider>().Count();
+            if (usersAmount == 0)
+            {
+                _databaseEmpty = true;
+            }
 
             LoginCommand = new LoginCommand(
                 this,
@@ -57,6 +75,7 @@ namespace PrzegladyRemonty.Features.Login
                 _databaseServices.GetRequiredService<PersonPermissionProvider>(),
                 _databaseServices.GetRequiredService<PermissionProvider>(),
                 userHost.Services.GetRequiredService<UserStore>());
+            SetupDatabase = new FillDatabaseCommand(databaseHost.Services, this);
         }
 
         public void UserLogin(string login)

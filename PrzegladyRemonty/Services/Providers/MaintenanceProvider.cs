@@ -39,11 +39,11 @@ namespace PrzegladyRemonty.Services.Providers
                 ";
 
         private const string _updateSQL = @"
-                UPDATE  maintenance
+                UPDATE maintenance
                 SET 
                     MaintenanceDate = @MaintenanceDate, 
                     Mechanic = @Mechanic, 
-                    MaintenanceAction, = @MaintenanceAction 
+                    MaintenanceAction = @MaintenanceAction,
                     Completed = @Completed, 
                     Description = @Description
                 WHERE Id = @Id
@@ -101,7 +101,6 @@ namespace PrzegladyRemonty.Services.Providers
                 MaintenanceAction = maintenance.MaintenanceAction,
                 Completed = maintenance.Completed,
                 Description = maintenance.Description
-
             };
             await database.ExecuteAsync(_updateSQL, parameters);
         }

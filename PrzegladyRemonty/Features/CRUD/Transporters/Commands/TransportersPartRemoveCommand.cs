@@ -15,7 +15,7 @@ namespace PrzegladyRemonty.Features.Transporters
 
         public override void Execute(object parameter)
         {
-            _viewModel.PartsList.Remove(_viewModel.SelectedPart);
+            //_viewModel.PartsList.Remove(_viewModel.SelectedPart);
         }
     }
 }

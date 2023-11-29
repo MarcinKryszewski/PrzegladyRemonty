@@ -16,7 +16,7 @@ namespace PrzegladyRemonty.Features.Transporters
 {
     public class TransportersDetailsViewModel : ViewModelBase
     {
-        private readonly IServiceProvider _databaseServices;
+        /*private readonly IServiceProvider _databaseServices;
         private readonly SelectedTransporter _selectedTransporter;
         private ObservableCollection<TransporterPart> _transporterParts;
         private ObservableCollection<TransporterPart> _transporterPartsSelected;
@@ -148,6 +148,14 @@ namespace PrzegladyRemonty.Features.Transporters
                 if (transporterAction.Transporter.Id == _selectedTransporter.Transporter.Id) transporterActions.Add(transporterAction);
             }
             return transporterActions;
-        }
+        }*/
+
+        public TransportersDetailsViewModel(
+            INavigationService<TransportersMainViewModel> transportersMainViewModel,
+            IHost database,
+            SelectedTransporter selectedTransporter,
+            ObservableCollection<Part> parts,
+            ObservableCollection<ActionCategory> actions)
+        { }
     }
 }

@@ -19,7 +19,7 @@ namespace PrzegladyRemonty.Features.Transporters
         {
             foreach (Part part in _partsSelected)
             {
-                if (!_partsList.Contains(part)) _partsList.Add(part);
+                //if (!_partsList.Contains(part)) _partsList.Add(part);
             }
         }
     }

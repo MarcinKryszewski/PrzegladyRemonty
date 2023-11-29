@@ -71,6 +71,11 @@ namespace PrzegladyRemonty
             }).Build();
             _navigationHost.Start();
 
+            using IDbConnection connection = _databaseHost.Services.GetRequiredService<DatabaseConnectionFactory>().Connect();
+            DatabaseInitializerFactory initializer = new(_configuration, connection);
+            IDatabaseInitializer databaseInitializer = initializer.CreateInitializer();
+            databaseInitializer.Initialize();
+
             _loginViewModel = new LoginViewModel(_databaseHost, _userHost);
         }
 
@@ -78,11 +83,6 @@ namespace PrzegladyRemonty
         {
             _databaseHost.Start();
             _navigationHost.Start();
-
-            using IDbConnection connection = _databaseHost.Services.GetRequiredService<DatabaseConnectionFactory>().Connect();
-            DatabaseInitializerFactory initializer = new(_configuration, connection);
-            IDatabaseInitializer databaseInitializer = initializer.CreateInitializer();
-            databaseInitializer.Initialize();
 
             LoginView loginView = new()
             {

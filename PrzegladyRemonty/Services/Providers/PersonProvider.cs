@@ -55,6 +55,10 @@ namespace PrzegladyRemonty.Services.Providers
             FROM person
             WHERE Login = @Login
             ";
+        private const string _countSQL = @"
+            SELECT COUNT(*)
+            FROM person
+            ";
         #endregion
 
         public PersonProvider(DatabaseConnectionFactory dbContextFactory)
@@ -128,6 +132,12 @@ namespace PrzegladyRemonty.Services.Providers
             if (count == 1) return true;
             if (count > 1) return true; //TODO: this is an error, requires handler
             return false;
+        }
+
+        public int Count()
+        {
+            using IDbConnection database = _dbContextFactory.Connect();
+            return database.ExecuteScalar<int>(_countSQL);
         }
 
         public Person GetByLogin(string login)

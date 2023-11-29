@@ -6,7 +6,7 @@ namespace PrzegladyRemonty.Features.Transporters
 {
     public class TransportersActionsAddCommand : CommandBase
     {
-        private ObservableCollection<ActionCategory> _actionsSelected;
+        /*private ObservableCollection<ActionCategory> _actionsSelected;
         private ObservableCollection<ActionCategory> _actionsList;
 
         public TransportersActionsAddCommand(ObservableCollection<ActionCategory> actionsSelected, ObservableCollection<ActionCategory> actionsList)
@@ -21,6 +21,10 @@ namespace PrzegladyRemonty.Features.Transporters
             {
                 if (!_actionsList.Contains(action)) _actionsList.Add(action);
             }
+        }*/
+        public override void Execute(object parameter)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

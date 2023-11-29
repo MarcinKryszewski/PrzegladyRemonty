@@ -10,9 +10,46 @@
     d:DesignWidth="1670"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
             FontSize="40"
             Foreground="Wheat"
             Text="Dashboard" />
+
+        <Border Grid.Row="1" Grid.Column="0" BorderBrush="{StaticResource MainBrush}" BorderThickness="1" Margin="30" Width="450" Height="100" >
+            <StackPanel Orientation="Horizontal" >
+                <Border Height="100">
+                    <TextBlock Text="Otwarte zadania" Foreground="{StaticResource MainBrush}" FontSize="30" Width="300" VerticalAlignment="Center" Margin="10,0,10,0" />
+                </Border>
+                <Border BorderBrush="{StaticResource MainBrush}" BorderThickness="1" Height="100" Width="150">
+                    <TextBlock Text="{Binding OpenTasks}" FontSize="50" Foreground="{StaticResource MainBrush}" Width="150" VerticalAlignment="Center" TextAlignment="Center" />
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="0" BorderBrush="{StaticResource MainBrush}" BorderThickness="1" Margin="30" >
+            <StackPanel Orientation="Horizontal" >
+                <Border Height="100">
+                    <TextBlock Text="Twoje otwarte zlecenia pracy" TextWrapping="Wrap" Foreground="{StaticResource MainBrush}" FontSize="30" Width="300" VerticalAlignment="Center" Margin="10,0,10,0" />
+                </Border>
+                <Border BorderBrush="{StaticResource MainBrush}" BorderThickness="1" Height="100" Width="150">
+                    <TextBlock Text="{Binding MyWorkOrders}" FontSize="50" Foreground="{StaticResource MainBrush}" Width="150" VerticalAlignment="Center" TextAlignment="Center" />
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" BorderBrush="{StaticResource MainBrush}" BorderThickness="1" Margin="30" >
+            <TextBlock Text="WYKRES" />
+        </Border>
     </Grid>
 </UserControl>
