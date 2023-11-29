@@ -15,7 +15,10 @@
         <converters:MaintenanceDateToColorConverter x:Key="MaintenanceDateToColorConverter" />
     </UserControl.Resources>
     <Grid Background="AliceBlue">
-        <TreeView Name="ProductionLineTree" ItemsSource="{Binding Path=Brewery.Lines}">
+        <TreeView
+            Name="ProductionLineTree"
+            ItemsSource="{Binding Path=Brewery.Lines}"
+            Style="{DynamicResource TreeViewMain}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectedItemChanged">
                     <i:InvokeCommandAction Command="{Binding Path=SelectedItem}" CommandParameter="{Binding ElementName=ProductionLineTree, Path=SelectedItem}" />

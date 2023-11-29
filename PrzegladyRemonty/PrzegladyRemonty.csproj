@@ -9,6 +9,10 @@
 		<AnalysisLevel>latest</AnalysisLevel>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <None Remove="Features\WorkOrders\WorkOrdersList\WorkOrdersListView.xaml~RF14b3a6f.TMP" />
+	</ItemGroup>
+
 <!-- 
 
 	<ItemGroup>
@@ -33,7 +37,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Features\CRUD\" />
+		<Folder Include="Features\CRUD\Roles\" />
+		<Folder Include="Features\CRUD\Users\" />
 		<Folder Include="Features\Maintenance\TransportersChoose\ActionsList\" />
 		<Folder Include="Features\Maintenance\TransportersChoose\PartsList\" />
 		<Folder Include="Features\Maintenance\TransportersChoose\TransporterCart\" />

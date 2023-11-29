@@ -24,16 +24,12 @@
 
         <ListView
             Grid.Row="1"
+            Width="800"
             VerticalAlignment="Stretch"
+            d:ItemsSource="{d:SampleData ItemCount=5}"
             ItemsSource="{Binding Transporters}"
             SelectedItem="{Binding SelectedTransporter, Mode=TwoWay}"
             SelectionMode="Single">
-
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
 
             <ListView.View>
                 <GridView>
@@ -44,35 +40,42 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Line">
+                    <GridViewColumn Header="Linia">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock HorizontalAlignment="Center" Text="{Binding Area.Line.Name}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Area">
+                    <GridViewColumn Header="Obszar">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock HorizontalAlignment="Center" Text="{Binding Area.Name}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Type">
+                    <GridViewColumn Header="Rodzaj">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock HorizontalAlignment="Center" Text="{Binding TransporterType.Name}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Name">
+                    <GridViewColumn Header="Nazwa">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock HorizontalAlignment="Center" Text="{Binding Name}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="Active">
+                    <GridViewColumn Header="Ostatni przegląd">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=LastMaintenance}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Aktywny">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock HorizontalAlignment="Center" Text="{Binding Active}" />
@@ -89,30 +92,30 @@
             HorizontalAlignment="Center"
             Orientation="Horizontal">
             <Button
-                Width="200"
+                Width="150"
                 Height="40"
                 Margin="5,0,5,0"
                 Command="{Binding NavigateDetailsCommand}"
-                Content="Details"
+                Content="Szczegóły"
                 IsEnabled="{Binding IsSelected}"
                 Style="{StaticResource SideButton}" />
             <Button
-                Width="200"
+                Width="150"
                 Height="40"
                 Margin="5,0,5,0"
                 Command="{Binding NavigateEditCommand}"
-                Content="Edit"
+                Content="Edycja"
                 IsEnabled="{Binding IsSelected}"
                 Style="{StaticResource SideButton}" />
             <Button
-                Width="200"
+                Width="150"
                 Height="40"
                 Margin="5,0,5,0"
                 Command="{Binding NavigateAddCommand}"
-                Content="Add"
+                Content="Dodaj nowy"
                 Style="{StaticResource SideButton}" />
             <Button
-                Width="200"
+                Width="150"
                 Height="40"
                 Margin="5,0,5,0"
                 Command="{Binding RemoveCommand}"

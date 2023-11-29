@@ -35,6 +35,7 @@ namespace PrzegladyRemonty.Database.SQLite
                 Area INTEGER,
                 LastMaintenance TEXT,
                 TransporterType INTEGER,
+                Status TEXT,
                 FOREIGN KEY(Area) REFERENCES area (Id),
                 FOREIGN KEY(TransporterType) REFERENCES transporterType(Id),
                 PRIMARY KEY(Id AUTOINCREMENT)

@@ -48,7 +48,7 @@
                                 Width="250"
                                 HorizontalContentAlignment="Center"
                                 VerticalContentAlignment="Center"
-                                Content="Maszyny"
+                                Content="Panel administracyjny"
                                 FontSize="14"
                                 FontWeight="Bold"
                                 Foreground="{StaticResource WhiteLightBrush}" />
@@ -86,6 +86,16 @@
                             Height="40"
                             Command="{Binding NavigatePartsCommand}"
                             Content="Części"
+                            Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=Parts}" />
+                        <Button
+                            Height="40"
+                            Command=""
+                            Content="Użytkownicy"
+                            Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=Parts}" />
+                        <Button
+                            Height="40"
+                            Command=""
+                            Content="Role"
                             Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=Parts}" />
 
                     </StackPanel>

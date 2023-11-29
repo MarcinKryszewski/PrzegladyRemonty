@@ -17,8 +17,6 @@ namespace PrzegladyRemonty.Features.Maintenance
     {
         private readonly NavigationStore _navigationStore;
         private readonly IServiceProvider _databaseServices;
-        private readonly TransportersListStore _transportersList;
-        private readonly TransporterStore _transporter;
         private readonly IHost _maintenanceHost;
         private readonly Brewery _brewery;
 
