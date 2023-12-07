@@ -67,7 +67,7 @@ namespace PrzegladyRemonty.Services.Providers
             using IDbConnection database = _dbContextFactory.Connect();
             object parameters = new
             {
-                MaintenanceAction = maintenance.MaintenanceAction
+                MaintenanceAction = maintenance.MaintenanceActionId
             };
             await database.ExecuteAsync(_createSQL, parameters);
         }
@@ -103,8 +103,8 @@ namespace PrzegladyRemonty.Services.Providers
             {
                 Id = maintenance.Id,
                 MaintenanceDate = maintenance.MaintenanceDate,
-                Mechanic = maintenance.Mechanic,
-                MaintenanceAction = maintenance.MaintenanceAction,
+                Mechanic = maintenance.MechanicId,
+                MaintenanceAction = maintenance.MaintenanceActionId,
                 Completed = maintenance.Completed,
                 Description = maintenance.Description
             };
@@ -117,7 +117,7 @@ namespace PrzegladyRemonty.Services.Providers
             using IDbConnection database = _dbContextFactory.Connect();
             object parameters = new
             {
-                MaintenanceAction = maintenance.MaintenanceAction
+                MaintenanceAction = maintenance.MaintenanceActionId
             };
             database.ExecuteAsync(_createSQL, parameters);
 

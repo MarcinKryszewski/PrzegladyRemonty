@@ -131,8 +131,7 @@
             Grid.Column="1"
             Width="1000"
             VerticalAlignment="Stretch"
-            ItemsSource="{Binding WorkOrders}"
-            SelectedItem="{Binding SelectedWorkOrder, Mode=TwoWay}"
+            ItemsSource="{Binding Maintenances}"
             SelectionMode="Single">
 
             <ListView.View>
@@ -140,81 +139,55 @@
                     <GridViewColumn Header="Linia">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Line}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Action.Transporter.Area.Line.Name}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Obszar">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Area}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Action.Transporter.Area.Name}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Typ transportera">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Type}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Action.Transporter.TransporterType.Name}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Transporter">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Transporter}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Transporter.Name}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Działanie">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Action}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Action.Action.Name}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Data wykonania">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Date}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=MaintenanceDate}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Wykonał">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=User}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Path=Mechanic.FullName}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
-
-
-        <StackPanel
-            Grid.Row="2"
-            Grid.Column="1"
-            Margin="0,10,0,10"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <Button
-                Width="150"
-                Height="40"
-                Margin="5,0,5,0"
-                Command="{Binding RemoveCommand}"
-                Content="Usuń"
-                Style="{StaticResource SideButtonFlat}" />
-            <Button
-                Width="150"
-                Height="40"
-                Margin="5,0,5,0"
-                Command="{Binding NavigateDetailsCommand}"
-                Content="Szczegóły"
-                IsEnabled="{Binding IsSelected}"
-                Style="{StaticResource MainButtonFlat}" />
-
-        </StackPanel>
-
 
     </Grid>
 </UserControl>

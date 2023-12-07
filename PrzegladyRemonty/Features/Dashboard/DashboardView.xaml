@@ -109,8 +109,7 @@
                 DataTooltip="{x:Null}"
                 Foreground="{StaticResource MainBrush}"
                 Hoverable="False"
-                LegendLocation="Bottom"
-                Loaded="PieChart_Loaded">
+                LegendLocation="Bottom">
                 <lvc:PieChart.Series>
                     <lvc:PieSeries
                         Title="Przekroczone"

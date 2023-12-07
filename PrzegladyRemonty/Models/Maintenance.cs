@@ -2,10 +2,15 @@
 {
     public class Maintenance
     {
+        private Person _mechanic;
+        private TransporterAction _action;
+
         public int Id { get; }
         public string MaintenanceDate { get; }
-        public int Mechanic { get; set; }
-        public int MaintenanceAction { get; }
+        public int MechanicId { get; set; }
+        public Person Mechanic => _mechanic;
+        public int MaintenanceActionId { get; }
+        public TransporterAction Action => _action;
         public bool Completed
         { get; }
         public string Description { get; set; }
@@ -13,7 +18,7 @@
         public Maintenance(
             int maintenanceAction)
         {
-            MaintenanceAction = maintenanceAction;
+            MaintenanceActionId = maintenanceAction;
         }
 
         public Maintenance(
@@ -26,12 +31,20 @@
         {
             Id = id;
             MaintenanceDate = maintenanceDate;
-            Mechanic = mechanic;
-            MaintenanceAction = maintenanceAction;
+            MechanicId = mechanic;
+            MaintenanceActionId = maintenanceAction;
             Completed = completed;
             Description = description;
         }
 
+        public void SetMechanic(Person mechanic)
+        {
+            _mechanic = mechanic;
+        }
 
+        public void SetAction(TransporterAction action)
+        {
+            _action = action;
+        }
     }
 }

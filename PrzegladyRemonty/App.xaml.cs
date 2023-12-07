@@ -218,7 +218,7 @@ namespace PrzegladyRemonty
             return new LayoutNavigationService<MaintenanceHistoryViewModel>
             (
                 _navigationHost,
-                () => new MaintenanceHistoryViewModel(),
+                () => new MaintenanceHistoryViewModel(_databaseHost.Services),
                 CreateSidePanelViewModel
             );
         }
