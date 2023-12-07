@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PrzegladyRemonty.Features.WorkOrders.Stores;
 using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Services;
 using PrzegladyRemonty.Shared.Stores;
@@ -30,10 +31,12 @@ namespace PrzegladyRemonty.Features.WorkOrders
                     services.AddSingleton(_navigationStore);
 
                     services.AddSingleton(userServices.GetRequiredService<UserStore>());
+                    services.AddSingleton(new SelectedWorkOrder());
 
                     services.AddSingleton(_databaseServices.GetRequiredService<WorkOrderProvider>());
                     services.AddSingleton(_databaseServices.GetRequiredService<MaintenanceProvider>());
                     services.AddSingleton(_databaseServices.GetRequiredService<WorkOrderMaintenanceProvider>());
+                    services.AddSingleton(_databaseServices.GetRequiredService<PersonProvider>());
 
                     services.AddTransient((s) => CreateWorkOrdersListViewModel(s));
                     services.AddSingleton<CreateViewModel<WorkOrdersListViewModel>>((s) => () => s.GetRequiredService<WorkOrdersListViewModel>());
@@ -64,7 +67,7 @@ namespace PrzegladyRemonty.Features.WorkOrders
 
         private static WorkOrdersListViewModel CreateWorkOrdersListViewModel(IServiceProvider services)
         {
-            return new WorkOrdersListViewModel();
+            return new WorkOrdersListViewModel(services);
         }
 
         private static WorkOrdersConfirmViewModel CreateWorkOrdersConfirmViewModel(IServiceProvider services)

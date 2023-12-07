@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dashboard="clr-namespace:PrzegladyRemonty.Features.Dashboard"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DataContext="{d:DesignInstance Type=dashboard:DashboardViewModel}"
     d:DesignHeight="975"
@@ -21,35 +22,110 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
             FontSize="40"
             Foreground="Wheat"
             Text="Dashboard" />
 
-        <Border Grid.Row="1" Grid.Column="0" BorderBrush="{StaticResource MainBrush}" BorderThickness="1" Margin="30" Width="450" Height="100" >
-            <StackPanel Orientation="Horizontal" >
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            Width="450"
+            Height="100"
+            Margin="30"
+            BorderBrush="{StaticResource MainBrush}"
+            BorderThickness="1">
+            <StackPanel Orientation="Horizontal">
                 <Border Height="100">
-                    <TextBlock Text="Otwarte zadania" Foreground="{StaticResource MainBrush}" FontSize="30" Width="300" VerticalAlignment="Center" Margin="10,0,10,0" />
+                    <TextBlock
+                        Width="300"
+                        Margin="10,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="30"
+                        Foreground="{StaticResource MainBrush}"
+                        Text="Otwarte zadania" />
                 </Border>
-                <Border BorderBrush="{StaticResource MainBrush}" BorderThickness="1" Height="100" Width="150">
-                    <TextBlock Text="{Binding OpenTasks}" FontSize="50" Foreground="{StaticResource MainBrush}" Width="150" VerticalAlignment="Center" TextAlignment="Center" />
+                <Border
+                    Width="150"
+                    Height="100"
+                    BorderBrush="{StaticResource MainBrush}"
+                    BorderThickness="1">
+                    <TextBlock
+                        Width="150"
+                        VerticalAlignment="Center"
+                        FontSize="50"
+                        Foreground="{StaticResource MainBrush}"
+                        Text="{Binding OpenTasks}"
+                        TextAlignment="Center" />
                 </Border>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Grid.Column="0" BorderBrush="{StaticResource MainBrush}" BorderThickness="1" Margin="30" >
-            <StackPanel Orientation="Horizontal" >
+        <Border
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="30"
+            BorderBrush="{StaticResource MainBrush}"
+            BorderThickness="1">
+            <StackPanel Orientation="Horizontal">
                 <Border Height="100">
-                    <TextBlock Text="Twoje otwarte zlecenia pracy" TextWrapping="Wrap" Foreground="{StaticResource MainBrush}" FontSize="30" Width="300" VerticalAlignment="Center" Margin="10,0,10,0" />
+                    <TextBlock
+                        Width="300"
+                        Margin="10,0,10,0"
+                        VerticalAlignment="Center"
+                        FontSize="30"
+                        Foreground="{StaticResource MainBrush}"
+                        Text="Twoje otwarte zlecenia pracy"
+                        TextWrapping="Wrap" />
                 </Border>
-                <Border BorderBrush="{StaticResource MainBrush}" BorderThickness="1" Height="100" Width="150">
-                    <TextBlock Text="{Binding MyWorkOrders}" FontSize="50" Foreground="{StaticResource MainBrush}" Width="150" VerticalAlignment="Center" TextAlignment="Center" />
+                <Border
+                    Width="150"
+                    Height="100"
+                    BorderBrush="{StaticResource MainBrush}"
+                    BorderThickness="1">
+                    <TextBlock
+                        Width="150"
+                        VerticalAlignment="Center"
+                        FontSize="50"
+                        Foreground="{StaticResource MainBrush}"
+                        Text="{Binding MyWorkOrders}"
+                        TextAlignment="Center" />
                 </Border>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" BorderBrush="{StaticResource MainBrush}" BorderThickness="1" Margin="30" >
-            <TextBlock Text="WYKRES" />
+        <Border
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            MinWidth="300"
+            Margin="30"
+            BorderBrush="{StaticResource MainBrush}"
+            BorderThickness="1">
+            <lvc:PieChart
+                DataTooltip="{x:Null}"
+                Foreground="{StaticResource MainBrush}"
+                Hoverable="False"
+                LegendLocation="Bottom"
+                Loaded="PieChart_Loaded">
+                <lvc:PieChart.Series>
+                    <lvc:PieSeries
+                        Title="Przekroczone"
+                        DataLabels="False"
+                        Values="1" />
+                    <lvc:PieSeries
+                        Title="Zbliżające się"
+                        DataLabels="False"
+                        Values="3" />
+                    <lvc:PieSeries
+                        Title="W terminie"
+                        DataLabels="False"
+                        Values="6" />
+                </lvc:PieChart.Series>
+            </lvc:PieChart>
         </Border>
     </Grid>
 </UserControl>

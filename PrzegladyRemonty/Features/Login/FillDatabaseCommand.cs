@@ -1,9 +1,9 @@
-using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using PrzegladyRemonty.Models;
 using PrzegladyRemonty.Services.Providers;
 using PrzegladyRemonty.Shared.Commands;
+using System;
+using System.Threading.Tasks;
 
 namespace PrzegladyRemonty.Features.Login
 {
@@ -219,7 +219,7 @@ namespace PrzegladyRemonty.Features.Login
             provider.Create(new WorkOrderMaintenance(3, 3));
             provider.Create(new WorkOrderMaintenance(4, 4));
             provider.Create(new WorkOrderMaintenance(5, 5));
-            provider.Create(new WorkOrderMaintenance(6, 6));
+            provider.Create(new WorkOrderMaintenance(5, 6));
         }
     }
 }

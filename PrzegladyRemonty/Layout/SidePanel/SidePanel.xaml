@@ -87,16 +87,6 @@
                             Command="{Binding NavigatePartsCommand}"
                             Content="Części"
                             Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=Parts}" />
-                        <Button
-                            Height="40"
-                            Command=""
-                            Content="Użytkownicy"
-                            Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=Parts}" />
-                        <Button
-                            Height="40"
-                            Command=""
-                            Content="Role"
-                            Style="{Binding Path=SelectedPanelName, Converter={StaticResource ButtonStyleConverter}, ConverterParameter=Parts}" />
 
                     </StackPanel>
                 </Expander.Content>
